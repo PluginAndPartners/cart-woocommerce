@@ -35,6 +35,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->field_forms_order = $this->get_fields_sequence();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
+        $this->logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
+        $this->customer = isset($this->logged_user_email) ? $this->mp->get_or_create_customer($this->logged_user_email) : null;
+        $this->discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=' . get_class($this);
         $this->hook = new WC_WooMercadoPago_Hook_Custom($this);
         $this->notification = new WC_WooMercadoPago_Notification_Webhook($this);
     }
@@ -281,10 +284,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $comission = $amount * ($this->commission / 100);
         $amount = $amount - $discount + $comission;
         
-        $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-        $customer = isset($logged_user_email) ? $this->mp->get_or_create_customer($logged_user_email) : null;
-        $discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=' . get_class($this);
-
         $currency_ratio = 1;
         $_mp_currency_conversion_v1 = $this->getOption('_mp_currency_conversion_v1', '');
         if (!empty($_mp_currency_conversion_v1)) {
@@ -314,13 +313,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'amount' => $amount,
             'site_id' => $this->getOption('_site_id_v1'),
             'public_key' => $this->getPublicKey(),
-            'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
-            'discount_action_url' => $discount_action_url,
-            'payer_email' => $logged_user_email,
+            'coupon_mode' => isset($this->logged_user_email) ? $this->coupon_mode : 'no',
+            'discount_action_url' => $this->discount_action_url,
+            'payer_email' => $this->logged_user_email,
             'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
             'banner_path' => $banner_url,
-            'customer_cards' => isset($customer) ? (isset($customer['cards']) ? $customer['cards'] : array()) : array(),
-            'customerId' => isset($customer) ? (isset($customer['id']) ? $customer['id'] : null) : null,
+            'customer_cards' => isset($this->customer) ? (isset($this->customer['cards']) ? $this->customer['cards'] : array()) : array(),
+            'customerId' => isset($this->customer) ? (isset($this->customer['id']) ? $this->customer['id'] : null) : null,
             'currency_ratio' => $currency_ratio,
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],

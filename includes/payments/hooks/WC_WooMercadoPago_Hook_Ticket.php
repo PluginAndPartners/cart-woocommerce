@@ -20,7 +20,7 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
     public function loadHooks()
     {
         parent::loadHooks();
-        add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts'));
+        // add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts'));
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_ticket'));
             add_action('woocommerce_thankyou_' . $this->payment->id, array($this, 'update_mp_settings_script_ticket'));

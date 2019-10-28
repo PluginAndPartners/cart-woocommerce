@@ -97,11 +97,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function add_checkout_scripts()
     {
-        if (is_checkout() && $this->payment->is_available()) {
-            if (!get_query_var('order-received')) {
-                wp_enqueue_script('mercado-pago-module-custom-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
-            }
-        }
     }
 
     /**

@@ -17,7 +17,7 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     public function loadHooks()
     {
         parent::loadHooks();
-        add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts'));
+        add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts_custom'));
 
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_custom'));
@@ -50,9 +50,48 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
         return $updateOptions;
     }
 
+    /**
+     * ADD Checkout Scripts
+     */
+    public function add_checkout_scripts_custom()
+    {
+        if (is_checkout() && $this->payment->is_available()) {
+            if (!get_query_var('order-received')) {
+                wp_enqueue_script('mercado-pago-module-custom-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
+                wp_enqueue_script('woocommerce-mercadopago-checkout', plugins_url('../../assets/js/credit-card.js', plugin_dir_path(__FILE__)), array('jquery'), null, true);
+
+                wp_localize_script(
+					'woocommerce-mercadopago-checkout',
+					'wc_mercadopago_params',
+					array(
+                        'site_id'               => $this->payment->getOption('_site_id_v1'),
+                        'public_key'            => $this->payment->getPublicKey(),
+                        'coupon_mode'           => isset($this->payment->logged_user_email) ? $this->payment->coupon_mode : 'no',
+                        'discount_action_url'   => $this->payment->discount_action_url,
+                        'payer_email'           => $this->payment->logged_user_email,
+						'apply'                 => __('Apply', 'woocommerce-mercadopago'),
+						'remove'                => __('Remove', 'woocommerce-mercadopago'),
+                        'coupon_empty'          => __('Please, inform your coupon code', 'woocommerce-mercadopago'),
+                        'choose'                => __('To choose', 'woocommerce-mercadopago'),
+                        'other_bank'            => __('Other bank', 'woocommerce-mercadopago'),
+                        'discount_info1'        => __('You will save', 'woocommerce-mercadopago'),
+                        'discount_info2'        => __('with discount of', 'woocommerce-mercadopago'),
+						'discount_info3'        => __('Total of your purchase:', 'woocommerce-mercadopago'),
+						'discount_info4'        => __('Total of your purchase with discount:', 'woocommerce-mercadopago'),
+						'discount_info5'        => __('*After payment approval', 'woocommerce-mercadopago'),
+                        'discount_info6'        => __('Terms and conditions of use', 'woocommerce-mercadopago'),
+                        'loading'               => plugins_url('../assets/images/', plugin_dir_path(__FILE__)) . 'loading.gif',
+                        'check'                 => plugins_url('../assets/images/', plugin_dir_path(__FILE__)) . 'check.png',
+                        'error'                 => plugins_url('../assets/images/', plugin_dir_path(__FILE__)) . 'error.png'
+					)
+				);
+            }
+        }
+        parent::add_checkout_scripts();
+    }
 
     /**
-     *
+     * 
      */
     public function add_mp_settings_script_custom()
     {
