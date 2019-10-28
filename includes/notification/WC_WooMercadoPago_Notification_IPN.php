@@ -64,14 +64,18 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
      * @return bool|void|WC_Order|WC_Order_Refund
      * @throws WC_Data_Exception
      */
-    public function successful_request($data)
-    {
-        $order = parent::successful_request($data);
-        $processed_status = $this->process_status_mp_business($data, $order);
-        $this->log->write_log(__FUNCTION__, 'Changing order status to: ' . parent::get_wc_status_for_mp_status(str_replace('_', '', $processed_status)));
-        $this->proccessStatus($processed_status, $data, $order);
-        $this->check_mercado_envios($data);
-    }
+	public function successful_request($data)
+	{
+		try {
+			$order = parent::successful_request($data);
+			$processed_status = $this->process_status_mp_business($data, $order);
+			$this->log->write_log(__FUNCTION__, 'Changing order status to: ' . parent::get_wc_status_for_mp_status(str_replace('_', '', $processed_status)));
+			$this->proccessStatus($processed_status, $data, $order);
+			$this->check_mercado_envios($data);
+		} catch (Exception $e) {
+			$this->log->write_log(__FUNCTION__, $e->getMessage());
+		}
+	}
 
     /**
      * @param $data

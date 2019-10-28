@@ -63,6 +63,21 @@ if (version_compare(PHP_VERSION, '5.6', '<=')) {
 }
 
 /**
+ * Curl validation
+ */
+function wc_mercado_pago_notify_curl_error()
+{       
+        echo '<div class="error"><p>' . 
+                __('Mercado Pago Error: PHP Extension CURL is not installed.', 'woocommerce-mercadopago') .
+                '</p></div>';
+}
+
+if (!in_array('curl', get_loaded_extensions())) {
+        add_action('admin_notices', 'wc_mercado_pago_notify_curl_error');
+        return;
+}
+
+/**
  * Summary: Places a warning error to notify user that other older versions are active.
  * Description: Places a warning error to notify user that other older versions are active.
  * @since 3.0.7

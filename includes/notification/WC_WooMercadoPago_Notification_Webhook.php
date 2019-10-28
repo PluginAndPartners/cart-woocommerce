@@ -74,10 +74,15 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
      */
     public function successful_request($data)
     {
-        $order = parent::successful_request($data);
-        $status = $this->process_status_mp_business($data, $order);
-        $this->log->write_log(__FUNCTION__, 'Changing order status to: ' . parent::get_wc_status_for_mp_status(str_replace('_', '', $status)));
-        $this->proccessStatus($status, $data, $order);
+		try {
+			$order = parent::successful_request($data);
+			$status = $this->process_status_mp_business($data, $order);
+			$this->log->write_log(__FUNCTION__, 'Changing order status to: ' . parent::get_wc_status_for_mp_status(str_replace('_', '', $status)));
+			$this->proccessStatus($status, $data, $order);
+		}catch (Exception $e){
+			$this->log->write_log(__FUNCTION__, $e->getMessage());
+		}
+
     }
 
     /**

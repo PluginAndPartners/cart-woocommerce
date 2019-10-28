@@ -60,27 +60,28 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         $this->log->write_log(__FUNCTION__, 'received _get content: ' . json_encode($_GET, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
-    /**
-     * @param $data
-     * @return bool|void|WC_Order|WC_Order_Refund
-     */
+	/**
+	 * @param $data
+	 * @return mixed
+	 * @throws WC_WooMercadoPago_Exception
+	 */
     public function successful_request($data)
     {
         $this->log->write_log(__FUNCTION__, 'starting to process ipn update...');
         $order_key = $data['external_reference'];
         if (empty($order_key)) {
-            return;
+			throw new WC_WooMercadoPago_Exception('Invalid external reference.', 422);
         }
         $invoice_prefix = get_option('_mp_store_identificator', 'WC-');
         $id = (int)str_replace($invoice_prefix, '', $order_key);
         $order = wc_get_order($id);
         if (!$order) {
-            return;
+			throw new WC_WooMercadoPago_Exception('Order not found.', 422);
         }
 
         $order_id = (method_exists($order, 'get_id') ? $order->get_id() : $order->get_id());
         if ($order_id !== $id) {
-            return;
+			throw new WC_WooMercadoPago_Exception('Order Id error', 422);
         }
         $this->log->write_log(__FUNCTION__, 'updating metadata and status with data: ' . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
