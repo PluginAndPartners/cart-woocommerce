@@ -17,9 +17,8 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     public function loadHooks()
     {
         parent::loadHooks();
-        add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts_custom'));
-
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
+            add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts_custom'));
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_custom'));
             add_action('woocommerce_thankyou', array($this, 'update_mp_settings_script_custom'));
         }
@@ -80,9 +79,9 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
 						'discount_info4'        => __('Total of your purchase with discount:', 'woocommerce-mercadopago'),
 						'discount_info5'        => __('*After payment approval', 'woocommerce-mercadopago'),
                         'discount_info6'        => __('Terms and conditions of use', 'woocommerce-mercadopago'),
-                        'loading'               => plugins_url('../assets/images/', plugin_dir_path(__FILE__)) . 'loading.gif',
-                        'check'                 => plugins_url('../assets/images/', plugin_dir_path(__FILE__)) . 'check.png',
-                        'error'                 => plugins_url('../assets/images/', plugin_dir_path(__FILE__)) . 'error.png'
+                        'loading'               => plugins_url('../../assets/images/', plugin_dir_path(__FILE__)) . 'loading.gif',
+                        'check'                 => plugins_url('../../assets/images/', plugin_dir_path(__FILE__)) . 'check.png',
+                        'error'                 => plugins_url('../../assets/images/', plugin_dir_path(__FILE__)) . 'error.png'
 					)
 				);
             }

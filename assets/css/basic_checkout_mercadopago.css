@@ -350,6 +350,7 @@
     line-height: 1.29;
     letter-spacing: normal;
     color: #f04449 !important;
+    display: none;
 }
 
 .mp-desc {
