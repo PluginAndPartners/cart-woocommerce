@@ -5,7 +5,6 @@
  */
 class WC_WooMercadoPago_Credentials
 {
-
     const TYPE_ACCESS_CLIENT = 'client';
     const TYPE_ACCESS_TOKEN = 'token';
 
@@ -33,6 +32,11 @@ class WC_WooMercadoPago_Credentials
                 $publicKey = get_option('_mp_public_key_test', '');
                 $accessToken = get_option('_mp_access_token_test', '');
             }
+        }
+
+        if (is_null($this->payment) && empty($publicKey) && empty($accessToken)) {
+            $publicKey = get_option('_mp_public_key_test', '');
+            $accessToken = get_option('_mp_access_token_test', '');
         }
 
         $this->publicKey = $publicKey;
@@ -159,8 +163,10 @@ class WC_WooMercadoPago_Credentials
                 self::updatePaymentMethods($mp_v1, $access_token, $payments_response);
                 self::updateTicketMethod($mp_v1, $access_token, $payments_response);
 
-                $country_configs = WC_WooMercadoPago_Module::getCountryConfigs();
-                $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($country_configs[$get_request['response']['site_id']]['currency']);
+                $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate(
+                    WC_WooMercadoPago_Module::$country_configs[$get_request['response']['site_id']]['currency']
+                );
+
                 if ($currency_ratio > 0) {
                     update_option('_can_do_currency_conversion_v1', true, true);
                 } else {
@@ -214,7 +220,11 @@ class WC_WooMercadoPago_Credentials
 
         $arr = array();
         $cho = array();
+        $excluded = array('consumer_credits');
+
         foreach ($paymentsResponse as $payment) {
+            if(in_array($payment['id'], $excluded)){ continue; }
+
             $arr[] = $payment['id'];
 
             $cho[] = array(
@@ -250,22 +260,25 @@ class WC_WooMercadoPago_Credentials
         }
 
         $payment_methods_ticket = array();
+        $excluded = array('consumer_credits');
+
         foreach ($paymentsResponse as $payment) {
-            if (
-                $payment['payment_type_id'] != 'account_money' &&
-                $payment['payment_type_id'] != 'credit_card' &&
-                $payment['payment_type_id'] != 'debit_card' &&
-                $payment['payment_type_id'] != 'prepaid_card'
-            ) {
-                $obj = new stdClass();
-                $obj->id = $payment['id'];
-                $obj->name = $payment['name'];
-                $obj->secure_thumbnail = $payment['secure_thumbnail'];
-                array_push($payment_methods_ticket, $obj);
-            }
+          if (
+              !in_array($payment['id'], $excluded) &&
+              $payment['payment_type_id'] != 'account_money' &&
+              $payment['payment_type_id'] != 'credit_card' &&
+              $payment['payment_type_id'] != 'debit_card' &&
+              $payment['payment_type_id'] != 'prepaid_card'
+          ) {
+              $payment_methods_ticket[] = array(
+                  "id" => $payment['id'],
+                  "name" => $payment['name'],
+                  "secure_thumbnail" => $payment['secure_thumbnail'],
+              );
+          }
         }
 
-        update_option('_all_payment_methods_ticket', json_encode($payment_methods_ticket), true);
+        update_option('_all_payment_methods_ticket', $payment_methods_ticket, true);
     }
 
     /**

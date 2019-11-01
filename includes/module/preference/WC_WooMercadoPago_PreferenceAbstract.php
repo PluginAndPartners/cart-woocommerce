@@ -65,6 +65,21 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         if (sizeof($this->order->get_items()) > 0) {
             $this->items = $this->get_items_build_array();
         }
+
+        //shipping is added to items
+        $this->items = array_merge($this->items, $this->prepare_shipping());
+    }
+
+    protected function prepare_shipping()
+    {
+        $result = [];
+
+        if ($this->ship_cost > 0) {
+            $shipCost = $this->ship_cost_item();
+            $result[] = $shipCost;
+        }
+
+        return $result;
     }
 
     /**
@@ -86,15 +101,8 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_currency_conversion()
     {
-        $currency_ratio = 1;
-        $_mp_currency_conversion_v1 = get_option('_mp_currency_conversion_v1', '');
-        if (!empty($_mp_currency_conversion_v1)) {
-            $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($this->site_data[$this->site_id]['currency']);
-            $currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
-        }
-        return $currency_ratio;
+        return WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this->payment);
     }
-
 
     /**
      * @return mixed
@@ -184,17 +192,15 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function ship_cost_item()
     {
-        $item = array(
-            'title' => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
+        return array(
+            'title'       => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
             'description' => __('Shipping service used by the store.', 'woocommerce-mercadopago'),
             'category_id' => get_option('_mp_category_id', 'others'),
-            'quantity' => 1,
-            'unit_price' => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
-                floor($this->ship_cost * $this->currency_ratio) : floor($this->ship_cost * $this->currency_ratio * 100) / 100,
-            'currency_id' => $this->site_data[$this->site_id]['currency']
+            'quantity'    => 1,
+            'unit_price'  => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP')
+                ? floor($this->ship_cost * $this->currency_ratio)
+                : floor($this->ship_cost * $this->currency_ratio * 100) / 100,
         );
-
-        return $item;
     }
 
     /**
@@ -322,19 +328,18 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_internal_metadata()
     {
-        
         $accessToken = get_option('_mp_access_token_prod', '');
         if (empty($accessToken)) {
-          return null;
+            return null;
         }
-      
+
         $test_mode = false;
         if ($this->payment->getOption('checkout_credential_production', '') == 'no') {
             $test_mode = true;
         }
-      
+
         $seller = explode('-', $accessToken);
-        $w = WC_WooMercadoPago_Module::woocommerce_instance();     
+        $w = WC_WooMercadoPago_Module::woocommerce_instance();
         $internal_metadata = array(
             "platform" => WC_WooMercadoPago_Constants::PLATAFORM_ID,
             "plataform_version" => $w->version,
@@ -345,8 +350,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             "test_mode" => $test_mode,
             "details" => ""
         );
-      
+
         return $internal_metadata;
     }
-  
 }

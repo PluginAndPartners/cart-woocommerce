@@ -9,7 +9,6 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
 {
-
     //ONLY get_option in this fields
     const COMMON_CONFIGS = array(
         '_mp_public_key_test',
@@ -125,7 +124,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 return $homolog_validate;
             }
             return 0;
-
         }
         return 1;
     }
@@ -164,7 +162,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             return get_option($key, $default);
         }
 
-
         $option = $this->get_option($key, $default);
         if (!empty($option)) {
             return $option;
@@ -173,9 +170,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return get_option($key, $default);
     }
 
-
     /**
-     *
+     * Normalize fields in admin
      */
     public function normalizeCommonAdminFields()
     {
@@ -635,7 +631,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_production()
     {
         $checkout_credential_production = array(
-            'title' => __('Productio', 'woocommerce-mercadopago'),
+            'title' => __('Production', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('Choose "YES" only when you are ready to sell. Change to NO to activate the Tests mode.', 'woocommerce-mercadopago'),
             'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $this->getOption('checkout_credential_production', 'no'),
@@ -1106,6 +1102,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return $commission;
     }
 
+    public function field_currency_conversion(WC_WooMercadoPago_PaymentAbstract $method)
+    {
+        return WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->getField($method);
+    }
+
     /**
      * @return array
      */
@@ -1188,14 +1189,12 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $_mp_access_token = $this->getAccessToken();
         $_site_id_v1 = $this->getOption('_site_id_v1');
 
-
         if (!isset($this->settings['enabled'])) {
             return false;
         }
 
         return ('yes' == $this->settings['enabled']) && !empty($_mp_public_key) && !empty($_mp_access_token) && !empty($_site_id_v1);
     }
-
 
     /**
      * @return mixed
@@ -1247,7 +1246,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $gateways = apply_filters('woocommerce_payment_gateways', array());
         foreach ($gateways as $gateway) {
-
             if (!strpos($gateway, "MercadoPago")) {
                 continue;
             }
@@ -1255,7 +1253,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $key = 'woocommerce_' . $gateway::getId() . '_settings';
             $options = get_option($key);
             if (!empty($options)) {
-
                 if (isset($options['checkout_credential_production']) && $options['checkout_credential_production'] == 'yes' && !empty($this->mp_access_token_prod)) {
                     continue;
                 }
@@ -1269,6 +1266,4 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             }
         }
     }
-
-
 }

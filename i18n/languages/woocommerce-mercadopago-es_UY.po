@@ -9,8 +9,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2019-10-15 15:10-0300\n"
-"X-Generator: Poedit 2.2.3\n"
+"PO-Revision-Date: 2019-10-29 12:06-0300\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -768,7 +768,7 @@ msgid "When you see that everything is going well, deactivate Sandbox, turn on P
 msgstr "Cuando veas que todo va bien, desactivá Sandbox, prende Producción y abre paso a tus ventas online."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:625
-msgid "Productio"
+msgid "Production"
 msgstr "Producción"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:627
@@ -1104,7 +1104,7 @@ msgid "This controls the title that the user sees during the payment process."
 msgstr "Esto controla el título que el usuario ve durante el proceso de pago."
 
 #: includes/shipment/WC_MercadoEnvios_Shipping_Abstract.php:236
-msgid "nable free shipping for this shipping method"
+msgid "Enable free shipping for this shipping method"
 msgstr "Habilitar envío gratis para este método de envío"
 
 #: includes/shipment/WC_MercadoEnvios_Shipping_Abstract.php:240

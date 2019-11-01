@@ -154,7 +154,7 @@ if (!defined('ABSPATH')) {
                                             <div id="paymentMethodIdTicket" class="mp-ticket-payments">
                                                 <label for="<?= $payment['id']; ?>" class="mp-label-form mp-pointer">
                                                     <input type="radio" class="mp-form-control-check" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id'] ?>" value="<?= $payment['id']; ?>" <?php if ($atFirst) : ?> checked="checked" <?php endif; ?> />
-                                                    <img src="<?= $payment['secure_thumbnail'] ?>" class="mp-img-ticket" alt="<?php echo $payment['name']; ?>" />
+                                                    <img src="<?= $payment['secure_thumbnail'] ?>" class="mp-img-ticket" alt="<?= $payment['name']; ?>" />
                                                     <span class="mp-ticket-name"><?= $payment['name'] ?></span>
                                                 </label>
                                             </div>

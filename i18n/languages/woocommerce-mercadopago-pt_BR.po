@@ -9,8 +9,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2019-09-13 21:19-0300\n"
-"X-Generator: Poedit 2.2.3\n"
+"PO-Revision-Date: 2019-10-29 12:05-0300\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -565,7 +565,7 @@ msgstr "Mercado Pago - Checkout personalizado"
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:30
 msgid "Pay with debit and credit cards"
-msgstr "Pague com cartões de crédito ou débito"
+msgstr "Pague com cartões de crédito"
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:153
 msgid "Checkout of payments with debit and credit cards<br> Accept payments instantly and maximize the conversion of your business %s"
@@ -768,7 +768,7 @@ msgid "When you see that everything is going well, deactivate Sandbox, turn on P
 msgstr "Tudo em ordem? Desative o Sandbox e abra o caminho para suas vendas on-line."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:625
-msgid "Productio"
+msgid "Production"
 msgstr "Produção"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:627
@@ -1104,7 +1104,7 @@ msgid "This controls the title that the user sees during the payment process."
 msgstr "Isso controla o título que o usuário vê durante o processo de pagamento."
 
 #: includes/shipment/WC_MercadoEnvios_Shipping_Abstract.php:236
-msgid "nable free shipping for this shipping method"
+msgid "Enable free shipping for this shipping method"
 msgstr "Ativar frete grátis para este método de envio"
 
 #: includes/shipment/WC_MercadoEnvios_Shipping_Abstract.php:240

@@ -23,22 +23,16 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         $this->preference['back_urls'] = $this->get_back_urls();
         $this->preference['shipments'] = $this->shipments_receiver_address();
 
-        if (strpos($this->selected_shipping, 'Mercado Envios') !== 0 && $this->ship_cost > 0) {
-            $this->preference['items'][] = $this->ship_cost_item();
-        }
-
-        if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0) {
+        if ($this->ship_cost > 0) {
             $this->shipment_info();
         }
 
         $this->preference['payment_methods'] = $this->get_payment_methods($this->ex_payments, $this->installments);
         $this->preference['auto_return'] = $this->auto_return();
 
-
         $internal_metadata = parent::get_internal_metadata();
         $merge_array = array_merge($internal_metadata, $this->get_internal_metadata_basic());
         $this->preference['metadata'] = $merge_array;
-
     }
 
     /**
@@ -52,7 +46,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             'email' => $this->order->get_billing_email(),
             'phone' => array(
                 //'area_code' =>
-                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone)
+                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone),
             ),
             'address' => array(
                 'zip_code' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
@@ -148,18 +142,15 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             $shipping_id = $prepare_method_id[count($prepare_method_id) - 1];
             // TODO: Refactor to Get zone by instance_id.
             $shipping_zone = WC_Shipping_Zones::get_zone_by('instance_id', $shipping_id);
-            // Get all shipping and filter by free_shipping (Mercado Envios).
             foreach ($shipping_zone->get_shipping_methods() as $key => $shipping_object) {
-                // Check is a free method.
                 if ($shipping_object->get_option('free_shipping') == 'yes') {
-                    // Get shipping method id (Mercado Envios).
                     $shipping_method_id = $shipping_object->get_shipping_method_id($this->site_data['site_id']);
                     $this->preference['shipments']['free_methods'][] = array('id' => (int)$shipping_method_id);
                 }
             }
         }
     }
-  
+
     /**
      * @return array
      */
@@ -169,7 +160,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             "checkout" => "smart",
             "checkout_type" => "",
         );
-      
+
         return $internal_metadata;
-    }  
+    }
 }

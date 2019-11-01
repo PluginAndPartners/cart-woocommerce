@@ -5,9 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- *
  * WC_WooMercadoPago_CustomGateway
- *
  */
 class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 {
@@ -56,7 +54,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 7);
         }
 
-        if(!empty($this->checkout_country) && empty($this->getAccessToken())) {
+        if (!empty($this->checkout_country) && empty($this->getAccessToken())) {
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 22);
         }
 
@@ -68,6 +66,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
             $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
             $form_fields['binary_mode'] = $this->field_binary_mode();
+            $form_fields[WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY] = $this->field_currency_conversion($this);
             $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
         }
@@ -83,7 +82,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
     /**
      * get_fields_sequence
-     *
      * @return array
      */
     public function get_fields_sequence()
@@ -92,7 +90,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             // Necessary to run
             'title',
             'description',
-            // Checkout de pagos con tarjetas de débito y crédito<br> Aceptá pagos al instante y maximizá la conversión de tu negocio 
+            // Checkout de pagos con tarjetas de débito y crédito<br> Aceptá pagos al instante y maximizá la conversión de tu negocio
             'checkout_custom_header',
             'checkout_steps',
             // ¿En qué país vas a activar tu tienda?
@@ -139,6 +137,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_payments_advanced_description',
             'coupon_mode',
             'binary_mode',
+            WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'gateway_discount',
             'commission',
             // Everything ready for the takeoff of your sales?
@@ -190,7 +189,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_custom_options_subtitle = array(
             'title' => __('Go to the basics. Place your business information.', 'woocommerce-mercadopago'),
-            'type' => 'title',
+            'type'  => 'title',
             'class' => 'mp_subtitle mp-mt-5'
         );
         return $checkout_custom_options_subtitle;
@@ -204,7 +203,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_custom_payments_title = array(
             'title' => __('Configure the personalized payment experience in your store', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_title_bd'
+            'class' => 'mp_title_bd',
         );
         return $checkout_custom_payments_title;
     }
@@ -278,7 +277,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'woocommerce-mercadopago-basic-checkout-styles',
             plugins_url('../assets/css/basic_checkout_mercadopago.css', plugin_dir_path(__FILE__))
         );
-        
+
         $amount = $this->get_order_total();
         $discount = $amount * ($this->gateway_discount / 100);
         $comission = $amount * ($this->commission / 100);
@@ -302,11 +301,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $tarjetas = get_option('_checkout_payments_methods', '');
 
         foreach ($tarjetas as $tarjeta) {
-          if ($tarjeta['type'] == 'credit_card') {
-              $credit_card[] = $tarjeta['image'];
-          } elseif ($tarjeta['type'] == 'debit_card' || $tarjeta['type'] == 'prepaid_card') {
-              $debit_card[] = $tarjeta['image'];
-          }
+            if ($tarjeta['type'] == 'credit_card') {
+                $credit_card[] = $tarjeta['image'];
+            } elseif ($tarjeta['type'] == 'debit_card' || $tarjeta['type'] == 'prepaid_card') {
+                $debit_card[] = $tarjeta['image'];
+            }
         }
 
         $parameters = array(
@@ -403,9 +402,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                         WC()->cart->empty_cart();
                         wc_add_notice(
                             '<p>' . $this->get_order_status($response['status_detail']) . '</p>' .
-                                '<p><a class="button" href="' . esc_url($order->get_checkout_order_received_url()) . '">' .
-                                __('See your order form', 'woocommerce-mercadopago') .
-                                '</a></p>',
+                            '<p><a class="button" href="' . esc_url($order->get_checkout_order_received_url()) . '">' .
+                            __('See your order form', 'woocommerce-mercadopago') .
+                            '</a></p>',
                             'notice'
                         );
                         return array(
@@ -416,12 +415,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                     case 'rejected':
                         // If rejected is received, the order will not proceed until another payment try, so we must inform this status.
                         wc_add_notice(
-                            '<p>' . __('Your payment was declined. You can try again.', 'woocommerce-mercadopago') . '<br>' .
-                                $this->get_order_status($response['status_detail']) .
-                                '</p>' .
-                                '<p><a class="button" href="' . esc_url($order->get_checkout_payment_url()) . '">' .
-                                __('Click to try again', 'woocommerce-mercadopago') .
-                                '</a></p>',
+                            '<p>' . __('Your payment was declined. You can try again.',
+                                'woocommerce-mercadopago') . '<br>' .
+                            $this->get_order_status($response['status_detail']) .
+                            '</p>' .
+                            '<p><a class="button" href="' . esc_url($order->get_checkout_payment_url()) . '">' .
+                            __('Click to try again', 'woocommerce-mercadopago') .
+                            '</a></p>',
                             'error'
                         );
                         return array(
@@ -450,7 +450,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                 );
             }
         } else {
-            $this->log->write_log(__FUNCTION__, 'A problem was occurred when processing your payment. Please, try again.' );
+            $this->log->write_log(__FUNCTION__, 'A problem was occurred when processing your payment. Please, try again.');
             wc_add_notice('<p>' . __('A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago') . '</p>', 'error');
             return array(
                 'result' => 'fail',

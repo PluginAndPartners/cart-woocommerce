@@ -16,9 +16,12 @@ class AbstractRestClient
      */
     public static function execAbs($request, $url)
     {
-        $connect = self::build_request($request, $url);
-      
-        return self::execute($request, $connect);
+        try {
+            $connect = self::build_request($request, $url);
+            return self::execute($request, $connect);
+        } catch (Exception $e) {
+            return null;
+        }
     }
     
     /**
@@ -115,11 +118,10 @@ class AbstractRestClient
     {
         $response = null;
         $api_result = curl_exec($connect);
-        $api_http_code = curl_getinfo($connect, CURLINFO_HTTP_CODE);
-
-        if ($api_result === FALSE) {
+        if (curl_errno($connect)) {
             throw new WC_WooMercadoPago_Exception (curl_error($connect));
         }
+        $api_http_code = curl_getinfo($connect, CURLINFO_HTTP_CODE);
 
         if ($api_http_code != null && $api_result != null) {
             $response = array('status' => $api_http_code, 'response' => json_decode($api_result, true));

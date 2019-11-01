@@ -188,12 +188,10 @@ if (!defined('ABSPATH')) {
 
 					<div class="mp-col-md-12 mp-pt-10">
 						<div class="frame-tarjetas">
-							<div class="mp-row-checkout mp-pt-10">
-								<label for="doNotSaveCard" class="mp-label-form-check mp-pointer" style="display: inline;">
-									<input class="mp-form-control-check" type="checkbox" name="mercadopago_custom[doNotSaveCard]" id="doNotSaveCard" value="yes">
-									<?= esc_html__('Do not save card', 'woocommerce-mercadopago'); ?>
-								</label>
-								<p class="mp-obrigatory"><em>*</em> <?= esc_html__('Obligatory field', 'woocommerce-mercadopago'); ?></p>
+							<div class="mp-row-checkout">
+								<p class="mp-obrigatory">
+									<em>*</em> <?= esc_html__('Obligatory field', 'woocommerce-mercadopago'); ?>
+								</p>
 							</div>
 						</div>
 					</div>

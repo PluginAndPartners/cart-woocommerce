@@ -50,7 +50,7 @@ class WC_WooMercadoPago_Configs
         }
 
         $ticketMethods = get_option('_all_payment_methods_ticket', '');
-        if (empty($ticketMethods)) {
+        if (empty($ticketMethods) || !is_array($ticketMethods)) {
             $this->updateTicketMethods();
         }
 
@@ -242,17 +242,6 @@ class WC_WooMercadoPago_Configs
                     "Other categories"
                 ]
         );
-    }
-
-    /**
-     * @param $methods
-     * @return mixed
-     */
-    public function setShipping($methods)
-    {
-        $methods['woo-mercado-pago-me-normal'] = 'WC_MercadoEnvios_Shipping_Normal';
-        $methods['woo-mercado-pago-me-express'] = 'WC_MercadoEnvios_Shipping_Express';
-        return $methods;
     }
 
     /**
