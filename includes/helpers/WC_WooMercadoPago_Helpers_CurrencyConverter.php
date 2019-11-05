@@ -208,19 +208,22 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 		return $ratio;
 	}
 
-	/**
-	 * @param $accessToken
-	 * @return string | null
-	 */
+    /**
+     * @param $accessToken
+     * @return string|null
+     */
 	private function getSiteId($accessToken)
 	{
-		try {
-			$mp = new MP($accessToken);
-			$result = $mp->get(sprintf('/users/me?access_token=%s', $accessToken));
-			return isset($result['response'], $result['response']['site_id']) ? $result['response']['site_id'] : null;
-		} catch (Exception $e) {
-			return null;
-		}
+        try {
+            $mp = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+            if(empty($mp)){
+                return null;
+            }
+            $result = $mp->get(sprintf('/users/me?access_token=%s', $accessToken));
+            return isset($result['response'], $result['response']['site_id']) ? $result['response']['site_id'] : null;
+        } catch (Exception $e) {
+            return null;
+        }
 	}
 
 	/**
