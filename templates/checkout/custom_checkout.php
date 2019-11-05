@@ -62,23 +62,6 @@ if (!defined('ABSPATH')) {
 			<div class="frame-tarjetas">
 				<p class="mp-subtitle-custom-checkout"><?= __('Enter your card details', 'woocommerce-mercadopago') ?></p>
 
-				<!-- Issuers for Mexico and Peru -->
-				<?php if ($site_id == 'MLM' || $site_id == "MPE") : ?>
-					<div id="mercadopago-form-customer-and-card">
-						<div class="mp-row-checkout mp-pt-10">
-							<div class="mp-col-md-12">
-								<label for="paymentMethodIdSelector" class="mp-label-form"><?= esc_html__('Payment Method', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-								<select id="paymentMethodSelector" class="mp-form-control mp-pointer" name="mercadopago_custom[paymentMethodSelector]" data-checkout="cardId">
-									<optgroup label="<?= esc_html__('Other cards', 'woocommerce-mercadopago'); ?>" id="payment-methods-list-other-cards">
-										<option value="-1"><?= esc_html__('Another card', 'woocommerce-mercadopago'); ?></option>
-									</optgroup>
-								</select>
-							</div>
-						</div>
-					</div>
-				<?php endif; ?>
-
-				<!-- new card -->
 				<div id="mercadopago-form">
 					<div class="mp-row-checkout mp-pt-10">
 						<div class="mp-col-md-12">
@@ -125,14 +108,14 @@ if (!defined('ABSPATH')) {
 							<p class="mp-subtitle-custom-checkout"><?= __('In how many installments do you want to pay?', 'woocommerce-mercadopago') ?></p>
 
 							<div class="mp-row-checkout mp-pt-10">
-								<div class="mp-col-md-4 mp-pr-15">
+								<div id="mp-issuer-div" class="mp-col-md-4 mp-pr-15">
 									<div class="mp-issuer">
 										<label for="mp-issuer" class="mp-label-form"><?= esc_html__('Issuer', 'woocommerce-mercadopago'); ?> </label>
 										<select class="mp-form-control mp-pointer mp-mt-5" id="mp-issuer" data-checkout="issuer" name="mercadopago_custom[issuer]"></select>
 									</div>
 								</div>
 
-								<div id="installments-div" class="mp-col-md-8">
+								<div id="installments-div" class="mp-col-md-12">
 									<?php if ($currency_ratio != 1) : ?>
 										<label for="installments" class="mp-label-form">
 											<div class="mp-tooltip">
@@ -168,13 +151,13 @@ if (!defined('ABSPATH')) {
 						<div class="frame-tarjetas">
 							<p class="mp-subtitle-custom-checkout"><?= __('Enter your document number', 'woocommerce-mercadopago') ?></p>
 
-							<div class="mp-row-checkout mp-pt-10">
+							<div id="mp-doc-type-div" class="mp-row-checkout mp-pt-10">
 								<div class="mp-col-md-4 mp-pr-15">
 									<label for="docType" class="mp-label-form mp-pt-5"><?= esc_html__('Type', 'woocommerce-mercadopago'); ?></label>
 									<select id="docType" class="mp-form-control mp-pointer mp-mt-04rem" data-checkout="docType" name="mercadopago_custom[docType]"></select>
 								</div>
 
-								<div class="mp-col-md-8">
+								<div id="mp-doc-number-div" class="mp-col-md-8">
 									<label for="docNumber" class="mp-label-form"><?= esc_html__('Document number', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 									<input type="text" class="mp-form-control mp-mt-5" id="docNumber" data-checkout="docNumber" name="mercadopago_custom[docNumber]" autocomplete="off" />
 									<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#securityCode"><?= esc_html__('Only numbers', 'woocommerce-mercadopago'); ?></p>
@@ -240,5 +223,22 @@ if (!defined('ABSPATH')) {
 		value = value.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
 		return value;
 	}
-	
+
+	function mdate(v) {
+		v = v.replace(/\D/g, "");
+		v = v.replace(/(\d{2})(\d)/, "$1/$2");
+		v = v.replace(/(\d{2})(\d{2})$/, "$1$2");
+		return v;
+	}
+
+	//explode date to month and year
+	function validateMonthYear() {
+		var date = document.getElementById('cardExpirationDate').value.split('/');
+		document.getElementById('cardExpirationMonth').value = date[0];
+		document.getElementById('cardExpirationYear').value = date[1];
+	}
+
+	function minteger(v) {
+		return v.replace(/\D/g, "")
+	}
 </script>

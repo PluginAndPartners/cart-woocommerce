@@ -302,3 +302,19 @@
 .mp-hidden-field {
     display: none;
 }  
+
+#mp-doc-div {
+    display: none;
+}
+
+#mp-doc-type-div {
+    display: none;
+}
+
+#mp-doc-number-div {
+    display: none;
+}
+
+#mp-issuer-div {
+    display: none;
+}
