@@ -2,7 +2,8 @@
     'use strict';
 
     $(function () {
-        console.log(wc_mercadopago_params);
+
+        var mercado_pago_submit = false;
 
         var seller = {
             site_id: '',
@@ -39,6 +40,7 @@
 
         /**
          * Execute before event focusout on input Card Number
+         * 
          * @param {object} event 
          */
         function guessingPaymentMethod(event) {
@@ -79,6 +81,7 @@
 
         /**
          * Handle payment Method response
+         * 
          * @param {number} status 
          * @param {object} response 
          */
@@ -95,6 +98,7 @@
 
         /**
          * Check what information is necessary to pay and show inputs
+         * 
          * @param {array} additional_info_needed 
          */
         function additionalInfoHandler(additional_info_needed) {
@@ -151,6 +155,7 @@
 
         /**
          * Set value on paymentMethodId element
+         * 
          * @param {string} paymentMethodId 
          */
         function setPaymentMethodId(paymentMethodId) {
@@ -160,6 +165,7 @@
 
         /**
          * Set Imagem card on element
+         * 
          * @param {string} secureThumbnail 
          */
         function setImageCard(secureThumbnail) {
@@ -168,6 +174,7 @@
 
         /**
          * Get instalments
+         * 
          * @param {number} status 
          * @param {object} response 
          */
@@ -294,6 +301,7 @@
 
         /**
          * Handle issuers response and build select
+         * 
          * @param {status} status 
          * @param {object} response 
          */
@@ -325,6 +333,179 @@
                 }
             }
         }
+
+        /**
+         * Get form
+         */
+        function getForm() {
+            return document.querySelector('#mercadopago-form');
+        }
+
+        /**
+         * Validate Additional Inputs
+         * 
+         * @return {bool}
+         */
+        function validateAdditionalInputs() {
+            var additional_inputs = objPaymentMethod.additional_info_needed;
+            for (var i = 0; i < additional_inputs.length; i++) {
+                if (additional_inputs[i] == 'issuer_id') {
+                    var inputMpIssuer = document.getElementById('mp-issuer');
+                    if (inputMpIssuer.value == -1 || inputMpIssuer.value == "") {
+                        inputMpIssuer.focus();
+                        return false;
+                    }
+                }
+                if (additional_inputs[i] == 'cardholder_name') {
+                    var inputCardholderName = document.getElementById('mp-card-holder-name');
+                    if (inputCardholderName.value == -1 || inputCardholderName.value == "") {
+                        inputCardholderName.focus();
+                        return false;
+                    }
+                }
+                if (additional_inputs[i] == 'cardholder_identification_type') {
+                    var inputDocType = document.getElementById('docType');
+                    if (inputDocType.value == -1 || inputDocType.value == "") {
+                        docType.focus();
+                        return false;
+                    }
+                }
+                if (additional_inputs[i] == 'cardholder_identification_number') {
+                    var docNumber = document.getElementById('docNumber');
+                    if (docNumber.value == -1 || docNumber.value == "") {
+                        docNumber.focus();
+                        return false;
+                    }
+                }
+            };
+            return true;
+        }
+
+        /** 
+        * Validate Inputs to Create Token
+        * 
+        * @return {bool}
+        */
+        function validateInputsCreateToken() {
+            var form_inputs = getForm().querySelectorAll("[data-checkout]");
+            var fixed_inputs = [
+                'cardNumber',
+                'cardExpirationDate',
+                'securityCode'
+            ];
+
+            for (var x = 0; x < form_inputs.length; x++) {
+                var element = form_inputs[x];
+                // Check is a input to create token.
+                if (fixed_inputs.indexOf(element.getAttribute("data-checkout")) > -1) {
+                    if (element.value == -1 || element.value == "") {
+                        element.focus();
+                        return false;
+                    }
+                }
+            }
+
+            if (objPaymentMethod.length == 0) {
+                document.getElementById('mp-card-number').focus();
+                return false;
+            }
+
+            if (!validateAdditionalInputs()) {
+                return false;
+            }
+
+            return true;
+        }
+
+        /**
+         *  Create Token
+         * 
+         *  @return {bool} 
+         */
+        function createToken() {
+            // MPv1.hideErrors();
+
+            // Show loading.
+            document.querySelector('#mp-box-loading').style.background =
+                'url(' + wc_mercadopago_params.loading + ') 0 50% no-repeat #fff';
+
+            // Form.
+            var form = getForm();
+
+            Mercadopago.createToken(form, sdkResponseHandler);
+
+            return false;
+        }
+
+        function sdkResponseHandler(status, response) {
+            // Hide loading.
+            document.querySelector('#mp-box-loading').style.background = "";
+
+            if (status != 200 && status != 201) {
+                // showErrors(response);
+            } else {
+                var token = document.querySelector('#token');
+                token.value = response.id;
+                mercado_pago_submit = true;
+                $('form.checkout, form#order_review').submit();
+            }
+        }
+
+        function showErrors(response) {
+            var form = getForm();
+            for (var x = 0; x < response.cause.length; x++) {
+                var error = response.cause[x];
+
+                if (error.code == 208 || error.code == 209 || error.code == 325 || error.code == 326) {
+                    var span = form.querySelector("#mp-error-208");
+                } else {
+                    var span = form.querySelector("#mp-error-" + error.code);
+                }
+
+                if (span != undefined) {
+                    var input = form.querySelector($span.getAttribute("data-main"));
+                    span.style.display = "inline-block";
+                    input.classList.add("mp-form-control-error");
+                }
+            }
+            return;
+        }
+
+        /**
+         * Handler submit
+         * 
+         * @return {bool}
+         */
+        function mercadoPagoformHandler() {
+            console.log('aqui');
+
+            if (mercado_pago_submit) {
+                mercado_pago_submit = false;
+
+                return true;
+            }
+
+            if (!document.getElementById('payment_method_woo-mercado-pago-custom').checked) {
+                console.log('checked');
+                return true;
+            }
+
+            if (validateInputsCreateToken()) {
+                return createToken();
+            }
+
+            return false;
+        }
+
+        // Process when submit the checkout form.
+        $('form.checkout').on('checkout_place_order_woo-mercado-pago-custom', function () {
+            return mercadoPagoformHandler();
+        });
+
+        // If payment fail, retry on next checkout page
+        $('form#order_review').submit(function () {
+            return mercadoPagoformHandler();
+        });
 
     });
 
