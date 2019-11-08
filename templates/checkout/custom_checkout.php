@@ -5,17 +5,17 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="mp-panel-custom-checkout">
 	<div class="mp-row-checkout">
-		<?php if ($site_id == 'MLA') : ?>
-			<div class="mp-frame-links">
-				<a class="mp-checkout-link mp-pr-10" id="button-show-payments">
-					<?= __('With what cards can I pay', 'woocommerce-mercadopago') ?> ⌵
-				</a>
+		<div class="mp-frame-links">
+			<a class="mp-checkout-link mp-pr-10" id="button-show-payments">
+				<?= __('With what cards can I pay', 'woocommerce-mercadopago') ?> ⌵
+			</a>
+			<?php if ($site_id == 'MLA') : ?>
 				<span id="mp_promotion_link"> | </span>
 				<a href="https://www.mercadopago.com.ar/cuotas" id="mp_checkout_link" class="mp-checkout-link mp-pl-10" target="_blank">
 					<?= __('See current promotions', 'woocommerce-mercadopago') ?>
 				</a>
-			</div>
-		<?php endif; ?>
+			<?php endif; ?>
+		</div>
 
 		<div class="mp-frame-payments" id="mp-frame-payments">
 			<div class="mp-col-md-12">

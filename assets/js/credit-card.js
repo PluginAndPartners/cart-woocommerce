@@ -27,9 +27,31 @@
         coupon_of_discounts.discount_action_url = wc_mercadopago_params.discount_action_url;
         coupon_of_discounts.payer_email = wc_mercadopago_params.payer_email;
 
-        Mercadopago.setPublishableKey(seller.public_key);
+        if ($('form#order_review').length > 0) {
+            showPaymentsLink();
+            Mercadopago.setPublishableKey(seller.public_key);
+        }
+
+        $('body').on('updated_checkout', function () {
+            Mercadopago.setPublishableKey(seller.public_key);
+            showPaymentsLink();
+        });
 
         $('body').on('focusout', '#mp-card-number', guessingPaymentMethod);
+
+        /**
+          * Show Payments accepted when link was clicked
+          */
+        function showPaymentsLink() {
+            var frame_payments = document.querySelector("#mp-frame-payments");
+            $("#button-show-payments").on('click', function () {
+                if (frame_payments.style.display == "inline-block") {
+                    frame_payments.style.display = "none";
+                } else {
+                    frame_payments.style.display = "inline-block";
+                }
+            });
+        }
 
         /**
          * Get Bin from Card Number
@@ -45,7 +67,6 @@
          * @param {object} event 
          */
         function guessingPaymentMethod(event) {
-            objPaymentMethod = {};
             var bin = getBin();
 
             if (bin.length < 6) {
@@ -419,6 +440,7 @@
                 if (fixed_inputs.indexOf(element.getAttribute("data-checkout")) > -1) {
                     if (element.value == -1 || element.value == "") {
                         element.focus();
+                        removeBlockOverlay();
                         return false;
                     }
                 }
@@ -426,35 +448,36 @@
 
             if (objPaymentMethod.length == 0) {
                 document.getElementById('mp-card-number').focus();
+                removeBlockOverlay();
                 return false;
             }
 
             if (!validateAdditionalInputs()) {
+                removeBlockOverlay();
                 return false;
             }
 
             return true;
         }
 
+        /**
+         * Hide errors when return of cardToken error
+         */
         function hideErrors() {
-
             for (var x = 0; x < document.querySelectorAll("[data-checkout]").length; x++) {
                 var $field = document.querySelectorAll("[data-checkout]")[x];
                 $field.classList.remove("mp-error-input");
                 $field.classList.remove("mp-form-control-error");
             }
-    
+
             for (var x = 0; x < document.querySelectorAll(".mp-error").length; x++) {
                 var $span = document.querySelectorAll(".mp-error")[x];
                 $span.style.display = "none";
             }
-    
-            return;
-    
         }
 
         /**
-         *  Create Token
+         *  Create Token call Mercadopago.createToken
          * 
          *  @return {bool} 
          */
@@ -473,12 +496,27 @@
             return false;
         }
 
+        /**
+         * Remove Block Overlay from Order Review page
+         */
+        function removeBlockOverlay() {
+            if ($('form#order_review').length > 0) {
+                $('.blockOverlay').css('display', 'none');
+            }
+        }
+
+        /**
+         * Handler Response of Mercadopago.createToken
+         * 
+         * @param {number} status 
+         * @param {object} response 
+         */
         function sdkResponseHandler(status, response) {
-            // Hide loading.
             document.querySelector('#mp-box-loading').style.background = "";
 
             if (status != 200 && status != 201) {
                 showErrors(response);
+                removeBlockOverlay();
             } else {
                 var token = document.querySelector('#token');
                 token.value = response.id;
@@ -487,6 +525,10 @@
             }
         }
 
+        /**
+         * 
+         * @param { obje } response
+        */
         function showErrors(response) {
             var form = getForm();
             for (var x = 0; x < response.cause.length; x++) {
@@ -512,7 +554,7 @@
          * 
          * @return {bool}
          */
-        function mercadoPagoformHandler() {
+        function mercadoPagoFormHandler() {
             if (mercado_pago_submit) {
                 mercado_pago_submit = false;
 
@@ -532,12 +574,12 @@
 
         // Process when submit the checkout form.
         $('form.checkout').on('checkout_place_order_woo-mercado-pago-custom', function () {
-            return mercadoPagoformHandler();
+            return mercadoPagoFormHandler();
         });
 
         // If payment fail, retry on next checkout page
         $('form#order_review').submit(function () {
-            return mercadoPagoformHandler();
+            return mercadoPagoFormHandler();
         });
 
     });
