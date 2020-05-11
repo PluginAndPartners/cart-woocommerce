@@ -128,6 +128,7 @@ function woocommerce_mercadopago_init()
 
     // Checks with WooCommerce is installed.
     if (class_exists('WC_Payment_Gateway')) {
+        require_once dirname(__FILE__) . '/includes/admin/api/WC_WooMercadoPago_Admin_Api_TestUser.php';
         require_once dirname(__FILE__) . '/includes/module/config/WC_WooMercadoPago_Constants.php';
         require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Exception.php';
         require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Configs.php';

@@ -324,6 +324,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                     $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
                     $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();
                     $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link($this->checkout_country, $this->application_id);
+                    $form_fields['checkout_create_user_test_link'] = $this->field_checkout_create_user_test_link();
                 }
                 $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
                 $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
@@ -1339,5 +1340,33 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 update_option($key, apply_filters('woocommerce_settings_api_sanitized_fields_' . $gateway::getId(), $options));
             }
         }
+    }
+
+    public function field_checkout_create_user_test_link()
+    {
+        $checkout_create_user_test_link = array(
+            'title' => sprintf(
+                '%s',
+                '<table class="form-table" id="mp_table_7">
+                    <tbody>
+                        <tr valign="top">
+                            <th scope="row" id="mp_field_text">
+                                <label>' . __('Create test user', 'woocommerce-mercadopago') . '</label>
+                            </th>
+                            <td class="forminp">
+                                <fieldset>
+                                    <a class="mp_general_links">' . __('Create User', 'woocommerce-mercadopago') . '</a>
+                                    <p id="showUserMp" class="description mp-fw-400 mp-mb-0"></p>
+                                </fieldset>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>'
+            ),
+            'type' => 'title',
+            'class' => 'mp_checkout_create_user_test_link'
+        );
+
+        return $checkout_create_user_test_link;
     }
 }

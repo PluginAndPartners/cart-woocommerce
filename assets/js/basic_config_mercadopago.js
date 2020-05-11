@@ -207,6 +207,33 @@
         });
       });
     }
+
+    document.querySelector('.mp_checkout_create_user_test_link').addEventListener('click', function () {
+
+      var accessToken = jQuery("#woocommerce_woo-mercado-pago-basic__mp_access_token_prod").val();
+      var siteId = jQuery("#woocommerce_woo-mercado-pago-basic_checkout_country").val();
+
+      var settings = {
+        "url": "/wc-api/WC_WooMercadoPago_Admin_Api_TestUser",
+        "method": "POST",
+        "timeout": 0,
+        "data": {"site_id": siteId, "accessToken": accessToken},
+      };
+
+      jQuery.ajax(settings).done(function (response) {
+        var html = '';
+        var res = JSON.parse(response);
+        var message = res.message;
+        if (message) {
+          html = "Error: " + message;
+        } else {
+          html = "Nickname: " + res.nickname + "<br>Password: " + res.password;
+        }
+
+        jQuery("#showUserMp").html(html);
+      });
+    });
+
   };
 
   //Online payments
