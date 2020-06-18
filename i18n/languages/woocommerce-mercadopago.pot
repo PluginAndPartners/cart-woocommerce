@@ -186,31 +186,31 @@ msgstr ""
 msgid "Payment approved."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:184, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:187
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:185, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:188
 msgid "Waiting for the ticket payment."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:193
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:194
 msgid "The customer has not made the payment yet."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:204
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:205
 msgid "Payment is pending review."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:213
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:214
 msgid "Payment was declined. The customer can try again."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:222
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:223
 msgid "Payment was returned to the customer."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:232
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:233
 msgid "Payment was canceled."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:242, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:252
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:243, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:253
 msgid "The payment is in mediation or the purchase was unknown by the customer."
 msgstr ""
 
@@ -1161,11 +1161,11 @@ msgstr ""
 msgid "Activate WooCommerce"
 msgstr ""
 
-#: includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php:218
+#: includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php:220
 msgid "Shipping service used by the store."
 msgstr ""
 
-#: includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php:365, includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php:366
+#: includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php:383, includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php:384
 msgid "Discount provided by store"
 msgstr ""
 

@@ -23,6 +23,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
     {
         parent::__construct($payment, $order);
         $this->preference = $this->make_commum_preference();
+        $this->preference['taxes'] = ['value' => 0, 'type' => 'IVA'];
         $this->preference['items'] = $this->items;
         $this->preference['payer'] = $this->get_payer_basic();
         $this->preference['back_urls'] = $this->get_back_urls();
@@ -34,6 +35,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         $internal_metadata = parent::get_internal_metadata();
         $merge_array = array_merge($internal_metadata, $this->get_internal_metadata_basic());
         $this->preference['metadata'] = $merge_array;
+        $this->preference = array_merge($this->preference, $this->getIvaTaxes());
     }
 
     /**

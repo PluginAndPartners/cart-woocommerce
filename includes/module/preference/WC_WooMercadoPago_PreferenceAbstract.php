@@ -33,6 +33,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     protected $notification_class;
     protected $ex_payments;
     protected $installments;
+    protected $taxes;
 
     /**
      * WC_WooMercadoPago_PreferenceAbstract constructor.
@@ -42,6 +43,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function __construct($payment, $order, $requestCheckout = null)
     {
+        $this->taxes = 0;
         $this->payment = $payment;
         $this->log = $payment->log;
         $this->order = $order;
@@ -220,6 +222,22 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             'quantity'    => 1,
             'unit_price'  => $this->number_format_value($ship_cost),
         );
+    }
+
+      /**
+     * @return array
+     */
+    public function getIvaTaxes()
+    {
+        if (get_option('_site_id_v1')) {
+            return array(
+                "net_amount" => $this->order_total,
+                "taxes" => array([
+                    "value" => $this->taxes,
+                    "type" => "IVA"
+                ])
+            );
+        }
     }
 
     /**
