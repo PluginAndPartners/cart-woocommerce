@@ -96,6 +96,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      * @param $processed_status
      * @param $data
      * @param $order
+     * @throws WC_WooMercadoPago_Exception
      */
     public function proccessStatus($processed_status, $data, $order)
     {
@@ -127,7 +128,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
                 $this->mp_rule_charged_back($order);
                 break;
             default:
-                break;
+                throw new WC_WooMercadoPago_Exception('Process Status - Invalid Status: ' . $processed_status);
         }
     }
 

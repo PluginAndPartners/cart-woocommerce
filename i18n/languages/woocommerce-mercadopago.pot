@@ -178,35 +178,35 @@ msgstr ""
 msgid "Update the WooCommerce order to "
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:141
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:142
 msgid "Payment approved."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:186, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:189
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:187, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:190
 msgid "Waiting for the ticket payment."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:195
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:196
 msgid "The customer has not made the payment yet."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:206
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:207
 msgid "Payment is pending review."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:215
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:216
 msgid "Payment was declined. The customer can try again."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:224
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:225
 msgid "Payment was returned to the customer."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:233
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:234
 msgid "Payment was canceled."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:243, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:253
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:244, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:254
 msgid "The payment is in mediation or the purchase was unknown by the customer."
 msgstr ""
 

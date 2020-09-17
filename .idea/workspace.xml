@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="279f7047-086c-4fb8-b72b-007863c9485a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_Abstract.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_Abstract.php" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Magento2" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Magento2" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Magento2" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="mage233: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/unit/stock/Stock_ManagerTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gulpfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_Webhook.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="79" column="37" selection-start-line="79" selection-start-column="37" selection-end-line="79" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.editorconfig">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.jshintrc">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_Abstract.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Exception.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_IPN.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="72" column="51" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Module.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3300">
+              <caret line="220" column="5" selection-start-line="220" selection-start-column="5" selection-end-line="220" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>woocommerce_order_status_</find>
+      <find>woocommerce_order_status_changed</find>
+      <find>transaction</find>
+      <find>order_total</find>
+      <find>paypal</find>
+      <find>check_ipn_response</find>
+      <find>updateCredentialProduction</find>
+      <find>checkout_credential_product</find>
+      <find>ajax</find>
+      <find>checkout_teste</find>
+      <find>field_checkout_test_link</find>
+      <find>checkout_homolog_link</find>
+      <find>checkout_test_link</find>
+      <find>4.2.2</find>
+      <find>Reduzir in</find>
+      <find>Reduce inventory</find>
+      <find>field_stock_reduce_mode</find>
+      <find>stock_reduce_mode</find>
+      <find>reduce_order_stock</find>
+      <find>restore_sto</find>
+      <find>wc_update_product_stock</find>
+      <find>stock</find>
+      <find>prefe</find>
+      <find>add_action</find>
+      <find>class-wc-custom-variable-products-dependencies</find>
+      <find>get_option('_all_payment_methods_ticket'</find>
+      <find>valid_mercadopago_ipn_request</find>
+      <find>successful_request</find>
+      <find>excep</find>
+      <find>exception</find>
+    </findStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/assets</dir>
+      <dir>$PROJECT_DIR$/templates</dir>
+      <dir>$PROJECT_DIR$/includes</dir>
+      <dir>$PROJECT_DIR$/includes/module/preference</dir>
+      <dir>$PROJECT_DIR$/assets/js</dir>
+      <dir>$PROJECT_DIR$/</dir>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/includes/module/sdk/lib/MP.php" />
+        <option value="$PROJECT_DIR$/../Docker/log/error.log" />
+        <option value="$PROJECT_DIR$/includes/module/sdk/lib/RestClient/AbstractRestClient.php" />
+        <option value="$PROJECT_DIR$/../Docker/config/mercadopago.conf" />
+        <option value="$PROJECT_DIR$/../../Magento1/Docker/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/../../Magento2/Docker/docker-sync.yml" />
+        <option value="$PROJECT_DIR$/../Docker/Dockerfile" />
+        <option value="$PROJECT_DIR$/../../../registration.php" />
+        <option value="$PROJECT_DIR$/../../../cart-magento2-3.3.1/composer.json" />
+        <option value="$PROJECT_DIR$/../../Magento2/srcMage2.3.3/michel.php" />
+        <option value="$PROJECT_DIR$/includes/module/preference/WC_WooMercadoPago_PreferenceBasic.php" />
+        <option value="$PROJECT_DIR$/../../Prestashop/Docker/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/../../Prestashop/Docker/Presta/prestashop/index.php" />
+        <option value="$PROJECT_DIR$/templates/checkout/custom_checkout.php" />
+        <option value="$PROJECT_DIR$/assets/js/credit-card.js" />
+        <option value="$PROJECT_DIR$/includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php" />
+        <option value="$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_CustomGateway.php" />
+        <option value="$PROJECT_DIR$/includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php" />
+        <option value="$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Configs.php" />
+        <option value="$PROJECT_DIR$/../Docker/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Credentials.php" />
+        <option value="$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_IPN.php" />
+        <option value="$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_Webhook.php" />
+        <option value="$PROJECT_DIR$/../../Magento2/Docker/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/includes/admin/notices/WC_WooMercadoPago_Notices.php" />
+        <option value="$PROJECT_DIR$/includes/admin/api/WC_WooMercadoPago_Admin_Api_TestUser.php" />
+        <option value="$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_PaymentAbstract.php" />
+        <option value="$PROJECT_DIR$/assets/js/basic_config_mercadopago.js" />
+        <option value="$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_BasicGateway.php" />
+        <option value="$PROJECT_DIR$/changelog.log" />
+        <option value="$PROJECT_DIR$/includes/module/config/WC_WooMercadoPago_Constants.php" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_UY.po" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_AR.po" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-pt_BR.po" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_CL.po" />
+        <option value="$PROJECT_DIR$/woocommerce-mercadopago.php" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_MX.po" />
+        <option value="$PROJECT_DIR$/readme.txt" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_CO.po" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_ES.po" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_PE.po" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_VE.po" />
+        <option value="$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago.pot" />
+        <option value="$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_TicketGateway.php" />
+        <option value="$PROJECT_DIR$/includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php" />
+        <option value="$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Module.php" />
+        <option value="$PROJECT_DIR$/includes/stock/WC_WooMercadoPago_Stock_Manager.php" />
+        <option value="$PROJECT_DIR$/tests/as.php" />
+        <option value="$PROJECT_DIR$/tests/unit/stock/as.php" />
+        <option value="$PROJECT_DIR$/tests/unit/stock/Stock_ManagerTest.php" />
+        <option value="$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_Abstract.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PHPCodeSnifferProjectConfiguration">
+    <option name="selectedConfigurationId" value="08667e23-910d-48cf-ab86-ebd42b8c4add" />
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="local.mercadopago.com.br" id="2e2f996d-8410-4e2b-9d06-0e1ee768bb3d" name="local.mercadopago.com.br" />
+    </servers>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1680" />
+    <option name="height" value="979" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="cart-woocommerce-pp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cart-woocommerce-pp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cart-woocommerce-pp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cart-woocommerce-pp" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cart-woocommerce-pp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cart-woocommerce-pp" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cart-woocommerce-pp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cart-woocommerce-pp" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cart-woocommerce-pp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cart-woocommerce-pp" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
+              <item name="notification" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.php.debug.xdebug.proxy" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/unit/stock" />
+      <recent name="$PROJECT_DIR$/tests/unit" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/includes" />
+      <recent name="$PROJECT_DIR$/includes/admin/api" />
+      <recent name="$PROJECT_DIR$/includes/notification" />
+      <recent name="$PROJECT_DIR$/includes/payments" />
+      <recent name="$PROJECT_DIR$/includes/module/preference" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="279f7047-086c-4fb8-b72b-007863c9485a" name="Default Changelist" comment="" />
+      <created>1572031696838</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572031696838</updated>
+      <workItem from="1572031698538" duration="3352000" />
+      <workItem from="1572273900893" duration="35749000" />
+      <workItem from="1572641163868" duration="19534000" />
+      <workItem from="1572976421779" duration="6648000" />
+      <workItem from="1573578033226" duration="670000" />
+      <workItem from="1573582356539" duration="5450000" />
+      <workItem from="1573595967042" duration="168000" />
+      <workItem from="1573675082122" duration="787000" />
+      <workItem from="1573749663734" duration="3593000" />
+      <workItem from="1574167477420" duration="7956000" />
+      <workItem from="1575308028486" duration="2382000" />
+      <workItem from="1575379296672" duration="278000" />
+      <workItem from="1575383744630" duration="4221000" />
+      <workItem from="1575656458353" duration="4000" />
+      <workItem from="1577119296071" duration="173000" />
+      <workItem from="1577376831090" duration="1806000" />
+      <workItem from="1578319636887" duration="3045000" />
+      <workItem from="1578674506656" duration="3896000" />
+      <workItem from="1578913828158" duration="379000" />
+      <workItem from="1579203534244" duration="5643000" />
+      <workItem from="1579475067306" duration="1217000" />
+      <workItem from="1581678333713" duration="1855000" />
+      <workItem from="1582205147370" duration="2976000" />
+      <workItem from="1582316456589" duration="2027000" />
+      <workItem from="1582826616563" duration="3914000" />
+      <workItem from="1583175282643" duration="1320000" />
+      <workItem from="1583256408923" duration="2055000" />
+      <workItem from="1583410382084" duration="4675000" />
+      <workItem from="1583873083504" duration="3272000" />
+      <workItem from="1584360313379" duration="153000" />
+      <workItem from="1586346636799" duration="4126000" />
+      <workItem from="1586437780763" duration="1548000" />
+      <workItem from="1586964468808" duration="800000" />
+      <workItem from="1587064133683" duration="2814000" />
+      <workItem from="1587344039546" duration="2043000" />
+      <workItem from="1587583706361" duration="3028000" />
+      <workItem from="1587730268061" duration="552000" />
+      <workItem from="1587917055909" duration="1410000" />
+      <workItem from="1588089735931" duration="5782000" />
+      <workItem from="1588168453258" duration="1762000" />
+      <workItem from="1588786559646" duration="11693000" />
+      <workItem from="1597237172771" duration="4846000" />
+      <workItem from="1597494080543" duration="146000" />
+      <workItem from="1597667547197" duration="171000" />
+      <workItem from="1598463023266" duration="1785000" />
+      <workItem from="1598490608853" duration="6847000" />
+      <workItem from="1598631090380" duration="5348000" />
+      <workItem from="1598876148754" duration="607000" />
+      <workItem from="1598879000781" duration="831000" />
+      <workItem from="1598961774673" duration="3512000" />
+      <workItem from="1599136584348" duration="16000" />
+      <workItem from="1600199159457" duration="2676000" />
+      <workItem from="1600306519964" duration="339000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="191880000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1680" height="979" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22832723" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32997763" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3982103" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946752" weight="0.32908705" />
+      <window_info anchor="bottom" id="Docker" order="7" weight="0.29752067" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3270142" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="MagicentoScripts" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.36921296" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5005325" side_tool="true" weight="0.32908705" />
+      <window_info anchor="bottom" id="Messages" order="13" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Remote Host" order="3" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.12942614" />
+      <window_info anchor="right" id="Mongo Explorer" order="5" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_PaymentAbstract.php</url>
+          <line>1289</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../../Prestashop/Docker/Presta/prestashop/index.php" />
+    <entry file="file://$PROJECT_DIR$/../../Magento1/Docker/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Magento2/Docker/docker-compose-dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/checkout/custom_checkout.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="220" column="29" lean-forward="true" selection-start-line="220" selection-start-column="29" selection-end-line="220" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/credit-card.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6135">
+          <caret line="409" selection-start-line="409" selection-end-line="409" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/custom_config_mercadopago.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="63" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/payments/hooks/WC_WooMercadoPago_Hook_Custom.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Magento2/Docker/docker-sync.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../registration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="926" selection-start-line="926" selection-end-line="926" />
+          <folding>
+            <element signature="e#21#167#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2160">
+          <caret line="144" selection-start-line="144" selection-end-line="144" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Prestashop/Docker/docker-sync.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Docker/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Docker/config/mercadopago.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Prestashop/Docker/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/preference/WC_WooMercadoPago_PreferenceBasic.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Docker/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Docker/log/error.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="398" column="96" selection-start-line="398" selection-start-column="96" selection-end-line="398" selection-end-column="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/payments/hooks/WC_WooMercadoPago_Hook_Ticket.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2565">
+          <caret line="171" column="63" selection-start-line="171" selection-start-column="63" selection-end-line="171" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Credentials.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Magento2/Docker/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/preference/WC_WooMercadoPago_PreferenceTicket.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="23" column="67" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/admin/api/WC_WooMercadoPago_Admin_Api_TestUser.php" />
+    <entry file="file://$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago-es_UY.po">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/woocommerce-mercadopago.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Init.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_BasicGateway.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/i18n/languages/woocommerce-mercadopago.pot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="1231" column="102" selection-start-line="1231" selection-start-column="102" selection-end-line="1231" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/basic_config_mercadopago.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="775">
+          <caret line="213" column="5" selection-start-line="213" selection-start-column="5" selection-end-line="213" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#span#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_TicketGateway.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6705">
+          <caret line="447" column="65" selection-start-line="447" selection-start-column="65" selection-end-line="447" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_PaymentAbstract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5055">
+          <caret line="337" column="57" selection-start-line="337" selection-start-column="57" selection-end-line="337" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/stock/WC_WooMercadoPago_Stock_Manager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="9" column="37" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/config/WC_WooMercadoPago_Constants.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/payments/WC_WooMercadoPago_CustomGateway.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6870">
+          <caret line="458" column="60" selection-start-line="458" selection-start-column="60" selection-end-line="458" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/preference/WC_WooMercadoPago_PreferenceCustom.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2685">
+          <caret line="179" column="26" selection-start-line="179" selection-start-column="26" selection-end-line="179" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Configs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/Reflection/Reflection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13515">
+          <caret line="901" column="36" selection-start-line="901" selection-start-column="36" selection-end-line="901" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/admin/notices/WC_WooMercadoPago_Notices.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="73" column="51" selection-start-line="73" selection-start-column="51" selection-end-line="73" selection-end-column="51" />
+          <folding>
+            <element signature="e#7#232#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/sdk/lib/MP.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="33" column="21" lean-forward="true" selection-start-line="33" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/stock/Stock_ManagerTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.editorconfig">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.jshintrc">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Module.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3300">
+          <caret line="220" column="5" selection-start-line="220" selection-start-column="5" selection-end-line="220" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/module/WC_WooMercadoPago_Exception.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_IPN.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="72" column="51" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_Webhook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="79" column="37" selection-start-line="79" selection-start-column="37" selection-end-line="79" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/notification/WC_WooMercadoPago_Notification_Abstract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
