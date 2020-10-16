@@ -10,8 +10,9 @@ window.onload = function () {
   document.querySelector('.wc-admin-breadcrumb').style.display = 'none';
   document.querySelector('.mp-header-logo').style.display = 'none';
   document.querySelector('#_wpnonce').parentElement.style.display = 'none';
-  document.querySelectorAll('h2')[4].style.display = 'none';
 
+  var h2s = document.querySelectorAll('h2');
+  h2s[4] !== undefined ? h2s[4].style.display = 'none' : null;
 
   var descriptionInput = document.querySelectorAll('p.description');
   for (var i = 0; i < descriptionInput.length; i++) {
