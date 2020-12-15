@@ -29,6 +29,9 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['installments'] = (int)$this->checkout['installments'];
         $this->preference['payment_method_id'] = $this->checkout['paymentMethodId'];
         $this->preference['payer']['email'] = $this->get_email();
+        if ($this->mode_gateway == 'yes') {
+          $this->preference['processing_mode'] = 'gateway';
+        }
         if (array_key_exists('token', $this->checkout)) {
             $this->preference['metadata']['token'] = $this->checkout['token'];
             if (!empty($this->checkout['CustomerId'])) {

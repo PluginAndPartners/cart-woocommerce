@@ -71,6 +71,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['binary_mode'] = $this->field_binary_mode();
             $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
+            $form_fields['mode_gateway'] = $this->field_mode_gateway();
         }
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {
@@ -141,6 +142,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'binary_mode',
             'gateway_discount',
             'commission',
+            'mode_gateway',
             // Support session
             'checkout_support_title',
             'checkout_support_description',

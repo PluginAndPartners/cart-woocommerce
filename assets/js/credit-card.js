@@ -258,11 +258,12 @@
      */
     function installmentHandler(status, response) {
       if (status === 200) {
+        var mode_gateway = wc_mercadopago_params.mode_gateway === 'yes' ? 'gateway' : 'aggregator';
         var selectorInstallments = document.getElementById('mp-installments');
         var html_option = '<option value="-1">' + wc_mercadopago_params.choose + '...</option>';
         var payerCosts = [];
         for (var i = 0; i < response.length; i++) {
-          if (response[i].processing_mode === 'aggregator') {
+          if (response[i].processing_mode === mode_gateway) {
             payerCosts = response[i].payer_costs;
           }
         }

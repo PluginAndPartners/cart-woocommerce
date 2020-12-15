@@ -46,6 +46,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $this->log = $payment->log;
         $this->order = $order;
         $this->gateway_discount = $this->payment->gateway_discount;
+        $this->mode_gateway = $this->payment->mode_gateway;
         $this->commission = $this->payment->commission;
         $this->ex_payments = $this->payment->ex_payments;
         $this->installments = $this->payment->installments;

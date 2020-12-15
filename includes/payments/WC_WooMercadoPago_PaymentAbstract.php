@@ -87,6 +87,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $customer;
     public $logged_user_email;
     public $currency_convertion;
+    public $mode_gateway;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -106,6 +107,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');
         $this->custom_domain = $this->getOption('_mp_custom_domain', '');
         $this->binary_mode = $this->getOption('binary_mode', 'no');
+        $this->mode_gateway = $this->getOption('mode_gateway', 'no');
         $this->gateway_discount = $this->getOption('gateway_discount', 0);
         $this->commission = $this->getOption('commission', 0);
         $this->sandbox = $this->isTestUser();
@@ -1388,6 +1390,24 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $this->updateCredentialProduction();
         return $this->getOption('checkout_credential_prod', get_option('checkout_credential_prod', 'no')) === 'yes';
+    }
+
+    /**
+     * @return array
+     */
+    public function field_mode_gateway()
+    {
+        $mode_gateway_option = array(
+            'title' => __('Mode gateway', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'default' => 'no',
+            'description' => __('Put checkout in Gateway mode.', 'woocommerce-mercadopago'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Yes', 'woocommerce-mercadopago')
+            )
+        );
+        return $mode_gateway_option;
     }
 
     /**

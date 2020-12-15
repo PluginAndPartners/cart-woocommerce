@@ -27,6 +27,9 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         $this->preference['payer'] = $this->get_payer_basic();
         $this->preference['back_urls'] = $this->get_back_urls();
         $this->preference['shipments'] = $this->shipments_receiver_address();
+        if ($this->mode_gateway == 'yes') {
+          $this->preference['processing_modes'] = ['gateway'];
+        }
 
         $this->preference['payment_methods'] = $this->get_payment_methods($this->ex_payments, $this->installments);
         $this->preference['auto_return'] = $this->auto_return();

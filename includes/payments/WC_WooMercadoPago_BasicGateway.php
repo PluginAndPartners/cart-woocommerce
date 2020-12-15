@@ -88,6 +88,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['failure_url'] = $this->field_failure_url();
             $form_fields['pending_url'] = $this->field_pending_url();
             $form_fields['auto_return'] = $this->field_auto_return();
+            $form_fields['mode_gateway'] = $this->field_mode_gateway();
             foreach ($this->field_ex_payments() as $key => $value) {
                 $form_fields[$key] = $value;
             }
@@ -169,6 +170,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'binary_mode',
             'gateway_discount',
             'commission',
+            'mode_gateway',
             // Support session
             'checkout_support_title',
             'checkout_support_description',
