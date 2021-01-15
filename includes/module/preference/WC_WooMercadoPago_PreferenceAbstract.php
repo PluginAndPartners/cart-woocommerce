@@ -182,8 +182,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         foreach ($this->order->get_items() as $item) {
             if ($item['qty']) {
                 $product = wc_get_product($item['product_id']);
-                $product_title = method_exists($product, 'get_description') ? $product->get_name() : $product->post->post_title;
+                $product_title = method_exists($product, 'get_name') ? $product->get_name() : $product->post->post_title;
                 $product_content = method_exists($product, 'get_description') ? $product->get_description() : $product->post->post_content;
+                $product_image   = method_exists( $product, 'get_image_id' ) ? wp_get_attachment_url( $product->get_image_id() ) : plugins_url( '../../assets/images/cart.png', plugin_dir_path( __FILE__ ) );
                 // Calculates line amount and discounts.
                 $line_amount = $item['line_total'] + $item['line_tax'];
                 $discount_by_gateway = (float) $line_amount * ($this->gateway_discount / 100);
@@ -200,8 +201,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                         strlen($product_content) > 230 ?
                             substr($product_content, 0, 230) . '...' : $product_content
                     )),
-                    'picture_url' => sizeof($this->order->get_items()) > 1 ?
-                        plugins_url('../../assets/images/cart.png', plugin_dir_path(__FILE__)) : wp_get_attachment_url($product->get_image_id()),
+                    'picture_url' => $product_image,
                     'category_id' => get_option('_mp_category_id', 'others'),
                     'quantity' => 1,
                     'unit_price' => $this->number_format_value($item_amount),
