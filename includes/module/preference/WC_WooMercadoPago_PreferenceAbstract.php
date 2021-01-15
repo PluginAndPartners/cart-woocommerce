@@ -236,9 +236,6 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $items = array();
         foreach ($this->order->get_fees() as $fee) {
-            if ((float) $fee['total'] >= 0) {
-                continue;
-            }
 
             $final = ($fee['total'] + $fee['total_tax']) * $this->currency_ratio;
 
