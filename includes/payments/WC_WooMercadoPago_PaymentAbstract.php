@@ -1350,12 +1350,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function disableAllPaymentsMethodsMP()
     {
-        $gateways = apply_filters('woocommerce_payment_gateways', array());
-        foreach ($gateways as $gateway) {
-            if (!strpos($gateway, "MercadoPago")) {
-                continue;
-            }
-
+        foreach ( WC_WooMercadoPago_Constants::PAYMENT_GATEWAYS as $gateway ) {
             $key = 'woocommerce_' . $gateway::getId() . '_settings';
             $options = get_option($key);
             if (!empty($options)) {
@@ -1399,12 +1394,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             return;
         }
 
-        $gateways = apply_filters('woocommerce_payment_gateways', array());
-        foreach ($gateways as $gateway) {
-            if (!strpos($gateway, "MercadoPago")) {
-                continue;
-            }
-
+        foreach ( WC_WooMercadoPago_Constants::PAYMENT_GATEWAYS as $gateway ) {
             $key = 'woocommerce_' . $gateway::getId() . '_settings';
             $options = get_option($key);
             if (!empty($options)) {

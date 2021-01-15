@@ -15,4 +15,5 @@ class WC_WooMercadoPago_Constants
     const VERSION = '4.6.2';
     const MIN_PHP = 5.6;
     const API_MP_BASE_URL = 'https://api.mercadopago.com';
+    const PAYMENT_GATEWAYS = array('WC_WooMercadoPago_BasicGateway', 'WC_WooMercadoPago_CustomGateway', 'WC_WooMercadoPago_TicketGateway');
 }
