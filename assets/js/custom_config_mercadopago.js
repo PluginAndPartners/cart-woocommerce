@@ -3,7 +3,6 @@
 window.addEventListener('load', function() {
   //remove link breadcrumb, header and save button
   document.querySelector('.wc-admin-breadcrumb').style.display = 'none';
-  document.querySelector('.mp-header-logo').style.display = 'none';
   document.querySelector('#_wpnonce').parentElement.style.display = 'none';
 
   var h2s = document.querySelectorAll('h2');
