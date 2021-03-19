@@ -38,7 +38,7 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 		$this->form_fields        = array();
 		$this->method_title       = __( 'Mercado Pago - Custom Checkout', 'woocommerce-mercadopago' );
 		$this->title              = __( 'Pay with cash', 'woocommerce-mercadopago' );
-		$this->method_description = $this->get_method_mp_description( $this->description );
+		$this->method_description = $this->description;
 		$this->coupon_mode        = $this->get_option_mp( 'coupon_mode', 'no' );
 		$this->stock_reduce_mode  = $this->get_option_mp( 'stock_reduce_mode', 'no' );
 		$this->date_expiration    = (int) $this->get_option_mp( 'date_expiration', 3 );

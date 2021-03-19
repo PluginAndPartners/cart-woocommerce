@@ -570,21 +570,6 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Get Mercado Pago Description
-	 *
-	 * @param string $description description.
-	 * @return string
-	 */
-	public function get_method_mp_description( $description ) {
-		return '<div class="mp-header-logo">
-            <div class="mp-left-header">
-                <img src="' . plugins_url( '../assets/images/mplogo.png', plugin_dir_path( __FILE__ ) ) . '">
-            </div>
-            <div>' . $description . '</div>
-        </div>';
-	}
-
-	/**
 	 * Update Option
 	 *
 	 * @param string $key key.

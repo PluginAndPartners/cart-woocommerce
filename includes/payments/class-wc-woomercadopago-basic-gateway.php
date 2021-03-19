@@ -39,7 +39,7 @@ class WC_WooMercadoPago_Basic_Gateway extends WC_WooMercadoPago_Payment_Abstract
 		$this->method_title         = __( 'Mercado Pago - Checkout Pro', 'woocommerce-mercadopago' );
 		$this->method               = $this->get_option_mp( 'method', 'redirect' );
 		$this->title                = __( 'Pay with the payment method you prefer', 'woocommerce-mercadopago' );
-		$this->method_description   = $this->get_method_mp_description( $this->description );
+		$this->method_description   = $this->description;
 		$this->auto_return          = $this->get_option_mp( 'auto_return', 'yes' );
 		$this->success_url          = $this->get_option_mp( 'success_url', '' );
 		$this->failure_url          = $this->get_option_mp( 'failure_url', '' );
