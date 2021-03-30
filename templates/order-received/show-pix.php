@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<p class="mp-details-title">
+<p class="mp-details-titleteste">
 	<?php echo esc_html( $title_purchase_pix ); ?>
 </p>
 <div class="mp-details-pix">
