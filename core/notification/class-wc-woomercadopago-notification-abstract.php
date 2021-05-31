@@ -52,6 +52,10 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 	 * @param WC_WooMercadoPago_Payment_Abstract $payment payment class.
 	 */
 	public function __construct( $payment ) {
+		$includes_path = dirname( __FILE__ ) . '/../helpers/';
+		require_once $includes_path . 'cryptography/class-cryptography.php';
+		require_once $includes_path . 'resquest/class-resquest.php';
+
 		$this->payment = $payment;
 		$this->mp      = $payment->mp;
 		$this->log     = $payment->log;
@@ -59,6 +63,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 		$this->payment = $payment;
 
 		add_action( 'woocommerce_api_' . strtolower( get_class( $payment ) ), array( $this, 'check_ipn_response' ) );
+		add_action( 'woocommerce_api_order', array( $this, 'get_order' ) );
 		// @todo remove when 5 is the most used.
 		add_action( 'woocommerce_api_' . strtolower( preg_replace( '/_gateway/i', 'Gateway', get_class( $payment ) ) ), array( $this, 'check_ipn_response' ) );
 		add_action( 'valid_mercadopago_ipn_request', array( $this, 'successful_request' ) );
@@ -90,6 +95,18 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 	 * Log IPN response
 	 */
 	public function check_ipn_response() {
+		// @todo need to be analyzed better
+		// @codingStandardsIgnoreLine
+		@ob_clean();
+		// @todo check nonce
+		// @codingStandardsIgnoreLine
+		$this->log->write_log( __FUNCTION__, 'received _get content: ' . wp_json_encode( $_GET, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
+	}
+
+	/**
+	 * Log get order response
+	 */
+	public function get_order() {
 		// @todo need to be analyzed better
 		// @codingStandardsIgnoreLine
 		@ob_clean();
