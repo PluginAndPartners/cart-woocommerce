@@ -31,7 +31,8 @@ class Cryptography {
 				$key = base64_encode($hmac);
 				return $key;
 			} catch (Exception $e) {
-				return $e;
+				$message =  "Erro ao encriptar. <br> $e";
+				return $message;
 			}
 		} else {
 			throw 'Parametros vazios';

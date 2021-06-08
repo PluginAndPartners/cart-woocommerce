@@ -25,11 +25,6 @@ class WC_WooMercadoPago_Notification {
 
 
 	public function __construct() {
-
-		$includes_path = dirname( __FILE__ ) . '/../../helpers/';
-		require_once $includes_path . 'cryptography/class-cryptography.php';
-		require_once $includes_path . 'resquest/class-resquest.php';
-		require_once $includes_path . 'credentials/class-credentials.php';
 		add_action( 'woocommerce_api_wc_mp_notification', array($this, 'check_mp_response'));
 	}
 
@@ -76,7 +71,7 @@ class WC_WooMercadoPago_Notification {
 			$token = Request::getBearerToken();
 
 			if ( !$token ) {
-				$this->set_response( 422, null, 'Unauthorized' );
+				$this->set_response( 401, null, 'Unauthorized' );
 			} elseif ( $key == $token ) {
 
 				$order = wc_get_order( $data['external_reference'] );

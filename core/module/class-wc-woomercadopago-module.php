@@ -226,6 +226,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs {
 	 */
 	public function load_helpers() {
 		include_once dirname( __FILE__ ) . '/../helpers/class-wc-woomercadopago-helpers-currencyconverter.php';
+		require_once dirname( __FILE__ ) . '/../helpers/cryptography/class-cryptography.php';
+		require_once dirname( __FILE__ ) . '/../helpers/resquest/class-resquest.php';
+		require_once dirname( __FILE__ ) . '/../helpers/credentials/class-credentials.php';
 	}
 
 	/**
