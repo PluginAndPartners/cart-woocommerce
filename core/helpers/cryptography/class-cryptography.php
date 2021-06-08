@@ -28,7 +28,7 @@ class Cryptography {
 		if (!empty($secret) && !empty($data)) {
 			try {
 				$hmac = hash_hmac('sha256', $data, $secret);
-				$key = base64_encode($hmac);
+				$key  = base64_encode($hmac);
 				return $key;
 			} catch (Exception $e) {
 				$message =  "Erro ao encriptar. <br> $e";

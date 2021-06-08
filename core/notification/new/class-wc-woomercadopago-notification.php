@@ -45,7 +45,7 @@ class WC_WooMercadoPago_Notification {
 	/**
 	 * Get Orders
 	 */
-	public function get_order($data) {
+	public function get_order( $data ) {
 		// @todo need fix Processing form data without nonce verification
 		// @codingStandardsIgnoreLine
 		if	(
@@ -55,41 +55,46 @@ class WC_WooMercadoPago_Notification {
 			) {
 
 			$parameters = array();
+
 			$parameters['payment_id'] = $data['payment_id'];
+			
 			$parameters['external_reference'] = $data['external_reference'];
+
 			$parameters['timestamp'] = $data['timestamp'];
 
 			$credentials = new Credentials();
-			$secret = $credentials->get_access_token();
+
+			$secret	= $credentials->get_access_token();
 
 			if ( is_null($secret) || empty($secret) ) {
 				$this->set_response( 500, null, 'Credentials not found' );
 			}
 
-			$key = Cryptography::encrypt( json_encode($parameters), $secret );
+			$key = Cryptography::encrypt( wp_json_encode($parameters), $secret );
 
 			$token = Request::getBearerToken();
 
 			if ( !$token ) {
 				$this->set_response( 401, null, 'Unauthorized' );
-			} elseif ( $key == $token ) {
+			} elseif ( $key === $token ) {
 
 				$order = wc_get_order( $data['external_reference'] );
-				if( $order ) {
+				if ( $order ) {
 					$order_id = $order->get_id();
 
-					$response = array();
-					$response['order_id'] = $order_id;
+					$response 						= array();
+					$response['order_id'] 			= $order_id;
 					$response['external_reference'] = $order_id;
-					$response['status'] = $order->get_status();
-					$response['created_at'] = $order->get_date_created();
-					$response['total'] = $order->get_total();
-					$response['timestamp'] = time();
+					$response['status'] 			= $order->get_status();
+					$response['created_at'] 		= $order->get_date_created();
+					$response['total'] 				= $order->get_total();
+					$response['timestamp'] 			= time();
 
 					/*
 					*** Creating hmac for response
 					*/
 					$hmac = Cryptography::encrypt( json_encode($response), $secret );
+
 					$response['hmac'] = $hmac;
 
 					$this->set_response( 200, 'Success', $response );
@@ -113,16 +118,18 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public function check_mp_response() {
 		if (isset($_SERVER['REQUEST_METHOD'])) {
-
+			// @todo need fix Processing form data without nonce verification
+			// @codingStandardsIgnoreLine
 			$method = $_SERVER['REQUEST_METHOD'];
 
-			if ( $method == "GET" ) {
+			if ( 'GET' === $method ) {
+				// @todo need fix Processing form data without nonce verification
+				// @codingStandardsIgnoreLine
 				$this->get_order($_GET);
 			} else {
 				$this->set_response( 405, null, 'Method not allowed');
 			}
 		}
-
 	}
 
 	/**
