@@ -165,6 +165,9 @@ class WC_WooMercadoPago_Init {
 			self::update_plugin_version();
 
 			add_action( 'woocommerce_order_actions', array( __CLASS__, 'add_mp_order_meta_box_actions' ) );
+
+			WC_WooMercadoPago_Notification::init_notification_class();
+
 		} else {
 			add_action( 'admin_notices', array( __CLASS__, 'notify_woocommerce_miss' ) );
 		}

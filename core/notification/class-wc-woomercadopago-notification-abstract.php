@@ -52,9 +52,6 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 	 * @param WC_WooMercadoPago_Payment_Abstract $payment payment class.
 	 */
 	public function __construct( $payment ) {
-		$includes_path = dirname( __FILE__ ) . '/../helpers/';
-		require_once $includes_path . 'cryptography/class-cryptography.php';
-		require_once $includes_path . 'resquest/class-resquest.php';
 
 		$this->payment = $payment;
 		$this->mp      = $payment->mp;
@@ -63,7 +60,6 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 		$this->payment = $payment;
 
 		add_action( 'woocommerce_api_' . strtolower( get_class( $payment ) ), array( $this, 'check_ipn_response' ) );
-		add_action( 'woocommerce_api_order', array( $this, 'get_order' ) );
 		// @todo remove when 5 is the most used.
 		add_action( 'woocommerce_api_' . strtolower( preg_replace( '/_gateway/i', 'Gateway', get_class( $payment ) ) ), array( $this, 'check_ipn_response' ) );
 		add_action( 'valid_mercadopago_ipn_request', array( $this, 'successful_request' ) );
