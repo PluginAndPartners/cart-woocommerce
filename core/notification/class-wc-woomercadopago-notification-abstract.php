@@ -52,6 +52,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 	 * @param WC_WooMercadoPago_Payment_Abstract $payment payment class.
 	 */
 	public function __construct( $payment ) {
+
 		$this->payment = $payment;
 		$this->mp      = $payment->mp;
 		$this->log     = $payment->log;
@@ -90,6 +91,18 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 	 * Log IPN response
 	 */
 	public function check_ipn_response() {
+		// @todo need to be analyzed better
+		// @codingStandardsIgnoreLine
+		@ob_clean();
+		// @todo check nonce
+		// @codingStandardsIgnoreLine
+		$this->log->write_log( __FUNCTION__, 'received _get content: ' . wp_json_encode( $_GET, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
+	}
+
+	/**
+	 * Log get order response
+	 */
+	public function get_order() {
 		// @todo need to be analyzed better
 		// @codingStandardsIgnoreLine
 		@ob_clean();

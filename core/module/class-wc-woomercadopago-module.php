@@ -226,6 +226,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs {
 	 */
 	public function load_helpers() {
 		include_once dirname( __FILE__ ) . '/../helpers/class-wc-woomercadopago-helpers-currencyconverter.php';
+		require_once dirname( __FILE__ ) . '/../helpers/cryptography/class-cryptography.php';
+		require_once dirname( __FILE__ ) . '/../helpers/resquest/class-resquest.php';
+		require_once dirname( __FILE__ ) . '/../helpers/credentials/class-credentials.php';
 	}
 
 	/**
@@ -263,6 +266,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs {
 	 * @return void
 	 */
 	public function load_notifications() {
+		include_once dirname( __FILE__ ) . '/../notification/new/class-wc-woomercadopago-notification.php';
 		include_once dirname( __FILE__ ) . '/../notification/class-wc-woomercadopago-notification-abstract.php';
 		include_once dirname( __FILE__ ) . '/../notification/class-wc-woomercadopago-notification-ipn.php';
 		include_once dirname( __FILE__ ) . '/../notification/class-wc-woomercadopago-notification-webhook.php';
