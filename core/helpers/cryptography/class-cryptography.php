@@ -31,11 +31,11 @@ class Cryptography {
 				$key  = base64_encode($hmac);
 				return $key;
 			} catch (Exception $e) {
-				$message =  "Erro ao encriptar. <br> $e";
+				$message =  "Error while encrypting. <br> $e";
 				return $message;
 			}
 		} else {
-			throw 'Parametros vazios';
+			throw 'Empty parameters';
 		}
 	}
 }
