@@ -54,13 +54,10 @@ class WC_WooMercadoPago_Notification {
 				isset( $data['timestamp'] )
 			) {
 
-			$parameters = array();
-
-			$parameters['payment_id'] = $data['payment_id'];
-			
+			$parameters                       = array();
+			$parameters['payment_id'] 		  = $data['payment_id'];			
 			$parameters['external_reference'] = $data['external_reference'];
-
-			$parameters['timestamp'] = $data['timestamp'];
+			$parameters['timestamp'] 		  = $data['timestamp'];
 
 			$credentials = new Credentials();
 
@@ -93,7 +90,7 @@ class WC_WooMercadoPago_Notification {
 					/*
 					*** Creating hmac for response
 					*/
-					$hmac = Cryptography::encrypt( json_encode($response), $secret );
+					$hmac = Cryptography::encrypt( wp_json_encode($response), $secret );
 
 					$response['hmac'] = $hmac;
 

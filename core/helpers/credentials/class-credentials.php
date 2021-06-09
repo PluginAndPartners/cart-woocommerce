@@ -25,20 +25,21 @@ class Credentials {
 	 * Credentials constructor
 	 */
 	public function __construct() {
-		$public_key    = get_option( '_mp_public_key_prod', '' );
-		$access_token  = get_option( '_mp_access_token_prod', '' );
+		$public_key   = get_option( '_mp_public_key_prod', '' );
+		$access_token = get_option( '_mp_access_token_prod', '' );
 
 		if ( empty( $public_key ) && empty( $access_token ) ) {
 			$public_key   = get_option( '_mp_public_key_test', '' );
 			$access_token = get_option( '_mp_access_token_test', '' );
 		}
 
-		$this->public_key = $public_key;
+		$this->public_key   = $public_key;
 		$this->access_token = $access_token;
 	}
 
 	/**
 	 * Get Access Token
+	 * 
 	 * @return $access_token
 	 */
 	public function get_access_token() {
@@ -47,6 +48,7 @@ class Credentials {
 
 	/**
 	 * Get Public Key 
+	 * 
 	 * @return $public_key
 	 */
 	public function get_public_key() {

@@ -25,8 +25,12 @@ class Request {
 	public static function getAuthorizationHeader() {
 		$headers = null;
 		if (isset($_SERVER['Authorization'])) {
+			// @todo need fix Processing form data without nonce verification
+			// @codingStandardsIgnoreLine
 			$headers = trim($_SERVER['Authorization']);
-		} elseif ( isset($_SERVER['HTTP_AUTHORIZATION']) ) { //Nginx or fast CGI
+		} elseif ( isset($_SERVER['HTTP_AUTHORIZATION']) ) {
+			// @todo need fix Processing form data without nonce verification
+			// @codingStandardsIgnoreLine
 			$headers = trim($_SERVER['HTTP_AUTHORIZATION']);
 		} elseif (function_exists('apache_request_headers')) {
 			$requestHeaders = apache_request_headers();
@@ -38,11 +42,12 @@ class Request {
 		}
 		return $headers;
 	}
+
 	/**
 	* Get access token from header
 	* */
 	public static function getBearerToken() {
-		$headers = Request::getAuthorizationHeader();
+		$headers = self::getAuthorizationHeader();
 		// HEADER: Get the access token from the header
 		if (!empty($headers)) {
 			if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {

@@ -28,7 +28,7 @@ class Cryptography {
 		if (!empty($secret) && !empty($data)) {
 			try {
 				$hmac = hash_hmac('sha256', $data, $secret);
-				$key  = base64_encode($hmac);
+				$key  = base64_encode($hmac);// phpcs:ignore
 				return $key;
 			} catch (Exception $e) {
 				$message =  "Error while encrypting. <br> $e";
