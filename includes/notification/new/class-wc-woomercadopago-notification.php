@@ -60,7 +60,11 @@ class WC_WooMercadoPago_Notification {
 		status_header( $code, $code_message );
 		// @todo need to implements better
 		// @codingStandardsIgnoreLine
-		die(  wp_json_encode($obj) );
+		if ($code > 299){
+			die(  wp_json_encode($obj) );
+		} else {
+			die(wp_json_encode($body));
+		}
 	}
 
 	/**
@@ -184,9 +188,8 @@ class WC_WooMercadoPago_Notification {
 					'newstatus' => $resultT,
 					'timestamp' => $date->getTimestamp(),
 					);
-					$keyResponse    = Cryptography::encrypt(json_decode($result, true), $this->mp->get_access_token());
+					$keyResponse    = Cryptography::encrypt(json_decode($result, true), $credentials);
 					$result['hmac'] = $keyResponse;
-					$result->hmac   = $keyResponse;
 					$this->set_response(200, null, ( $result ));
 				} else {
 					$obj = array(
@@ -456,7 +459,7 @@ class WC_WooMercadoPago_Notification {
 	 * @param object $order Order.
 	 */
 	public function mp_rule_rejected( $data, $order ) {
-		if ( $this->can_update_order_status( $order ) ) {
+		if ( stcan_update_order_status( $order ) ) {
 			$order->update_status(
 				self::get_wc_status_for_mp_status( 'rejected' ),
 				'Mercado Pago: ' . __( 'Payment was declined. The customer can try again.', 'woocommerce-mercadopago' )
@@ -518,6 +521,32 @@ class WC_WooMercadoPago_Notification {
 			'Mercado Pago: ' . __(
 				'The payment is in mediation or the purchase was unknown by the customer.',
 				'woocommerce-mercadopago'
+			)
+		);
+	}
+
+	protected function can_update_order_status( $order ) {
+		return method_exists( $order, 'get_status' ) && $order->get_status() !== 'completed' && $order->get_status() !== 'processing';
+	}
+
+	protected function validate_order_note_type( $data, $order, $status ) {
+		$payment_id = $data['id'];
+
+		if ( isset( $data['ipn_type'] ) && 'merchant_order' === $data['ipn_type'] ) {
+			$payments = array();
+			foreach ( $data['payments'] as $payment ) {
+				$payments[] = $payment['id'];
+			}
+
+			$payment_id = implode( ',', $payments );
+		}
+
+		$order->add_order_note(
+			sprintf(
+			/* translators: 1: payment_id 2: status */
+				__( 'Mercado Pago: The payment %1$s was notified by Mercado Pago with status %2$s.', 'woocommerce-mercadopago' ),
+				$payment_id,
+				$status
 			)
 		);
 	}
