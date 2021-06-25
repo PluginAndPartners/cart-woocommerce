@@ -345,6 +345,7 @@ class WC_WooMercadoPago_Configs {
 					'wc_woomercadopago_custom_gateway',
 					'wc_woomercadopago_ticket_gateway',
 					'wc_woomercadopago_pix_gateway',
+          			'wc_woomercadopago_subscription_gateway',
 					'wc_woomercadopago_basicgateway',
 					'wc_woomercadopago_customgateway',
 					'wc_woomercadopago_ticketgateway',
@@ -368,6 +369,13 @@ class WC_WooMercadoPago_Configs {
 
 		if ( ( 'BR' === $wc_country && '' === $site_id ) || ( 'MLB' === $site_id ) ) {
 			$methods[] = 'WC_WooMercadoPago_Pix_Gateway';
+		}
+
+		// Prevent top show in predetermined country
+		if ( ( 'BR' === $wc_country && '' === $site_id ) || ( 'MLB' === $site_id ) ||
+		     ( 'AR' === $wc_country && '' === $site_id ) || ( 'MLA' === $site_id ) ||
+			 ( 'CH' === $wc_country && '' === $site_id ) || ( 'MLC' === $site_id ) ) {
+			$methods[] = 'WC_WooMercadoPago_Subscription_Gateway';
 		}
 
 		return $methods;

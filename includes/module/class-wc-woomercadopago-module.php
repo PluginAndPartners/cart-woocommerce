@@ -217,6 +217,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs {
 		include_once dirname( __FILE__ ) . '/../payments/hooks/class-wc-woomercadopago-hook-custom.php';
 		include_once dirname( __FILE__ ) . '/../payments/hooks/class-wc-woomercadopago-hook-ticket.php';
 		include_once dirname( __FILE__ ) . '/../payments/hooks/class-wc-woomercadopago-hook-pix.php';
+    include_once dirname( __FILE__ ) . '/../payments/hooks/class-wc-woomercadopago-hook-subscription.php';
 	}
 
 	/**
@@ -257,6 +258,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs {
 		include_once dirname( __FILE__ ) . '/../payments/class-wc-woomercadopago-custom-gateway.php';
 		include_once dirname( __FILE__ ) . '/../payments/class-wc-woomercadopago-ticket-gateway.php';
 		include_once dirname( __FILE__ ) . '/../payments/class-wc-woomercadopago-pix-gateway.php';
+    include_once dirname( __FILE__ ) . '/../payments/class-wc-woomercadopago-subscription-gateway.php';
 		add_filter( 'woocommerce_payment_gateways', array( $this, 'set_payment_gateway' ) );
 	}
 
