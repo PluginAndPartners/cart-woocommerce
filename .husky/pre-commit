@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run lint
+npm run build:js
+npm run build:css
+npm run pot
+git add *.min.js
+git add *.min.css
+git add *.pot

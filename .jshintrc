@@ -3,7 +3,6 @@
 	"curly": true,
 	"eqeqeq": true,
 	"eqnull": true,
-	"es3": true,
 	"expr": true,
 	"immed": true,
 	"noarg": true,
@@ -12,13 +11,15 @@
 	"trailing": true,
 	"undef": true,
 	"unused": true,
-
+	"esversion": 6,
 	"browser": true,
-
 	"globals": {
 		"_": false,
 		"Backbone": false,
 		"jQuery": false,
-		"wp": false
+		"wp": false,
+		"require": false,
+		"console": false,
+		"module": false
 	}
 }
