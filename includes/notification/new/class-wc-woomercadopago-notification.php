@@ -118,90 +118,59 @@ class WC_WooMercadoPago_Notification {
 	public function get_order( $data ) {
 		try {
 			if (
-				isset( $data['payment_id'] ) &&
-				isset( $data['external_reference'] ) &&
-				isset( $data['timestamp'] )
+				!isset( $data['payment_id'] ) &&
+				!isset( $data['external_reference'] ) &&
+				!isset( $data['timestamp'] )
 			) {
-				$credentials = new Credentials();
-				$secret	     = $credentials->get_access_token();
-
-				if ( is_null($secret) || empty($secret) ) {
-					$this->set_response( 500, null, 'Credentials not found' );
-				}
-
-				$auth  = Cryptography::encrypt( $data, $secret );
-				$token = Request::getBearerToken();
-
-				if ( !$token ) {
-					$this->set_response( 401, null, 'Unauthorized' );
-				} elseif ( $auth === $token ) {
-					$order = wc_get_order( $data['external_reference'] );				
-					
-					if ( $order ) {
-
-						if ( $this->should_update_meta_data( $order, $data['payment_id'] ) ) {
-							$this->update_mp_meta_data( $order, $data['payment_id'] );
-						}
-
-						$order_id = $order->get_id();
-
-						$response 						= array();
-						$response['order_id'] 			= $order_id;
-						$response['external_reference'] = $order_id;
-						$response['status'] 			= $this->get_wc_status_for_mp_status_mp($order->get_status());
-						$response['created_at'] 		= $order->get_date_created()->getTimestamp();
-						$response['total'] 				= $order->get_total();
-						$response['timestamp'] 			= time();
-						$response['hmac']				= '********************';
-
-						$this->log->write_log(
-							__FUNCTION__,
-							'Response: ' . wp_json_encode($response));
-
-						$hmac             = Cryptography::encrypt( $response, $secret );
-						$response['hmac'] = $hmac;
-
-						$this->set_response( 200, 'Success', $response );
-					} else {
-						$this->set_response( 404, null, 'Order not found' );
-					}
-				} else {
-					$this->set_response( 401, null, 'Unauthorized' );
-				}
-			} else {
-				$this->set_response(400, null, 'Missing fields');
+				return $this->set_response(400, null, 'Missing fields');
 			}
+
+			$credentials = new Credentials();
+			$secret	     = $credentials->get_access_token();
+
+			if ( is_null($secret) || empty($secret) ) {
+				$this->set_response( 500, null, 'Credentials not found' );
+			}
+
+			$auth  = Cryptography::encrypt( $data, $secret );
+			$token = Request::getBearerToken();
+
+			if ( !$token ) {
+				return $this->set_response( 401, null, 'Unauthorized' );
+			}
+			
+			if ( $auth !== $token ) {
+				return $this->set_response( 401, null, 'Unauthorized' );
+			}
+
+			$order = wc_get_order( $data['external_reference'] );				
+			
+			if ( !$order ) {
+				return $this->set_response( 404, null, 'Order not found' );
+			}
+
+			$order_id = $order->get_id();
+
+			$response 						= array();
+			$response['order_id'] 			= $order_id;
+			$response['external_reference'] = $order_id;
+			$response['status'] 			= $this->get_wc_status_for_mp_status_mp($order->get_status());
+			$response['created_at'] 		= $order->get_date_created()->getTimestamp();
+			$response['total'] 				= $order->get_total();
+			$response['timestamp'] 			= time();
+
+			$this->log->write_log(
+				__FUNCTION__,
+				'Response: ' . wp_json_encode($response));
+
+			$hmac             = Cryptography::encrypt( $response, $secret );
+			$response['hmac'] = $hmac;
+
+			return $this->set_response( 200, 'Success', $response );
+
 		} catch (Exception $e) {
-			$this->set_response(500, null, $e->getMessage());
+			return $this->set_response(500, null, $e->getMessage());
 		}
-	}
-
-	public function should_update_meta_data( $order, $payment_id ) {
-		//Woocommerce 3.0 later
-		if ( method_exists( $order, 'get_meta' ) ) {
-			$payment_id = $order->get_meta( 'Mercado Pago - Payment ' . $payment_id );
-		} else {
-			$payment_id = get_post_meta( $order->get_id(), 'Mercado Pago - Payment ' . $payment_id , true );
-		}
-		
-		if ( empty($payment_id) ) {
-			return true;
-		}
-		
-		return false;
-		
-	}
-
-	public function update_mp_meta_data( $order, $payment_id) {		
-		if ( method_exists( $order, 'update_meta_data' ) ) {
-			$order->update_meta_data( 'Mercado Pago - Payment ' . $payment_id , $payment_id );
-		} else {
-			update_post_meta( $order->get_id(), 'Mercado Pago - Payment ' . $payment_id , $payment_id );
-		}
-		$this->log->write_log(
-			__FUNCTION__,
-			'"Mercado Pago - Payment" meta data updated. Value: ' . $payment_id );
-		$order->save();
 	}
 
 	/**
