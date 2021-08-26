@@ -118,8 +118,8 @@ class WC_WooMercadoPago_Notification {
 	public function get_order( $data ) {
 		try {
 			if (
-				!isset( $data['payment_id'] ) &&
-				!isset( $data['external_reference'] ) &&
+				!isset( $data['payment_id'] ) || 
+				!isset( $data['external_reference'] ) ||
 				!isset( $data['timestamp'] )
 			) {
 				return $this->set_response(400, null, 'Missing fields');
