@@ -129,7 +129,7 @@ class WC_WooMercadoPago_Notification {
 			$secret	     = $credentials->get_access_token();
 
 			if ( is_null($secret) || empty($secret) ) {
-				$this->set_response( 500, null, 'Credentials not found' );
+				$this->set_response( 401, null, 'Unauthorized' );
 			}
 
 			$auth  = Cryptography::encrypt( $data, $secret );
@@ -197,7 +197,7 @@ class WC_WooMercadoPago_Notification {
 				$secret      = $credentials->get_access_token();
 
 				if ( is_null($secret) || empty($secret) ) {
-					$this->set_response( 500, null, 'Credentials not found' );
+					$this->set_response( 401, null, 'Unauthorized' );
 				}
 
 				$auth  = Request::getBearerToken();
