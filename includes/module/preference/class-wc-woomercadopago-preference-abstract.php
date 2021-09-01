@@ -430,12 +430,44 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 	}
 
 	/**
+	 * Get notification type
+	 *
+	 * @param $notification_url
+	 * @param $notification_class
+	 *
+	 * @return string
+	 */
+	public function get_notification_type( $notification_url, $notification_class ) {
+		$type               = WC_WooMercadoPago_Module::get_notification_type($notification_class);
+		$url_join_character = preg_match('#/wc-api/#', $notification_url) ? '?' : '&';
+		return sprintf('%s%ssource_news=%s', $notification_url, $url_join_character, $type);
+	}
+
+	/**
 	 * Get notification url
 	 *
 	 * @return string
 	 */
 	public function get_notification_url() {
-		return 'https://danielferreira.dev/plugins-notifier';
+		if ( ! strrpos( get_site_url(), 'localhost' ) ) {
+			$notification_url = $this->payment->custom_domain;
+			// Check if we have a custom URL.
+			if ( empty( $notification_url ) || filter_var( $notification_url, FILTER_VALIDATE_URL ) === false ) {
+				return $this->get_notification_type(
+					WC()->api_request_url( $this->notification_class ),
+					$this->notification_class
+				);
+			} else {
+				return $this->get_notification_type(
+							WC_WooMercadoPago_Module::fix_url_ampersand(
+								esc_url(
+										$notification_url . '/wc-api/' . $this->notification_class . '/'
+										)
+							),
+							$this->notification_class
+						);
+			}
+		}
 	}
 
 	/**
@@ -455,7 +487,7 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 						$store_url . '/wc-api/wc_mp_notification/'
 					)
 				);
-			}
+			}			
 		}
 	}
 
@@ -609,7 +641,7 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 	 */
 	public function get_date_of_expiration( $date_expiration ) {
 		if ( '' !== $date_expiration ) {
-			return gmdate( 'Y-m-d\TH:i:s.000O', strtotime( '+' . $date_expiration . ' days' ) );
+			return gmdate( 'Y-m-d\TH:i:s.000O', strtotime( '+' . $date_expiration ) );
 		}
 	}
 }

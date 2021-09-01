@@ -1,5 +1,32 @@
 CHANGELOG:
 == Changelog ==
+= 5.3.1 (12/08/2021) =
+* Bug fixes
+- Adjusted notification url, checking if it's a friendly url or not
+
+= 5.3.0 (10/08/2021) =
+* Features
+- Credentials order on painel
+- The seller can change checkout names
+
+= v5.2.1 (28/07/2021) =
+* Bug fixes
+- Return of blank space validation in PHP CodeSniffer
+- Adjusting all files that had the wrong spaces
+
+= v5.2.0 (26/07/2021) =
+* Features
+- New payment method Wallet Button (wallet purchase)
+- Added support to PHP 8
+- Added support to PHPUnit
+- Added support to source_news in notification
+
+* Bug fixes
+- Changed pix e-mail template
+- Removed gulp dependency
+- New pre-commit hooks
+
+
 = v5.1.1 (22/04/2021) =
 * Features
  - Added WooCommerce linter

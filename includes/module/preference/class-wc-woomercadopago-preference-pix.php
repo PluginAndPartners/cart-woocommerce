@@ -28,7 +28,7 @@ class WC_WooMercadoPago_Preference_Pix extends WC_WooMercadoPago_Preference_Abst
 	 */
 	public function __construct( $payment, $order, $pix_checkout ) {
 		parent::__construct( $payment, $order, $pix_checkout );
-		$pix_date_expiration                                   = $this->payment->get_option_mp( 'checkout_pix_date_expiration', '' );
+		$pix_date_expiration                                   = $this->adjust_pix_date_expiration();
 		$this->preference                                      = $this->make_commum_preference();
 		$this->preference['date_of_expiration']                = $this->get_date_of_expiration( $pix_date_expiration );
 		$this->preference['transaction_amount']                = $this->get_transaction_amount();
@@ -80,5 +80,26 @@ class WC_WooMercadoPago_Preference_Pix extends WC_WooMercadoPago_Preference_Abst
 			'checkout'      => 'custom',
 			'checkout_type' => 'pix',
 		);
+	}
+
+	/**
+	 * Adjust old format of pix date expiration
+	 *
+	 * @return string
+	 */
+	public function adjust_pix_date_expiration() {
+		$old_date_expiration = $this->payment->get_option_mp( 'checkout_pix_date_expiration', '' );
+
+		if ( 1 === strlen( $old_date_expiration ) && '1' === $old_date_expiration ) {
+			$new_date_expiration = '24 hours';
+			$this->payment->update_option( 'checkout_pix_date_expiration', $new_date_expiration, true);
+			return $new_date_expiration;
+		} elseif ( 1 === strlen( $old_date_expiration ) ) {
+			$new_date_expiration = $old_date_expiration . ' days';
+			$this->payment->update_option( 'checkout_pix_date_expiration', $new_date_expiration, true);
+			return $new_date_expiration;
+		}
+
+		return $old_date_expiration;
 	}
 }

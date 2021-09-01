@@ -244,6 +244,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs {
 		include_once dirname( __FILE__ ) . '/preference/class-wc-woomercadopago-preference-ticket.php';
 		include_once dirname( __FILE__ ) . '/preference/class-wc-woomercadopago-preference-pix.php';
 		include_once dirname( __FILE__ ) . '/preference/analytics/class-wc-woomercadopago-preferenceanalytics.php';
+		include_once dirname( __FILE__ ) . '/preference/class-wc-woomercadopago-preference-custom-wallet-button.php';
 	}
 
 	/**
@@ -676,4 +677,19 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs {
 		}
 		return $mobile;
 	}
+
+	/**
+	 *
+	 * Get notification type by the payment class
+	 *
+	 * @return string
+	 */
+	public static function get_notification_type( $notification_type ) {
+		$types['WC_WooMercadoPago_Basic_Gateway']  = 'ipn';
+		$types['WC_WooMercadoPago_Custom_Gateway'] = 'webhooks';
+		$types['WC_WooMercadoPago_Pix_Gateway']    = 'webhooks';
+		$types['WC_WooMercadoPago_Ticket_Gateway'] = 'webhooks';
+		return $types[$notification_type];
+	}
+
 }

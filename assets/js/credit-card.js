@@ -782,9 +782,15 @@
         return true;
       }
 
+      if ($('#mp_checkout_type').val() === 'wallet_button') {
+      	return true;
+	  }
+
       if (!document.getElementById('payment_method_woo-mercado-pago-custom').checked) {
         return true;
       }
+
+      $('#mp_checkout_type').val('custom');
 
       if (validateInputsCreateToken()) {
         return createToken();
@@ -795,12 +801,12 @@
 
     // Process when submit the checkout form.
     $('form.checkout').on('checkout_place_order_woo-mercado-pago-custom', function () {
-      return mercadoPagoFormHandler();
+		return mercadoPagoFormHandler();
     });
 
     // If payment fail, retry on next checkout page
     $('form#order_review').submit(function () {
-      return mercadoPagoFormHandler();
+    	return mercadoPagoFormHandler();
     });
   });
 }(jQuery));

@@ -17,6 +17,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="mp-panel-custom-checkout">
 	<div class="mp-row-checkout">
 
+		<?php if ( 'yes' === $wallet_button ) : ?>
+			<div class="mp-wallet-button">
+				<div class="mp-wallet-button-header">
+					<div class="mp-wallet-button-logo">
+						<div class="mp-wallet-button-circle">
+							<img src="<?php echo esc_url( plugins_url( '../assets/images/minilogo.png', plugin_dir_path( __FILE__ ) ) ); ?>">
+						</div>
+					</div>
+					<div class="mp-wallet-button-info">
+						<div class="mp-wallet-button-info-header">
+							<b><?php echo esc_html__( 'Use your Mercado Pago', 'woocommerce-mercadopago' ); ?></b>
+						</div>
+						<div class="mp-wallet-button-info-description">
+							<?php echo esc_html__( 'Buy with a stored card without filling in more data.', 'woocommerce-mercadopago' ); ?>
+						</div>
+					</div>
+				</div>
+				<div class="mp-wallet-button-pay">
+					<button id="mp-wallet-button" onclick="submitWalletButton(event)"><?php echo esc_html__( 'Pay with a saved card', 'woocommerce-mercadopago' ); ?></button>
+				</div>
+			</div>
+		<?php endif; ?>
+
 		<!-- Links cards can pay | current promotions only Argentina -->
 		<div class="mp-frame-links">
 			<a class="mp-checkout-link mp-pr-10" id="button-show-payments">
@@ -30,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php endif; ?>
 		</div>
 
-		<!-- Frame with cards acepteds -->
+		<!-- Frame with cards accepted -->
 		<div class="mp-frame-payments" id="mp-frame-payments">
 			<div class="mp-col-md-12">
 				<div class="frame-tarjetas">
@@ -215,6 +238,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="hidden" id="mp-discount" name="mercadopago_custom[discount]" />
 			<input type="hidden" id="paymentMethodId" name="mercadopago_custom[paymentMethodId]" />
 			<input type="hidden" id="token" name="mercadopago_custom[token]" />
+			<input type="hidden" id="mp_checkout_type" name="mercadopago_custom[checkout_type]" value="custom" />
 		</div>
 
 	</div>
@@ -268,5 +292,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}catch(e){
 			return false;
 		}
+	}
+
+	function submitWalletButton(event) {
+		event.preventDefault();
+		jQuery('#mp_checkout_type').val('wallet_button');
+		jQuery('form.checkout, form#order_review').submit();
 	}
 </script>

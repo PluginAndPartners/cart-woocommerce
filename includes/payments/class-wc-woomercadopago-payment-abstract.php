@@ -135,7 +135,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	 *
 	 * @var string
 	 */
-	public $installments;
+	public $installments = 1;
 
 	/**
 	 * Form fields
@@ -611,8 +611,6 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 		$this->init_form_fields();
 		$this->init_settings();
 		$form_fields                           = array();
-		$form_fields['title']                  = $this->field_title();
-		$form_fields['description']            = $this->field_description();
 		$form_fields['checkout_steps']         = $this->field_checkout_steps();
 		$form_fields['checkout_country_title'] = $this->field_checkout_country_title();
 		$form_fields['checkout_country']       = $this->field_checkout_country( $this->wc_country, $this->checkout_country );
@@ -653,6 +651,8 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 				$form_fields['checkout_advanced_settings']             = $this->field_checkout_advanced_settings();
 				$form_fields['_mp_debug_mode']                         = $this->field_debug_mode();
 				$form_fields['enabled']                                = $this->field_enabled( $label );
+				$form_fields['title']                                  = $this->field_title();
+				$form_fields['description']                            = $this->field_description();
 				$form_fields['_mp_custom_domain']                      = $this->field_custom_url_ipn();
 				$form_fields['gateway_discount']                       = $this->field_gateway_discount();
 				$form_fields['commission']                             = $this->field_commission();
@@ -684,8 +684,10 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 		$field_title = array(
 			'title'       => __( 'Title', 'woocommerce-mercadopago' ),
 			'type'        => 'text',
-			'description' => '',
-			'class'       => 'hidden-field-mp-title mp-hidden-field',
+			'description' => __('Change the display text in Checkout, maximum characters: 85', 'woocommerce-mercadopago'),
+			'maxlength'   => 100,
+			'desc_tip'    => __( 'If you change the display text, no translatation will be available', 'woocommerce-mercadopago' ),
+			'class'       => 'limit-title-max-length',
 			'default'     => $this->title,
 		);
 		return $field_title;
@@ -700,7 +702,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 		$field_description = array(
 			'title'       => __( 'Description', 'woocommerce-mercadopago' ),
 			'type'        => 'text',
-			'class'       => 'hidden-field-mp-desc mp-hidden-field',
+			'class'       => 'hidden-field-mp-desc',
 			'description' => '',
 			'default'     => $this->method_description,
 		);
@@ -1339,6 +1341,25 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Get Country Link to Mercado Pago
+	 *
+	 * @param string $checkout Checkout by country.
+	 * @return string
+	 */
+	public function get_country_link_mp( $checkout ) {
+		$country_link = array(
+			'mla' => 'https://www.mercadopago.com.ar/',   // Argentinian.
+			'mlb' => 'https://www.mercadopago.com.br/',   // Brazil.
+			'mlc' => 'https://www.mercadopago.cl/',       // Chile.
+			'mco' => 'https://www.mercadopago.com.co/',   // Colombia.
+			'mlm' => 'https://www.mercadopago.com.mx/',   // Mexico.
+			'mpe' => 'https://www.mercadopago.com.pe/',   // Peru.
+			'mlu' => 'https://www.mercadopago.com.uy/',   // Uruguay.
+		);
+		return $country_link[ $checkout ];
+	}
+
+	/**
 	 * Field Custom URL IPN
 	 *
 	 * @return array
@@ -1537,6 +1558,65 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			'title' => $message_support_problem,
 			'type'  => 'title',
 			'class' => 'mp-text-support',
+		);
+	}
+
+	/**
+	 * Field Installments and Interest Configuration Title
+	 *
+	 * @return array
+	 */
+	public function field_mp_psj_title( $checkout ) {
+
+		if ( 'mco' !== $checkout ) {
+			$message_support_title = __( 'Set up your installment and interest payments', 'woocommerce-mercadopago' );
+		} else {
+			$message_support_title = __( 'Set up your interest payments', 'woocommerce-mercadopago' );
+		}
+		return array(
+			'title' => $message_support_title,
+			'type'  => 'title',
+			'class' => 'mp_subtitle_bd_mb mp-mg-0',
+		);
+	}
+
+	/**
+	 * Field Installments and Interest Configuration Description
+	 *
+	 * @return array
+	 */
+	public function field_mp_psj_description( $checkout ) {
+
+		if ( 'mco' !== $checkout ) {
+			$message_support_description = __( 'At Mercado Pago you can choose the fee you pay for each purchase and also offer interest-free installments to your customer.', 'woocommerce-mercadopago' );
+		} else {
+			$message_support_description = __( 'At Mercado Pago you can choose the fee you pay for each purchase', 'woocommerce-mercadopago' );
+		}
+
+		return array(
+			'title' => $message_support_description,
+			'type'  => 'title',
+			'class' => 'mp_small_text',
+		);
+	}
+
+	/**
+	 * Field Installments and Interest Configuration Description Link
+	 *
+	 * @return array
+	 */
+	public function field_mp_psj_description_link( $checkout ) {
+
+		if ( 'mco' !== $checkout ) {
+			$message_link = __( 'Set up installment and interest', 'woocommerce-mercadopago' );
+		} else {
+			$message_link = __( 'Set up interest payments', 'woocommerce-mercadopago' );
+		}
+
+		return array(
+			'title' => '<a href="' . $this->get_country_link_mp( $this->checkout_country ) . 'costs-section#from-section=menu" target="_blank">' . $message_link . '</a>',
+			'type'  => 'title',
+			'class' => 'mp_tienda_link',
 		);
 	}
 

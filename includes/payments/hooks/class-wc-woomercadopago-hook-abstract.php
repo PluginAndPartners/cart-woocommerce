@@ -20,7 +20,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract {
 	/**
 	 * Payment class
 	 *
-	 * @var WC_WooMercadoPago_Payment_Abstract
+	 * @var WC_WooMercadoPago_Payment_Abstract | WC_WooMercadoPago_Basic_Gateway | WC_WooMercadoPago_Custom_Gateway
 	 */
 	public $payment;
 

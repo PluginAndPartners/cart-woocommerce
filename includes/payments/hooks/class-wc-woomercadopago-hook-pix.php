@@ -27,7 +27,6 @@ class WC_WooMercadoPago_Hook_Pix extends WC_WooMercadoPago_Hook_Abstract {
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_checkout_scripts_pix' ) );
 			add_action( 'woocommerce_after_checkout_form', array( $this, 'add_mp_settings_script_pix' ) );
 			add_action( 'woocommerce_thankyou_' . $this->payment->id, array( $this, 'update_mp_settings_script_pix' ) );
-			add_filter( 'woocommerce_gateway_title', array( $this, 'add_badge_new' ), 10, 2 );
 		}
 	}
 
@@ -128,8 +127,7 @@ class WC_WooMercadoPago_Hook_Pix extends WC_WooMercadoPago_Hook_Abstract {
 			'currency'            => $currency_symbol[ $this->payment->get_option_mp( '_site_id_v1' ) ]['currency_symbol'],
 			'text_scan_qr'        => __( 'Scan the QR code:', 'woocommerce-mercadopago' ),
 			'text_time_qr_one'    => __( 'Code valid for ', 'woocommerce-mercadopago' ),
-			'qr_date_expiration'  => $this->payment->get_option_mp( 'checkout_pix_date_expiration', '1' ),
-			'text_time_qr_two'    => ( 1 < $this->payment->get_option_mp( 'checkout_pix_date_expiration', '1' ) ? __( ' days', 'woocommerce-mercadopago' ) : __( ' day', 'woocommerce-mercadopago' ) ),
+			'qr_date_expiration'  => __($this->payment->get_option_mp( 'checkout_pix_date_expiration', '30 minutes' ), 'woocommerce-mercadopago' ),
 			'text_description_qr' => __( 'If you prefer, you can pay by copying and pasting the following code', 'woocommerce-mercadopago' ),
 			'qr_code'             => $qr_code,
 			'text_button'         => __( 'Copy code', 'woocommerce-mercadopago' ),
@@ -150,31 +148,5 @@ class WC_WooMercadoPago_Hook_Pix extends WC_WooMercadoPago_Hook_Abstract {
 			array(),
 			WC_WooMercadoPago_Constants::VERSION
 		);
-	}
-
-	/**
-	 * Add Badge New
-	 *
-	 * @param string $title Title.
-	 * @param string $id Id.
-	 *
-	 * @return string
-	 */
-	public function add_badge_new( $title, $id ) {
-		if ( ! preg_match( '/woo-mercado-pago/', $id ) ) {
-			return $title;
-		}
-
-		if ( $id !== $this->payment->id ) {
-			return $title;
-		}
-
-		if ( ! is_checkout() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			return $title;
-		}
-
-			$title .= '<small class="mp-pix-checkout-title-badge">' . __( 'New', 'woocommerce-mercadopago' ) . '</small>';
-
-		return $title;
 	}
 }

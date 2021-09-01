@@ -26,16 +26,17 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 	 * @throws WC_WooMercadoPago_Exception Load payment exception.
 	 */
 	public function __construct() {
-		$this->id = self::ID;
+		$this->id          = self::ID;
+		$this->description = __( 'Accept cash payments within the custom checkout and expand your customers purchase options.', 'woocommerce-mercadopago' );
+		$this->title       = __( 'Pay with cash', 'woocommerce-mercadopago' );
 
 		if ( ! $this->validate_section() ) {
 			return;
 		}
 
-		$this->description        = __( 'Accept cash payments within the custom checkout and expand your customers purchase options.', 'woocommerce-mercadopago' );
 		$this->form_fields        = array();
 		$this->method_title       = __( 'Mercado Pago - Custom Checkout', 'woocommerce-mercadopago' );
-		$this->title              = __( 'Pay with cash', 'woocommerce-mercadopago' );
+		$this->title              = $this->get_option_mp( 'title', __( 'Pay with cash', 'woocommerce-mercadopago' ) );
 		$this->method_description = $this->description;
 		$this->coupon_mode        = $this->get_option_mp( 'coupon_mode', 'no' );
 		$this->stock_reduce_mode  = $this->get_option_mp( 'stock_reduce_mode', 'no' );
@@ -111,7 +112,6 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 	public function get_fields_sequence() {
 		return array(
 			// Necessary to run.
-			'title',
 			'description',
 			// Checkout de pagos con dinero en efectivo<br> Aceptá pagos al instante y maximizá la conversión de tu negocio.
 			'checkout_ticket_header',
@@ -128,14 +128,14 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			'checkout_credential_mod_prod_description',
 			'checkout_credential_prod',
 			'checkout_credential_link',
-			'checkout_credential_title_test',
-			'checkout_credential_description_test',
-			'_mp_public_key_test',
-			'_mp_access_token_test',
 			'checkout_credential_title_prod',
 			'checkout_credential_description_prod',
 			'_mp_public_key_prod',
 			'_mp_access_token_prod',
+			'checkout_credential_title_test',
+			'checkout_credential_description_test',
+			'_mp_public_key_test',
+			'_mp_access_token_test',
 			// No olvides de homologar tu cuenta.
 			'checkout_homolog_title',
 			'checkout_homolog_subtitle',
@@ -155,6 +155,7 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			'checkout_payments_subtitle',
 			'checkout_ticket_payments_description',
 			'enabled',
+			'title',
 			WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
 			'field_ticket_payments',
 			'date_expiration',

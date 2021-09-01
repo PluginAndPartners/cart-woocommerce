@@ -33,6 +33,7 @@ class WC_WooMercadoPago_Configs {
 	 */
 	private function show_notices() {
 		add_action( 'admin_notices', array( $this, 'plugin_review' ) );
+		add_action( 'admin_notices', array( $this, 'saved_cards_notice' ) );
 
 		if ( empty( get_option( '_mp_public_key_prod' ) ) && empty( get_option( '_mp_access_token_prod' ) ) ) {
 			if ( ! empty( get_option( '_mp_client_id' ) ) && ! empty( get_option( '_mp_client_secret' ) ) ) {
@@ -138,21 +139,46 @@ class WC_WooMercadoPago_Configs {
 		WC_WooMercadoPago_Notices::get_alert_frame( $message, $type );
 	}
 
+	private function must_not_show_notice() {
+		$pages_to_show    = array( 'dashboard', 'plugins', 'woocommerce_page_wc-settings' );
+		$dismissed_review = (int) get_option( '_mp_dismiss_review', 0 );
+
+		return ! in_array( get_current_screen()->id, $pages_to_show, true ) || 0 !== $dismissed_review;
+	}
+
+	private function must_not_show_saved_cards_notice() {
+		$pages_to_show    = array( 'dashboard', 'plugins', 'woocommerce_page_wc-settings' );
+		$dismissed_review = (int) get_option( '_mp_dismiss_saved_cards_notice', 0 );
+
+		return ! in_array( get_current_screen()->id, $pages_to_show, true ) || 0 !== $dismissed_review;
+	}
+
 	/**
 	 * Plugin review
 	 *
 	 * @return false
 	 */
 	public function plugin_review() {
-		$pages_to_show    = array( 'dashboard', 'plugins', 'woocommerce_page_wc-settings' );
-		$dismissed_review = (int) get_option( '_mp_dismiss_review', 0 );
-
-		if ( ! in_array( get_current_screen()->id, $pages_to_show, true ) || 0 !== $dismissed_review ) {
+		if ( $this->must_not_show_notice() ) {
 			return false;
 		}
 		// @todo need fix HTML escaping to template
 		// @codingStandardsIgnoreLine
 		echo WC_WooMercadoPago_Review_Notice::get_plugin_review_banner();
+	}
+
+	/**
+	 * Saved Cards Notice
+	 *
+	 * @return false
+	*/
+	public function saved_cards_notice() {
+		if ( $this->must_not_show_saved_cards_notice() ) {
+			return false;
+		}
+		// @todo need fix HTML escaping to template
+		// @codingStandardsIgnoreLine
+		echo WC_WooMercadoPago_Saved_Cards::get_plugin_review_banner();
 	}
 
 	/**

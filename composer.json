@@ -1,6 +1,7 @@
 {
     "require-dev": {
-        "woocommerce/woocommerce-sniffs": "^0.1.0"
+        "woocommerce/woocommerce-sniffs": "^0.1.0",
+        "phpunit/phpunit": "^7"
     },
     "scripts": {
         "phpcs": [
@@ -10,6 +11,10 @@
         "phpcbf": [
             "Composer\\Config::disableProcessTimeout",
             "phpcbf --standard=phpcs.xml includes templates woocommerce-mercadopago.php "
+        ],
+        "phpunit": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit"
         ]
     },
   "require": {

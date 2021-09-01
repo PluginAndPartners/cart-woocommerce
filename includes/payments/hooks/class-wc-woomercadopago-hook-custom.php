@@ -28,6 +28,15 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract {
 			add_action( 'woocommerce_after_checkout_form', array( $this, 'add_mp_settings_script_custom' ) );
 			add_action( 'woocommerce_thankyou', array( $this, 'update_mp_settings_script_custom' ) );
 		}
+
+		add_action(
+			'woocommerce_receipt_' . $this->payment->id,
+			function ( $order ) {
+				// @todo using escaping function
+				// @codingStandardsIgnoreLine
+				$this->render_order_form( $order );
+			}
+		);
 	}
 
 	/**
@@ -39,7 +48,7 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract {
 		if ( ! isset( $_POST['mercadopago_custom'] ) ) {
 			return;
 		}
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) || is_cart() ) {
+		if ( ( is_admin() && ! defined( 'DOING_AJAX' ) ) || is_cart() ) {
 			return;
 		}
 		// @todo needs processing form data without nonce verification.
@@ -107,5 +116,35 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract {
 		// @todo transform js return
 		// @codingStandardsIgnoreLine
 		echo parent::update_mp_settings_script( $order_id );
+	}
+
+	/**
+	 * Render wallet button page
+	 *
+	 * @param $order_id
+	 */
+	public function render_order_form( $order_id ) {
+		$isWallet = get_query_var('wallet_button', false);
+
+		if ( $isWallet ) {
+			/**
+			 * WooCommerce Order
+			 *
+			 * @var WC_Order $order
+			 */
+			$order      = wc_get_order( $order_id );
+			$preference = $this->payment->create_preference_wallet_button( $order );
+
+			wc_get_template(
+				'receipt/custom-checkout.php',
+				array(
+					'preference_id' => $preference['id'],
+					'cancel_url' => $order->get_cancel_order_url(),
+					'public_key' => $this->payment->get_public_key(),
+				),
+				'woo/mercado/pago/module/',
+				WC_WooMercadoPago_Module::get_templates_path()
+			);
+		}
 	}
 }

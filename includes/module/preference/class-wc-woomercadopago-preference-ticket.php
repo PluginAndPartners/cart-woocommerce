@@ -28,7 +28,7 @@ class WC_WooMercadoPago_Preference_Ticket extends WC_WooMercadoPago_Preference_A
 	 */
 	public function __construct( $payment, $order, $ticket_checkout ) {
 		parent::__construct( $payment, $order, $ticket_checkout );
-		$date_expiration                        = $payment->get_option_mp( 'date_expiration', '' );
+		$date_expiration                        = $payment->get_option_mp( 'date_expiration', '' ) . ' days';
 		$this->preference                       = $this->make_commum_preference();
 		$this->preference['date_of_expiration'] = $this->get_date_of_expiration( $date_expiration );
 		$this->preference['transaction_amount'] = $this->get_transaction_amount();
