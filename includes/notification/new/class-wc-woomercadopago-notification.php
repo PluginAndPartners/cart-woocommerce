@@ -100,7 +100,7 @@ class WC_WooMercadoPago_Notification {
 				if ( ! $this->valid_get_payload( $data ) ) {
 					return $this->set_response(400, null, 'Missing fields');
 				}
-				
+
 				$order = wc_get_order( $data['external_reference'] );
 
 				if ( ! $order ) {
