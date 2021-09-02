@@ -94,13 +94,13 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public function get_order( $data ) {
 		try {
-			if ( ! $this->valid_get_payload( $data ) ) {
-				return $this->set_response(400, null, 'Missing fields');
-			}
-
 			$secret = $this->get_credentials();
 
 			if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
+				if ( ! $this->valid_get_payload( $data ) ) {
+					return $this->set_response(400, null, 'Missing fields');
+				}
+				
 				$order = wc_get_order( $data['external_reference'] );
 
 				if ( ! $order ) {
@@ -130,10 +130,10 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public function post_order( $data ) {
 		try {
-			if ( $this->valid_post_payload( $data ) ) {
-				$secret = $this->get_credentials();
+			$secret = $this->get_credentials();
+			if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
 
-				if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
+				if ( $this->valid_post_payload( $data ) ) {
 					$order = wc_get_order( $data['external_reference'] );
 
 					$response         = $this->build_post_response( $data, $order );
@@ -142,10 +142,10 @@ class WC_WooMercadoPago_Notification {
 
 					$this->set_response(200, null, $response );
 				} else {
-					$this->set_response(401, null, 'Unauthorized');
+					$this->set_response(400, null, 'Missing fields');
 				}
 			} else {
-				$this->set_response(400, null, 'Missing fields');
+				$this->set_response(401, null, 'Unauthorized');
 			}
 		} catch ( Exception $e ) {
 			$this->set_response(500, null, $e->getMessage());
@@ -185,17 +185,19 @@ class WC_WooMercadoPago_Notification {
 	/**
 	 * Valid Get Request payload
 	 */
+	/* TODO: [PPWP-228] Validate if Core send necessary fields to build response
 	public function valid_get_payload( $data ) {
 		return ( isset( $data['payment_id'] ) &&
 				isset( $data['external_reference'] ) &&
 				isset( $data['timestamp'] ) &&
 				isset( $data['payment_date_created'] ) &&
 				isset( $data['host'] ) );
-	}
+	}*/
 
 	/**
 	 * Valid Post Request payload
 	 */
+	/* TODO: [PPWP-228] Validate if Core send necessary fields to build response
 	public function valid_post_payload( $data ) {
 		return ( isset( $data['status'] ) &&
 				isset( $data['host'] ) &&
@@ -213,7 +215,7 @@ class WC_WooMercadoPago_Notification {
 				isset( $data['email'] ) &&
 				isset( $data['total_paid'] ) &&
 				isset( $data['total_refunded'] ) );
-	}
+	}*/
 
 	/**
 	 * Build Get Method Response
