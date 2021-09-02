@@ -100,10 +100,6 @@ class WC_WooMercadoPago_Notification {
 
 			$secret = $this->get_credentials();
 
-			if ( is_null($secret) || empty($secret) ) {
-				$this->set_response( 401, null, 'Unauthorized' );
-			}
-
 			if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
 				$order = wc_get_order( $data['external_reference'] );
 
@@ -136,10 +132,6 @@ class WC_WooMercadoPago_Notification {
 		try {
 			if ( $this->valid_post_payload( $data ) ) {
 				$secret = $this->get_credentials();
-
-				if ( is_null($secret) || empty($secret) ) {
-					$this->set_response( 401, null, 'Unauthorized' );
-				}
 
 				if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
 					$order = wc_get_order( $data['external_reference'] );
@@ -262,6 +254,10 @@ class WC_WooMercadoPago_Notification {
 	 * Verify if received HMAC is valid.
 	 */
 	public function assert_payload_hmac_is_valid( $data, $secret ) {
+		if ( $this->secret_is_null_or_empty( $secret ) ) {
+			return false;
+		}
+
 		$auth  = Cryptography::encrypt( $data, $secret );
 		$token = Request::getBearerToken();
 
@@ -274,6 +270,14 @@ class WC_WooMercadoPago_Notification {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Valid HMAC Secret
+	 */
+
+	public function secret_is_null_or_empty( $secret ) {
+		return is_null( $secret ) || empty( $secret );
 	}
 
 	/**
