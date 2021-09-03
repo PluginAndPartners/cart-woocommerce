@@ -185,19 +185,19 @@ class WC_WooMercadoPago_Notification {
 	/**
 	 * Valid Get Request payload
 	 */
-	/* TODO: [PPWP-228] Validate if Core send necessary fields to build response
+	// TODO: [PPWP-228] Validate if Core send necessary fields to build response
 	public function valid_get_payload( $data ) {
 		return ( isset( $data['payment_id'] ) &&
 				isset( $data['external_reference'] ) &&
 				isset( $data['timestamp'] ) &&
 				isset( $data['payment_date_created'] ) &&
 				isset( $data['host'] ) );
-	}*/
+	}
 
 	/**
 	 * Valid Post Request payload
 	 */
-	/* TODO: [PPWP-228] Validate if Core send necessary fields to build response
+	// TODO: [PPWP-228] Validate if Core send necessary fields to build response
 	public function valid_post_payload( $data ) {
 		return ( isset( $data['status'] ) &&
 				isset( $data['host'] ) &&
@@ -215,7 +215,7 @@ class WC_WooMercadoPago_Notification {
 				isset( $data['email'] ) &&
 				isset( $data['total_paid'] ) &&
 				isset( $data['total_refunded'] ) );
-	}*/
+	}
 
 	/**
 	 * Build Get Method Response
