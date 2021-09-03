@@ -26,7 +26,7 @@ class Cryptography {
 
 		$data = '';
 
-		foreach ($parameters as $key=>$value) {
+		foreach ( $parameters as $key => $value ) {
 			$data .= $key . '=' . $value . '&';
 		}
 
@@ -36,21 +36,21 @@ class Cryptography {
 	}
 
 	public static function verify( $key, $hmac ) {
-		if (hash_equals($key, $hmac)) {
+		if ( hash_equals($key, $hmac) ) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	public static function encrypt( $data, $secret ) {
-		if (!empty($secret) && !empty($data)) {
+		if ( ! empty($secret) && ! empty($data) ) {
 			try {
 				$string = self::obj_to_string($data);
 				$hmac   = hash_hmac('sha256', $string, $secret, true);
 				$key    = base64_encode($hmac);// phpcs:ignore
 				return $key;
-			} catch (Exception $e) {
-				$message =  "Error while encrypting. <br> $e";
+			} catch ( Exception $e ) {
+				$message = "Error while encrypting. <br> $e";
 				return $message;
 			}
 		} else {
@@ -58,5 +58,5 @@ class Cryptography {
 		}
 	}
 
-	
+
 }

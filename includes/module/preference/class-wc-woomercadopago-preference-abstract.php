@@ -487,7 +487,7 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 						$store_url . '/wc-api/wc_mp_notification/'
 					)
 				);
-			}			
+			}
 		}
 	}
 

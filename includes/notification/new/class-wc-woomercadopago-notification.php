@@ -81,34 +81,11 @@ class WC_WooMercadoPago_Notification {
 	 * Check response
 	 */
 	public function check_mp_response() {
-		if (isset($_SERVER['REQUEST_METHOD'])) {
+		if ( isset($_SERVER['REQUEST_METHOD']) ) {
 			// @codingStandardsIgnoreLine
 			$method = $_SERVER['REQUEST_METHOD'];
 
-			switch ($method) {
-				case 'GET':
-					$this->log->write_log(
-						__FUNCTION__,
-						// @codingStandardsIgnoreLine
-						'Request GET from Core Notifier: ' . wp_json_encode($_GET)
-					);
-					// @codingStandardsIgnoreLine
-					$this->get_order($_GET);
-					break;
-
-				case 'POST':
-					$post = Request::getJsonBody();
-					$this->log->write_log(
-						__FUNCTION__,
-						'Request POST from Core Notifier: ' . wp_json_encode($post)
-					);
-					$this->post_order($post);
-					break;
-
-				default:
-					$this->set_response( 405, null, 'Method not allowed' );
-					break;
-			}
+			$this->retrieve_http_method( $method );
 		}
 	}
 
@@ -117,47 +94,20 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public function get_order( $data ) {
 		try {
-			if (
-				!isset( $data['payment_id'] ) || 
-				!isset( $data['external_reference'] ) ||
-				!isset( $data['timestamp'] )
-			) {
-				return $this->set_response(400, null, 'Missing fields');
-			}
+			$secret = $this->get_credentials();
 
-			$credentials = new Credentials();
-			$secret	     = $credentials->get_access_token();
+			if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
+				if ( ! $this->valid_get_payload( $data ) ) {
+					return $this->set_response(400, null, 'Missing fields');
+				}
 
-			if ( is_null($secret) || empty($secret) ) {
-				$this->set_response( 401, null, 'Unauthorized' );
-			}
+				$order = wc_get_order( $data['external_reference'] );
 
-			$auth  = Cryptography::encrypt( $data, $secret );
-			$token = Request::getBearerToken();
+				if ( ! $order ) {
+					return $this->set_response( 404, null, 'Order not found' );
+				}
 
-			if ( !$token ) {
-				return $this->set_response( 401, null, 'Unauthorized' );
-			}
-			
-			if ( $auth !== $token ) {
-				return $this->set_response( 401, null, 'Unauthorized' );
-			}
-
-			$order = wc_get_order( $data['external_reference'] );				
-			
-			if ( !$order ) {
-				return $this->set_response( 404, null, 'Order not found' );
-			}
-
-			$order_id = $order->get_id();
-
-			$response 						= array();
-			$response['order_id'] 			= $order_id;
-			$response['external_reference'] = $order_id;
-			$response['status'] 			= $this->get_wc_status_for_mp_status_mp($order->get_status());
-			$response['created_at'] 		= $order->get_date_created()->getTimestamp();
-			$response['total'] 				= $order->get_total();
-			$response['timestamp'] 			= time();
+			$response = $this->build_get_response( $order );
 
 			$this->log->write_log(
 				__FUNCTION__,
@@ -167,8 +117,10 @@ class WC_WooMercadoPago_Notification {
 			$response['hmac'] = $hmac;
 
 			return $this->set_response( 200, 'Success', $response );
-
-		} catch (Exception $e) {
+			} else {
+				return $this->set_response( 401, null, 'Unauthorized' );
+			}
+		} catch ( Exception $e ) {
 			return $this->set_response(500, null, $e->getMessage());
 		}
 	}
@@ -178,11 +130,81 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public function post_order( $data ) {
 		try {
-			if (
-				isset( $data['status'] ) &&
+			$secret = $this->get_credentials();
+			if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
+
+				if ( $this->valid_post_payload( $data ) ) {
+					$order = wc_get_order( $data['external_reference'] );
+
+					$response         = $this->build_post_response( $data, $order );
+					$hmac             = Cryptography::encrypt($response, $secret);
+					$response['hmac'] = $hmac;
+
+					$this->set_response(200, null, $response );
+				} else {
+					$this->set_response(400, null, 'Missing fields');
+				}
+			} else {
+				$this->set_response(401, null, 'Unauthorized');
+			}
+		} catch ( Exception $e ) {
+			$this->set_response(500, null, $e->getMessage());
+		}
+	}
+
+	/**
+	 * Check which HTTP Method has been received
+	 */
+	public function retrieve_http_method( $method ) {
+		switch ( $method ) {
+			case 'GET':
+				$this->log->write_log(
+					__FUNCTION__,
+					// @codingStandardsIgnoreLine
+					'Request GET from Core Notifier: ' . wp_json_encode($_GET)
+				);
+				// @codingStandardsIgnoreLine
+				$this->get_order($_GET);
+				break;
+
+			case 'POST':
+				$post = Request::getJsonBody();
+				$this->log->write_log(
+					__FUNCTION__,
+					'Request POST from Core Notifier: ' . wp_json_encode($post)
+				);
+				$this->post_order($post);
+				break;
+
+			default:
+				$this->set_response( 405, null, 'Method not allowed' );
+				break;
+		}
+	}
+
+	/**
+	 * Valid Get Request payload
+	 */
+	// TODO: [PPWP-228] Validate if Core send necessary fields to build response
+	public function valid_get_payload( $data ) {
+		return ( isset( $data['payment_id'] ) &&
+				isset( $data['external_reference'] ) &&
+				isset( $data['timestamp'] ) &&
+				isset( $data['payment_date_created'] ) &&
+				isset( $data['host'] ) );
+	}
+
+	/**
+	 * Valid Post Request payload
+	 */
+	// TODO: [PPWP-228] Validate if Core send necessary fields to build response
+	public function valid_post_payload( $data ) {
+		return ( isset( $data['status'] ) &&
+				isset( $data['host'] ) &&
 				isset( $data['timestamp'] ) &&
 				isset( $data['payment_id'] ) &&
 				isset( $data['external_reference'] ) &&
+				isset( $data['plugin_reference'] ) &&
 				isset( $data['checkout'] ) &&
 				isset( $data['checkout_type'] ) &&
 				isset( $data['order_id'] ) &&
@@ -190,40 +212,74 @@ class WC_WooMercadoPago_Notification {
 				isset( $data['payment_method_id'] ) &&
 				isset( $data['payment_created_at'] ) &&
 				isset( $data['total'] ) &&
+				isset( $data['email'] ) &&
 				isset( $data['total_paid'] ) &&
-				isset( $data['total_refunded'] )
-			) {
-				$credentials = new Credentials();
-				$secret      = $credentials->get_access_token();
+				isset( $data['total_refunded'] ) );
+	}
 
-				if ( is_null($secret) || empty($secret) ) {
-					$this->set_response( 401, null, 'Unauthorized' );
-				}
+	/**
+	 * Build Get Method Response
+	 */
+	public function build_get_response( $order ) {
+		$order_id = $order->get_id();
 
-				$auth  = Request::getBearerToken();
-				$token = Cryptography::encrypt( $data, $secret );
+		$response                       = array();
+		$response['order_id']           = $order_id;
+		$response['external_reference'] = $order_id;
+		$response['status']             = $this->get_wc_status_for_mp_status_mp($order->get_status());
+		$response['created_at']         = $order->get_date_created()->getTimestamp();
+		$response['total']              = $order->get_total();
+		$response['timestamp']          = time();
 
-				if ($token === $auth) {
-					$order = wc_get_order( $data['external_reference'] );
+		return $response;
+	}
 
-					$response         	    = array();
-					$response['old_status'] = $order->get_status();
-					$response['new_status'] = $this->successful_request( $data, $order );
-					$response['timestamp']  = time();
+	public function build_post_response( $data, $order ) {
+		$response               = array();
+		$response['old_status'] = $order->get_status();
+		$response['new_status'] = $this->successful_request( $data, $order );
+		$response['timestamp']  = time();
 
-					$hmac             = Cryptography::encrypt($response, $secret);
-					$response['hmac'] = $hmac;
+		return $response;
+	}
 
-					$this->set_response(200, null, $response );
-				} else {
-					$this->set_response(401, null, 'Unauthorized');
-				}
-			} else {
-				$this->set_response(400, null, 'Missing fields');
-			}
-		} catch (Exception $e) {
-			$this->set_response(500, null, $e->getMessage());
+	/**
+	 * Get Secret Key
+	 */
+	public function get_credentials() {
+		$credentials = new Credentials();
+		$secret      = $credentials->get_access_token();
+		return $secret;
+	}
+
+	/**
+	 * Verify if received HMAC is valid.
+	 */
+	public function assert_payload_hmac_is_valid( $data, $secret ) {
+		if ( $this->secret_is_null_or_empty( $secret ) ) {
+			return false;
 		}
+
+		$auth  = Cryptography::encrypt( $data, $secret );
+		$token = Request::getBearerToken();
+
+		if ( is_null($token) || empty($token) ) {
+			return false;
+		}
+
+		if ( $auth !== $token ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Valid HMAC Secret
+	 */
+
+	public function secret_is_null_or_empty( $secret ) {
+		return is_null( $secret ) || empty( $secret );
 	}
 
 	/**
@@ -255,12 +311,12 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public static function get_wc_status_for_mp_status_mp( $mp_status ) {
 		$defaults = array(
-			'pending'     	=> 'pending',
-			'processing'  	=> 'approved',
-			'on_hold'   	=> 'in_process',
-			'failed'    	=> 'rejected',
-			'cancelled'   	=> 'cancelled',
-			'refunded'    	=> 'refunded',
+			'pending'       => 'pending',
+			'processing'    => 'approved',
+			'on_hold'       => 'in_process',
+			'failed'        => 'rejected',
+			'cancelled'     => 'cancelled',
+			'refunded'      => 'refunded',
 		);
 		$status   = $defaults[ $mp_status ];
 		return str_replace( '_', '-', $status );
@@ -434,7 +490,7 @@ class WC_WooMercadoPago_Notification {
 	public function mp_rule_pending( $data, $order ) {
 		if ( $this->can_update_order_status( $order ) ) {
 			$order->update_status( $this->get_wc_status_for_mp_status( 'pending' ) );
-			switch ($data['checkout_type'] ) {
+			switch ( $data['checkout_type'] ) {
 				case 'pix':
 					$notes    = $order->get_customer_order_notes();
 					$has_note = false;
@@ -489,7 +545,7 @@ class WC_WooMercadoPago_Notification {
 	 * @param object $order Order.
 	 */
 	public function mp_rule_in_process( $data, $order ) {
-		if ($this->can_update_order_status( $order ) ) {
+		if ( $this->can_update_order_status( $order ) ) {
 			$order->update_status(
 				$this->get_wc_status_for_mp_status( 'in_process' ),
 				'Mercado Pago: ' . __( 'Payment is pending review.', 'woocommerce-mercadopago' )
