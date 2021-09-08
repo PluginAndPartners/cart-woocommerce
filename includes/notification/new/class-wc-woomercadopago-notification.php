@@ -62,6 +62,12 @@ class WC_WooMercadoPago_Notification {
 	 * @param string $body         Body.
 	 */
 	public function set_response( $code, $code_message, $body ) {
+		$this->log->write_log(
+			__FUNCTION__,
+			'Response Code: ' . $code .
+			' Code message: ' . ( null === $code_message ? ' None code message' : $code_message ) .
+			' Response Body: ' . wp_json_encode( $body ) );
+
 		header('Content-Type: application/json');
 		status_header( $code, $code_message );
 
@@ -185,34 +191,22 @@ class WC_WooMercadoPago_Notification {
 	/**
 	 * Valid Get Request payload
 	 */
-	// TODO: [PPWP-228] Validate if Core send necessary fields to build response
 	public function valid_get_payload( $data ) {
-		return ( isset( $data['payment_id'] ) &&
-				isset( $data['external_reference'] ) &&
-				isset( $data['timestamp'] ) &&
-				isset( $data['payment_date_created'] ) &&
-				isset( $data['host'] ) );
+		return ( isset( $data['external_reference'] ) );
 	}
 
 	/**
 	 * Valid Post Request payload
 	 */
-	// TODO: [PPWP-228] Validate if Core send necessary fields to build response
 	public function valid_post_payload( $data ) {
 		return ( isset( $data['status'] ) &&
-				isset( $data['host'] ) &&
-				isset( $data['timestamp'] ) &&
 				isset( $data['payment_id'] ) &&
 				isset( $data['external_reference'] ) &&
-				isset( $data['plugin_reference'] ) &&
-				isset( $data['checkout'] ) &&
 				isset( $data['checkout_type'] ) &&
-				isset( $data['order_id'] ) &&
 				isset( $data['payment_type_id'] ) &&
 				isset( $data['payment_method_id'] ) &&
 				isset( $data['payment_created_at'] ) &&
 				isset( $data['total'] ) &&
-				isset( $data['email'] ) &&
 				isset( $data['total_paid'] ) &&
 				isset( $data['total_refunded'] ) );
 	}
