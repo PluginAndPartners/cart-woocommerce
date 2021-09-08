@@ -771,4 +771,33 @@ class MP {
 		return $this->payment_class;
 	}
 
+	/**
+     * Return if Core Notifier is healthy
+     *
+     * @return bool
+     */
+    public function is_core_notifier()
+    {
+		$log = WC_WooMercadoPago_Log::init_mercado_pago_log( 'is_core_notifier' );
+		$log->write_log( __FUNCTION__, "Entrando na função iscorenotifier" ); //remover log dos parametros
+		$request = array(
+			'headers' => array(
+				'Authorization' => 'Bearer ' . $this->get_access_token(),
+			),
+			'uri'     => '/allowlist',
+		);
+
+		// $response = get-core-notifier('/allowlist', ["Authorization: Bearer " . $accessToken]);
+		$response = MP_Rest_Client::get_core($request);
+
+		$log->write_log( __FUNCTION__, "response[status] = " . $response['status'] );
+        if ($response['status'] > 202) {
+            return false;
+		}
+		$log->write_log( __FUNCTION__, "Allowlist passed " . json_encode($response['response']['message']['use_core_notifier']) );
+        $message        = $response['response']['message'];
+        $is_core_notifier = $message['use_core_notifier'];
+        return $is_core_notifier;
+	}
+
 }

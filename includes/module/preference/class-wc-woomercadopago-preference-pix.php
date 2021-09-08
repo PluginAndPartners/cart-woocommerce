@@ -52,6 +52,8 @@ class WC_WooMercadoPago_Preference_Pix extends WC_WooMercadoPago_Preference_Abst
 		$internal_metadata            = parent::get_internal_metadata();
 		$merge_array                  = array_merge( $internal_metadata, $this->get_internal_metadata_pix() );
 		$this->preference['metadata'] = $merge_array;
+
+		$this->preference = parent::core_notifier_preference_handler($this->preference);
 	}
 
 	/**
