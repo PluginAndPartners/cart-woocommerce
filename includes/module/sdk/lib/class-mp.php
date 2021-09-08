@@ -794,7 +794,7 @@ class MP {
             return false;
 		}
 		$log->write_log( __FUNCTION__, "Allowlist passed " . json_encode( $response['response']['message']['use_core_notifier'] ) );
-        $message        = $response['response']['message'];
+        $message          = $response['response']['message'];
         $is_core_notifier = $message['use_core_notifier'];
         return $is_core_notifier;
 	}

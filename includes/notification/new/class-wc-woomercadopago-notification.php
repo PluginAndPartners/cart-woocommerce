@@ -81,11 +81,11 @@ class WC_WooMercadoPago_Notification {
 	 * Check response
 	 */
 	public function check_mp_response() {
-		if (isset($_SERVER['REQUEST_METHOD'])) {
+		if ( isset( $_SERVER['REQUEST_METHOD'] ) ) {
 			// @codingStandardsIgnoreLine
 			$method = $_SERVER['REQUEST_METHOD'];
 
-			switch ($method) {
+			switch ( $method ) {
 				case 'GET':
 					$this->log->write_log(
 						__FUNCTION__,
@@ -118,15 +118,15 @@ class WC_WooMercadoPago_Notification {
 	public function get_order( $data ) {
 		try {
 			if (
-				!isset( $data['payment_id'] ) || 
-				!isset( $data['external_reference'] ) ||
-				!isset( $data['timestamp'] )
+				! isset( $data['payment_id'] ) ||
+				! isset( $data['external_reference'] ) ||
+				! isset( $data['timestamp'] )
 			) {
 				return $this->set_response(400, null, 'Missing fields');
 			}
 
 			$credentials = new Credentials();
-			$secret	     = $credentials->get_access_token();
+			$secret      = $credentials->get_access_token();
 
 			if ( is_null($secret) || empty($secret) ) {
 				$this->set_response( 401, null, 'Unauthorized' );
@@ -135,7 +135,7 @@ class WC_WooMercadoPago_Notification {
 			$auth  = Cryptography::encrypt( $data, $secret );
 			$token = Request::getBearerToken();
 
-			if ( !$token ) {
+			if ( ! $token ) {
 				return $this->set_response( 401, null, 'Unauthorized' );
 			}
 			
