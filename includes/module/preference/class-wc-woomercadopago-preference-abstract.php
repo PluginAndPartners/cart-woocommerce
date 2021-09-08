@@ -659,16 +659,15 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
      * @param mixed $preference
      * @return mixed $preference
      */
-    public function core_notifier_preference_handler($preference)
+    public function core_notifier_preference_handler( $preference )
     {
-		// $is_core_notifier = $this->mp->is_core_notifier(); //after endpoint is done
-		$is_core_notifier = false;
+		$is_core_notifier = $this->mp->is_core_notifier();
 		$this->log->write_log( __FUNCTION__, 'is_core_notifier: ' . $is_core_notifier );
-        if ($is_core_notifier) {
-            unset($preference['notification_url']);
+        if ( $is_core_notifier ) {
+            unset( $preference['notification_url'] );
             return $preference;
         }
-        unset($preference['metadata']['store_url']);
+        unset( $preference['metadata']['store_url'] );
         return $preference;
     }
 }
