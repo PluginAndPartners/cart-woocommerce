@@ -157,7 +157,7 @@ class WC_WooMercadoPago_Notification {
 			$response['status']             = $this->get_wc_status_for_mp_status_mp($order->get_status());
 			$response['created_at']         = $order->get_date_created()->getTimestamp();
 			$response['total']              = $order->get_total();
-			$response['timestamp'] 			= time();
+			$response['timestamp']          = time();
 
 			$this->log->write_log(
 				__FUNCTION__,
@@ -168,7 +168,7 @@ class WC_WooMercadoPago_Notification {
 
 			return $this->set_response( 200, 'Success', $response );
 
-		} catch (Exception $e) {
+		} catch ( Exception $e ) {
 			return $this->set_response(500, null, $e->getMessage());
 		}
 	}
@@ -203,10 +203,10 @@ class WC_WooMercadoPago_Notification {
 				$auth  = Request::getBearerToken();
 				$token = Cryptography::encrypt( $data, $secret );
 
-				if ($token === $auth) {
+				if ( $token === $auth ) {
 					$order = wc_get_order( $data['external_reference'] );
 
-					$response         	    = array();
+					$response               = array();
 					$response['old_status'] = $order->get_status();
 					$response['new_status'] = $this->successful_request( $data, $order );
 					$response['timestamp']  = time();
@@ -221,7 +221,7 @@ class WC_WooMercadoPago_Notification {
 			} else {
 				$this->set_response(400, null, 'Missing fields');
 			}
-		} catch (Exception $e) {
+		} catch ( Exception $e ) {
 			$this->set_response(500, null, $e->getMessage());
 		}
 	}
@@ -255,12 +255,12 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public static function get_wc_status_for_mp_status_mp( $mp_status ) {
 		$defaults = array(
-			'pending'     	=> 'pending',
-			'processing'  	=> 'approved',
-			'on_hold'   	=> 'in_process',
-			'failed'    	=> 'rejected',
-			'cancelled'   	=> 'cancelled',
-			'refunded'    	=> 'refunded',
+			'pending'       => 'pending',
+			'processing'    => 'approved',
+			'on_hold'       => 'in_process',
+			'failed'        => 'rejected',
+			'cancelled'     => 'cancelled',
+			'refunded'      => 'refunded',
 		);
 		$status   = $defaults[ $mp_status ];
 		return str_replace( '_', '-', $status );
@@ -434,7 +434,7 @@ class WC_WooMercadoPago_Notification {
 	public function mp_rule_pending( $data, $order ) {
 		if ( $this->can_update_order_status( $order ) ) {
 			$order->update_status( $this->get_wc_status_for_mp_status( 'pending' ) );
-			switch ($data['checkout_type'] ) {
+			switch ( $data['checkout_type'] ) {
 				case 'pix':
 					$notes    = $order->get_customer_order_notes();
 					$has_note = false;
@@ -489,7 +489,7 @@ class WC_WooMercadoPago_Notification {
 	 * @param object $order Order.
 	 */
 	public function mp_rule_in_process( $data, $order ) {
-		if ($this->can_update_order_status( $order ) ) {
+		if ( $this->can_update_order_status( $order ) ) {
 			$order->update_status(
 				$this->get_wc_status_for_mp_status( 'in_process' ),
 				'Mercado Pago: ' . __( 'Payment is pending review.', 'woocommerce-mercadopago' )

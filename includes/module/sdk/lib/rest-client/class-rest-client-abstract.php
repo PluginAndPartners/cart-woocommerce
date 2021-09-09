@@ -50,7 +50,7 @@ class Rest_Client_Abstract {
 	 */
 	public static function exec_abs( $request, $url, $timeout = null ) {
 		try {
-			if ($timeout) {
+			if ( $timeout ) {
 				$connect = self::build_request( $request, $url, $timeout );
 			} else {
 				$connect = self::build_request( $request, $url );

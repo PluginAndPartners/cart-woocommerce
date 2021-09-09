@@ -175,7 +175,7 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 	 */
 	public function __construct( $payment, $order, $request_checkout = null ) {
 		$this->payment            = $payment;
-		$this->mp      			  = $payment->mp;
+		$this->mp                 = $payment->mp;
 		$this->log                = $payment->log;
 		$this->order              = $order;
 		$this->gateway_discount   = $this->payment->gateway_discount;
@@ -654,20 +654,19 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 	}
 
 	/**
-     * Core Notifier preference handler
-     *
-     * @param mixed $preference
-     * @return mixed $preference
-     */
-    public function core_notifier_preference_handler($preference)
-    {
+	 * Core Notifier preference handler
+	 *
+	 * @param mixed $preference
+	 * @return mixed $preference
+	 */
+	public function core_notifier_preference_handler( $preference ) {
 		$is_core_notifier = $this->mp->is_core_notifier();
 
-        if ($is_core_notifier) {
-            unset($preference['notification_url']);
-            return $preference;
-        }
-        unset($preference['metadata']['store_url']);
-        return $preference;
-    }
+		if ( $is_core_notifier ) {
+			unset($preference['notification_url']);
+			return $preference;
+		}
+		unset($preference['metadata']['store_url']);
+		return $preference;
+	}
 }
