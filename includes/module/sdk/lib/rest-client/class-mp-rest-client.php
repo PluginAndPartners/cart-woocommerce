@@ -39,7 +39,7 @@ class MP_Rest_Client extends Rest_Client_Abstract {
 	 */
 	public static function get_core( $request ) {
 		$request['method'] = 'GET';
-		return self::exec_abs( $request, 'https://testapi-pluginspartners.codeanyapp.com', 200 );
+		return self::exec_abs( $request, 'https://testapi-pluginspartners.codeanyapp.com', null); //alterar endpoint e timeout para 200
 	}
 
 	/**

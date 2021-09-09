@@ -138,25 +138,25 @@ class WC_WooMercadoPago_Notification {
 			if ( ! $token ) {
 				return $this->set_response( 401, null, 'Unauthorized' );
 			}
-			
+
 			if ( $auth !== $token ) {
 				return $this->set_response( 401, null, 'Unauthorized' );
 			}
 
-			$order = wc_get_order( $data['external_reference'] );				
-			
-			if ( !$order ) {
+			$order = wc_get_order( $data['external_reference'] );
+
+			if ( ! $order ) {
 				return $this->set_response( 404, null, 'Order not found' );
 			}
 
 			$order_id = $order->get_id();
 
-			$response 						= array();
-			$response['order_id'] 			= $order_id;
+			$response                       = array();
+			$response['order_id']           = $order_id;
 			$response['external_reference'] = $order_id;
-			$response['status'] 			= $this->get_wc_status_for_mp_status_mp($order->get_status());
-			$response['created_at'] 		= $order->get_date_created()->getTimestamp();
-			$response['total'] 				= $order->get_total();
+			$response['status']             = $this->get_wc_status_for_mp_status_mp($order->get_status());
+			$response['created_at']         = $order->get_date_created()->getTimestamp();
+			$response['total']              = $order->get_total();
 			$response['timestamp'] 			= time();
 
 			$this->log->write_log(
