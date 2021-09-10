@@ -61,6 +61,8 @@ class WC_WooMercadoPago_Preference_Custom extends WC_WooMercadoPago_Preference_A
 		$merge_array                  = array_merge( $internal_metadata, $this->get_internal_metadata_custom() );
 		$this->preference['metadata'] = $merge_array;
 
+		$this->preference = parent::core_notifier_preference_handler($this->preference);
+
 	}
 
 	/**

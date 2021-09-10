@@ -31,6 +31,18 @@ class MP_Rest_Client extends Rest_Client_Abstract {
 	}
 
 	/**
+	 * Get method
+	 *
+	 * @param array $request Request.
+	 * @return array|null
+	 * @throws WC_WooMercadoPago_Exception Get exception.
+	 */
+	public static function get_core( $request ) {
+		$request['method'] = 'GET';
+		return self::exec_abs( $request, 'https://testapi-pluginspartners.codeanyapp.com', null); //alterar endpoint e timeout para 200
+	}
+
+	/**
 	 * Post method
 	 *
 	 * @param array $request Request.

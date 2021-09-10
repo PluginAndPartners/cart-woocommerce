@@ -33,6 +33,13 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 	protected $payment;
 
 	/**
+	 * Mercado Pago Module
+	 *
+	 * @var WC_WooMercadoPago_Module
+	 */
+	protected $mp;
+
+	/**
 	 * Logger
 	 *
 	 * @var WC_WooMercadoPago_Log
@@ -168,6 +175,7 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 	 */
 	public function __construct( $payment, $order, $request_checkout = null ) {
 		$this->payment            = $payment;
+		$this->mp                 = $payment->mp;
 		$this->log                = $payment->log;
 		$this->order              = $order;
 		$this->gateway_discount   = $this->payment->gateway_discount;
@@ -643,5 +651,22 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 		if ( '' !== $date_expiration ) {
 			return gmdate( 'Y-m-d\TH:i:s.000O', strtotime( '+' . $date_expiration ) );
 		}
+	}
+
+	/**
+	 * Core Notifier preference handler
+	 *
+	 * @param mixed $preference
+	 * @return mixed $preference
+	 */
+	public function core_notifier_preference_handler( $preference ) {
+		$is_core_notifier = true; //$this->mp->is_core_notifier(); Change after endpoint is done
+
+		if ( $is_core_notifier ) {
+			unset($preference['notification_url']);
+			return $preference;
+		}
+		unset($preference['metadata']['store_url']);
+		return $preference;
 	}
 }

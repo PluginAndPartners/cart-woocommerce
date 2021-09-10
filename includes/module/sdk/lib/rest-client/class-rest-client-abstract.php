@@ -48,9 +48,13 @@ class Rest_Client_Abstract {
 	 * @param string $url URL.
 	 * @return array|null
 	 */
-	public static function exec_abs( $request, $url ) {
+	public static function exec_abs( $request, $url, $timeout = null ) {
 		try {
-			$connect = self::build_request( $request, $url );
+			if ( $timeout ) {
+				$connect = self::build_request( $request, $url, $timeout );
+			} else {
+				$connect = self::build_request( $request, $url );
+			}
 			return self::execute( $request, $connect );
 		} catch ( Exception $e ) {
 			return null;
@@ -65,7 +69,7 @@ class Rest_Client_Abstract {
 	 * @return CurlHandle|false|resource
 	 * @throws WC_WooMercadoPago_Exception Build request exception.
 	 */
-	public static function build_request( $request, $url ) {
+	public static function build_request( $request, $url, $timeout = null ) {
 		if ( ! extension_loaded( 'curl' ) ) {
 			throw new WC_WooMercadoPago_Exception( 'cURL extension not found. You need to enable cURL in your php.ini or another configuration you have.' );
 		}
@@ -111,6 +115,10 @@ class Rest_Client_Abstract {
 		curl_setopt( $connect, CURLOPT_CAINFO, $GLOBALS['LIB_LOCATION'] . '/cacert.pem' );
 		curl_setopt( $connect, CURLOPT_CUSTOMREQUEST, $request['method'] );
 		curl_setopt( $connect, CURLOPT_HTTPHEADER, $headers );
+		if ($timeout) {
+            curl_setopt($connect, CURLOPT_CONNECTTIMEOUT_MS, $timeout);
+            curl_setopt($connect, CURLOPT_TIMEOUT_MS, $timeout);
+        }
 		//@codingStandardsIgnoreEnd
 
 		if ( isset( $request['params'] ) && is_array( $request['params'] ) ) {
