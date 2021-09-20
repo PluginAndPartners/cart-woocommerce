@@ -777,14 +777,14 @@ class MP {
 	 * @return bool
 	 */
 	public function is_core_notifier() {
-		$platform_id = WC_WooMercadoPago_Constants::PLATAFORM_ID;
+		$platform_id = strtoupper( WC_WooMercadoPago_Constants::PLATAFORM_ID );
 		$log         = WC_WooMercadoPago_Log::init_mercado_pago_log( 'CoreNotifier' );
 		$log->write_log( __FUNCTION__, 'Checking if Core Notifier is healthy' );
 		$request = array(
 			'headers' => array(
 				'Authorization' => 'Bearer ' . $this->get_access_token(),
 			),
-			'uri'     => "/allowlist/{$platform_id}",
+			'uri'     => "/mpmodules-core/v1/switcher/notifier/allowlist/{$platform_id}",
 		);
 
 		$response = MP_Rest_Client::get_core( $request );
