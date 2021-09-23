@@ -28,13 +28,9 @@ class Credentials {
 	 * Credentials constructor
 	 */
 	public function __construct() {
-		$public_key   = get_option( '_mp_public_key_prod', '' );
-		$access_token = get_option( '_mp_access_token_prod', '' );
-
-		if ( empty( $public_key ) && empty( $access_token ) ) {
-			$public_key   = get_option( '_mp_public_key_test', '' );
-			$access_token = get_option( '_mp_access_token_test', '' );
-		}
+		$is_production_mode = get_option( 'checkbox_checkout_test_mode', 'yes' ) === 'no';
+		$public_key   = $is_production_mode ? get_option( '_mp_public_key_prod', '' ) : get_option( '_mp_public_key_test', '' );
+		$access_token = $is_production_mode ? get_option( '_mp_access_token_prod', '' ) : get_option( '_mp_access_token_test', '' );
 
 		$this->public_key   = $public_key;
 		$this->access_token = $access_token;
