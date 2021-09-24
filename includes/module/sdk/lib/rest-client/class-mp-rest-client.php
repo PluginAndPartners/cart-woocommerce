@@ -39,7 +39,7 @@ class MP_Rest_Client extends Rest_Client_Abstract {
 	 */
 	public static function get_core( $request ) {
 		$request['method'] = 'GET';
-		return self::exec_abs( $request, WC_WooMercadoPago_Constants::API_MP_BASE_URL, 200);
+		return self::exec_abs( $request, WC_WooMercadoPago_Constants::API_MP_BASE_URL, 500);
 	}
 
 	/**
