@@ -1,50 +1,32 @@
-# PORTUGUÊS
-# SE FOR CORREÇÃO
-## Qual é o problema?
-[descrição]
-## Como foi resolvido?
-[descrição]
-
-# SE FOR UMA NOVA FUNCIONALIDADE
-## Descrição
-[descrição]
-
-# COLOCAR IMAGEM SE FOR UMA ALTERAÇÃO VISUAL (exceto traduções)
-## Como era:
-[imagem]
-## Como ficou:
-[imagem]
-
-# ESPAÑOL
-# SI CORRECCIÓN
-## ¿Cuál es el problema?
-[descripción]
-## ¿Cómo se resolvió?
-[descripción]
-
-# SI ES UNA FUNCIÓN NUEVA
-## Descripción
-[descripción]
-
-# PONER IMAGEN SI ES UN CAMBIO VISUAL (excepto traducciones)
-## Como era:
-[Imagen]
-## Como quedó:
-[Imagen]
-
-# ENGLISH
-# IF CORRECTION
-## What is the problem?
+### Description
 [description]
-## How was it resolved?
+<!--
+If it is a correction, fill it in, otherwise remove the fields below.
+Se for correção preencha, senão remova o campos abaixo.
+Si es una corrección, rellénelo, de lo contrario elimine los campos a continuación.
+-->
+#### What is the problem?
+[description]
+#### How was it resolved?
 [description]
 
-# IF IT IS A NEW FEATURE
-## Description
-[description]
+<!--
+Describe how to test if necessary! otherwise remove.
+Descreva como testar, se preciso! senão remova.
+¡Describe cómo realizar la prueba si es necesario! de lo contrario, elimínelo.
+-->
+### How to test the changes in this Pull Request:
+1.
+2.
+3.
 
-# PUT IMAGE IF IT IS A VISUAL CHANGE (except translations)
-## How was:
-[Image]
-## How it turned out:
-[Image]
+<!--
+Place images if it is a visual change (except translations), otherwise remove the fields below.
+Colocar imagens, caso seja uma mudança visual (exceto traduções), senão remova o campos abaixo.
+Colocar imágenes si es un cambio visual (excepto traducciones), de lo contrario elimine los campos a continuación.
+-->
+#### Screenshots
+##### Before
+[image]
+##### After
+[image]
