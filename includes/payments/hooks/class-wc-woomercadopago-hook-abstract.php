@@ -206,6 +206,30 @@ abstract class WC_WooMercadoPago_Hook_Abstract {
 	}
 
 	/**
+	 * Sort By Checkout Mode First
+	 *
+	 * @param array $form_fields Form fields
+	 *
+	 * @param array $sort_order Sort order
+	 *
+	 * @return array $sorted_array Sorted array
+	 */
+
+	public function sort_by_checkout_mode_first( $form_fields ) {
+		$sort_credentials_first = array(
+			'checkout_subtitle_checkout_mode',
+			'checkbox_checkout_test_mode',
+			'checkbox_checkout_production_mode',
+			'_mp_public_key_prod',
+			'_mp_access_token_prod',
+			'_mp_public_key_test',
+			'_mp_access_token_test',
+		);
+
+		return $this->payment->sort_form_fields( $form_fields, $sort_credentials_first );
+	}
+
+	/**
 	 * Custom process admin options
 	 *
 	 * @return mixed
@@ -216,13 +240,15 @@ abstract class WC_WooMercadoPago_Hook_Abstract {
 
 		$value_credential_production = null;
 		$this->payment->init_settings();
-		$post_data = $this->payment->get_post_data();
-		foreach ( $this->payment->get_form_fields() as $key => $field ) {
+		$post_data          = $this->payment->get_post_data();
+		$sorted_form_fields = $this->sort_by_checkout_mode_first( $this->payment->get_form_fields() );
+
+		foreach ( $sorted_form_fields as $key => $field ) {
 			if ( 'title' !== $this->payment->get_field_type( $field ) ) {
 				$value            = $this->payment->get_field_value( $key, $field, $post_data );
 				$old_data[ $key ] = isset( $this->payment->settings[ $key ] ) ? $this->payment->settings[ $key ] : null;
-				if ( 'checkout_credential_prod' === $key ) {
-					$value_credential_production = $value;
+				if ( 'checkbox_checkout_test_mode' === $key ) {
+					$value_credential_production = 'yes' === $value ? 'no' : 'yes';
 				}
 				$common_configs = $this->payment->get_common_configs();
 				if ( in_array( $key, $common_configs, true ) ) {
@@ -237,7 +263,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract {
 			}
 		}
 
-		$result = update_option( $this->payment->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings ) );
+		$this->update_others_checkout_mode($this->payment->id);
 
 		WC_WooMercadoPago_Helpers_CurrencyConverter::get_instance()->schedule_notice(
 			$this->payment,
@@ -245,7 +271,49 @@ abstract class WC_WooMercadoPago_Hook_Abstract {
 			$this->payment->settings
 		);
 
-		return $result;
+		return update_option( $this->payment->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings ) );
+	}
+
+	/**
+	 * Build Woocommerce settings key
+	 *
+	 * @param String $gateway_id Constant ID
+	 *
+	 * @return String
+	 */
+	private function build_woocommerce_settings_key( $gateway_id ) {
+		return 'woocommerce_' . $gateway_id . '_settings';
+	}
+
+	/**
+	 * Update others checkout mode
+	 *
+	 * @param String $current_gateway_id Current constant ID
+	 *
+	 * @return void
+	 */
+	private function update_others_checkout_mode( $current_gateway_id ) {
+		foreach ( WC_WooMercadoPago_Constants::GATEWAYS_IDS as $gateway_id ) {
+			$gateway_settings_key = $this->build_woocommerce_settings_key($gateway_id);
+			$options              = get_option( $gateway_settings_key );
+			$is_other_gateway     = $gateway_id !== $current_gateway_id;
+
+			if ( empty($options) || ! array_key_exists('enabled', $options) ) {
+				continue;
+			}
+
+			$is_enabled_gateway = 'yes' === $options['enabled'];
+
+			if ( $is_other_gateway && $is_enabled_gateway ) {
+				$options['checkbox_checkout_test_mode']       = $this->payment->settings['checkbox_checkout_test_mode'];
+				$options['checkbox_checkout_production_mode'] = $this->payment->settings['checkbox_checkout_production_mode'];
+
+				update_option(
+					$gateway_settings_key,
+					apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $gateway_id, $options )
+				);
+			}
+		}
 	}
 
 	/**

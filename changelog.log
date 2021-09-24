@@ -1,5 +1,24 @@
 CHANGELOG:
 == Changelog ==
+= v5.4.1 (22/09/2021) =
+* Bug fixes
+- On the order page, the payment was fetched with the wrong token
+- When the plugin was updated the checkout mode visually went to test
+
+= v5.4.0 (20/09/2021) =
+* Features
+- Performance improvements
+- Improved status of declined payments
+- Improvements in store test flow
+- Improved text distribution in the Wallet Button alert
+- Inclusion of interest-free installment button in payment settings (PSJ)
+- Inclusion of Pix code on the customer panel for later consultation
+- Inclusion of visual information on the status of the credential
+- Adding more QR Code expiration options to the PIX
+
+* Bug fixes
+- Fix QR Code breaking email layout
+
 = 5.3.1 (12/08/2021) =
 * Bug fixes
 - Adjusted notification url, checking if it's a friendly url or not

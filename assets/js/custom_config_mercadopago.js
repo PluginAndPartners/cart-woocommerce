@@ -46,7 +46,7 @@ window.addEventListener('load', function() {
   );
 
   // Remove title and description row if necessary.
-  
+
   document.querySelectorAll('.hidden-field-mp-title').forEach(
     (element) => {
       element.closest('tr').style.display = 'none';
@@ -63,7 +63,7 @@ window.addEventListener('load', function() {
   var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_btn_save');
 
   if (document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_homolog_title') !== null || document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_credential_description_test') !== null) {
-    document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_credential_description_test').nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_mode_alert').append(document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_btn_save'));
   }
 
   if (document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_homolog_title') !== null || document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_custom_options_title') !== null) {

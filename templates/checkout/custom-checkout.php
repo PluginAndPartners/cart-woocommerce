@@ -15,8 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="mp-panel-custom-checkout">
+	<?php
+		// @codingStandardsIgnoreLine
+		echo $checkout_alert_test_mode;
+	?>
 	<div class="mp-row-checkout">
-
 		<?php if ( 'yes' === $wallet_button ) : ?>
 			<div class="mp-wallet-button">
 				<div class="mp-wallet-button-header">

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const minify = require('minify');
 const wpPot = require('wp-pot');
-
+// 
 function minifyFiles(extension) {
     const assetsPath = path.resolve(`./assets/${extension}`);
     const assetsFiles = fs.readdirSync(assetsPath);
@@ -26,7 +26,7 @@ function generatePotFiles() {
         destFile: './i18n/languages/woocommerce-mercadopago.pot',
         domain: 'woocommerce-mercadopago',
         lastTranslator: 'MPB Desenvolvimento <mpb_desenvolvimento@mercadopago.com.br>',
-        src: '**/*.php'
+        src: ['**/*.php', '**/**/*.php', '**/**/**/*.php']
       });
 }
 

@@ -14,6 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="mp-panel-checkout">
+	<?php
+		// @codingStandardsIgnoreLine
+		echo $checkout_alert_test_mode;
+	?>
 	<div class="mp-row-checkout">
 	<?php if ( 0 !== (int) $credito ) : ?>
 	<div id="framePayments" class="mp-col-md-12">

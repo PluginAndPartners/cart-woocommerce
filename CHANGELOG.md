@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.1] - 2021-09-22
+### Changed
+- On the order page, the payment was fetched with the wrong token
+- When the plugin was updated the checkout mode visually went to test
+
+## [5.4.0] - 2021-09-20
+### Added
+- Performance improvements
+- Improved status of declined payments
+- Improvements in store test flow
+- Improved text distribution in the Wallet Button alert
+- Inclusion of interest-free installment button in payment settings (PSJ)
+- Inclusion of Pix code on the customer panel for later consultation
+- Inclusion of visual information on the status of the credential
+- Adding more QR Code expiration options to the PIX
+
+### Changed
+- Fix QR Code breaking email layout
+
 ## [5.3.1] - 2021-08-12
 
 ### Changed

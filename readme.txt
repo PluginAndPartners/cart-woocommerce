@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 5.3.1
+Stable tag: 5.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,25 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
+= v5.4.1 (22/09/2021) =
+* Bug fixes
+- On the order page, the payment was fetched with the wrong token
+- When the plugin was updated the checkout mode visually went to test
+
+= 5.4.0 (20/09/2021) =
+* Features
+- Performance improvements
+- Improved status of declined payments
+- Improvements in store test flow
+- Improved text distribution in the Wallet Button alert
+- Inclusion of interest-free installment button in payment settings (PSJ)
+- Inclusion of Pix code on the customer panel for later consultation
+- Inclusion of visual information on the status of the credential
+- Adding more QR Code expiration options to the PIX
+
+* Bug fixes
+- Fix QR Code breaking email layout
+
 = 5.3.1 (12/08/2021) =
 * Bug fixes
 - Adjusted notification url, checking if it's a friendly url or not

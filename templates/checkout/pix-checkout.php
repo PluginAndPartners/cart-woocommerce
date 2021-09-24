@@ -15,6 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="mp-panel-checkout">
+	<?php
+		// @codingStandardsIgnoreLine
+		echo $checkout_alert_test_mode;
+	?>
 	<div class="mp-row-checkout">
 	<div class="mp-redirect-frame-pix">
 			<img src="<?php echo esc_html( $image_pix ); ?>" class="mp-img-fluid mp-img-redirect" alt=""/>

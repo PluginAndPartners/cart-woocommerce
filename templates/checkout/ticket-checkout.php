@@ -13,10 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-
 <div class="mp-panel-custom-checkout">
+	<?php
+		// @codingStandardsIgnoreLine
+		echo $checkout_alert_test_mode;
+	?>
 	<div class="mp-row-checkout">
-
 		<!-- Cupom mode, creat a campaign on mercado pago -->
 		<?php if ( 'yes' === $coupon_mode ) : ?>
 			<div  id="mercadopago-form-coupon-ticket" class="mp-col-md-12 mp-pb-20">

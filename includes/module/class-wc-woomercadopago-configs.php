@@ -194,7 +194,7 @@ class WC_WooMercadoPago_Configs {
 			) {
 				update_option( '_mp_public_key_test', get_option( '_mp_public_key' ), true );
 				update_option( '_mp_access_token_test', get_option( '_mp_access_token' ), true );
-				update_option( 'checkout_credential_prod', 'no', true );
+				update_option( 'checkbox_checkout_test_mode', 'yes', true );
 			}
 
 			if (
@@ -207,7 +207,7 @@ class WC_WooMercadoPago_Configs {
 					update_option( '_mp_public_key', '' );
 					update_option( '_mp_access_token', '' );
 				}
-				update_option( 'checkout_credential_prod', 'yes', true );
+				update_option( 'checkbox_checkout_test_mode', 'no', true );
 			}
 		}
 	}

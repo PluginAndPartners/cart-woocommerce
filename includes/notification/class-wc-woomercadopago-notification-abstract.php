@@ -370,8 +370,8 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 	 */
 	public function process_cancel_order_meta_box_actions( $order ) {
 		$order_payment = wc_get_order( $order );
-		$used_gateway  = ( method_exists( $order_payment, 'get_meta' ) ) ? $order_payment->get_meta( '_used_gateway' ) : get_post_meta( $order_payment->id, '_used_gateway', true );
-		$payments      = ( method_exists( $order_payment, 'get_meta' ) ) ? $order_payment->get_meta( '_Mercado_Pago_Payment_IDs' ) : get_post_meta( $order_payment->id, '_Mercado_Pago_Payment_IDs', true );
+		$used_gateway  = ( method_exists( $order_payment, 'get_meta' ) ) ? $order_payment->get_meta( '_used_gateway' ) : get_post_meta( $order_payment->get_id(), '_used_gateway', true );
+		$payments      = ( method_exists( $order_payment, 'get_meta' ) ) ? $order_payment->get_meta( '_Mercado_Pago_Payment_IDs' ) : get_post_meta( $order_payment->get_id(), '_Mercado_Pago_Payment_IDs', true );
 
 		if ( 'WC_WooMercadoPago_Custom_Gateway' === $used_gateway ) {
 			return;

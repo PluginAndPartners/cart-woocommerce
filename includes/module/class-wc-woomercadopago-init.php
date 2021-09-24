@@ -146,6 +146,8 @@ class WC_WooMercadoPago_Init {
 		require_once dirname( __FILE__ ) . '/config/class-wc-woomercadopago-constants.php';
 		require_once dirname( __FILE__ ) . '../../admin/notices/class-wc-woomercadopago-notices.php';
 		require_once dirname( __FILE__ ) . '../../admin/notices/class-wc-woomercadopago-saved-cards.php';
+		require_once dirname( __FILE__ ) . '../../admin/hooks/class-wc-woomercadopago-hook-order-details.php';
+
 		WC_WooMercadoPago_Notices::init_mercadopago_notice();
 
 		// Check for PHP version and throw notice.
@@ -176,6 +178,7 @@ class WC_WooMercadoPago_Init {
 			WC_WooMercadoPago_Saved_Cards::init_singleton();
 			self::update_plugin_version();
 
+			new WC_WooMercadoPago_Hook_Order_Details();
 			add_action( 'woocommerce_order_actions', array( __CLASS__, 'add_mp_order_meta_box_actions' ) );
 
 			WC_WooMercadoPago_Notification::init_notification_class();
@@ -184,10 +187,12 @@ class WC_WooMercadoPago_Init {
 			add_action( 'admin_notices', array( __CLASS__, 'notify_woocommerce_miss' ) );
 		}
 		add_action( 'woocommerce_settings_checkout', array( __CLASS__, 'mp_show_admin_notices' ) );
+		add_action( 'wp_ajax_mercadopago_validate_credentials', array('WC_WooMercadoPago_Credentials', 'ajax_validate_credentials'));
 
 		add_filter('query_vars', function ( $vars ) {
 			$vars[] = 'wallet_button';
 			return $vars;
 		});
+
 	}
 }

@@ -44,17 +44,15 @@ class Rest_Client_Abstract {
 	/**
 	 * Exec ABS
 	 *
-	 * @param array  $request Request.
+	 * @param array $request Request.
 	 * @param string $url URL.
+	 *
 	 * @return array|null
 	 */
-	public static function exec_abs( $request, $url, $timeout = null ) {
+	public static function exec_abs( $request, $url ) {
 		try {
-			if ( $timeout ) {
-				$connect = self::build_request( $request, $url, $timeout );
-			} else {
-				$connect = self::build_request( $request, $url );
-			}
+			$connect = self::build_request( $request, $url );
+
 			return self::execute( $request, $connect );
 		} catch ( Exception $e ) {
 			return null;
@@ -64,8 +62,9 @@ class Rest_Client_Abstract {
 	/**
 	 * Build request
 	 *
-	 * @param array  $request Request data.
+	 * @param array $request Request data.
 	 * @param string $url URL.
+	 *
 	 * @return CurlHandle|false|resource
 	 * @throws WC_WooMercadoPago_Exception Build request exception.
 	 */
@@ -100,11 +99,11 @@ class Rest_Client_Abstract {
 					$json_content         = 'application/json' === $v;
 					$form_content         = 'application/x-www-form-urlencoded' === $v;
 				}
-				array_push( $headers, $h . ': ' . $v );
+				$headers[] = $h . ': ' . $v;
 			}
 		}
 		if ( $default_content_type ) {
-			array_push( $headers, 'content-type: application/json' );
+			$headers[] = 'content-type: application/json';
 		}
 
 		//@codingStandardsIgnoreStart
@@ -132,7 +131,7 @@ class Rest_Client_Abstract {
 
 		if ( isset( $request['data'] ) ) {
 			if ( $json_content ) {
-				if ( 'string' === gettype( $request['data'] ) ) {
+				if ( is_string( $request['data'] ) ) {
 					json_decode( $request['data'], true );
 				} else {
 					$request['data'] = wp_json_encode( $request['data'] );
@@ -156,8 +155,9 @@ class Rest_Client_Abstract {
 	/**
 	 * Execute curl
 	 *
-	 * @param array      $request Request data.
+	 * @param array $request Request data.
 	 * @param CurlHandle $connect Curl Handle Connection.
+	 *
 	 * @return array|null
 	 * @throws WC_WooMercadoPago_Exception Execute call exception.
 	 */
@@ -170,7 +170,22 @@ class Rest_Client_Abstract {
 			// @codingStandardsIgnoreLine
 			throw new WC_WooMercadoPago_Exception( curl_error( $connect ) );
 		}
-		$api_http_code = curl_getinfo( $connect, CURLINFO_HTTP_CODE ); //phpcs:ignore
+
+		$info          = curl_getinfo( $connect ); //phpcs:ignore
+		$api_http_code = $info['http_code']; //phpcs:ignore
+
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$log = WC_WooMercadoPago_Log::init_mercado_pago_log( 'mercadopago_requests' );
+			$log->write_log(
+				'Execute cURL',
+				sprintf(
+					/* translators: 1: total_time currency 2: url */
+					__('Took %1$s seconds to transfer a request to %2$s', 'woocommerce-mercadopago'),
+					$info['total_time'],
+					$info['url']
+				)
+			);
+		}
 
 		if ( null !== $api_http_code && null !== $api_result ) {
 			$response = array(
@@ -180,6 +195,7 @@ class Rest_Client_Abstract {
 		}
 
 		curl_close( $connect ); //phpcs:ignore
+
 		return $response;
 	}
 
@@ -187,6 +203,7 @@ class Rest_Client_Abstract {
 	 * Build query
 	 *
 	 * @param array $params Params.
+	 *
 	 * @return string
 	 */
 	public static function build_query( $params ) {
@@ -196,6 +213,7 @@ class Rest_Client_Abstract {
 			foreach ( $params as $name => $value ) {
 				$elements[] = "{$name}=" . rawurldecode( $value );
 			}
+
 			return implode( '&', $elements );
 		}
 	}

@@ -399,3 +399,19 @@
 .mp_subtitle_mt {
     margin-top: 0px !important;
 }
+
+.mp_credential_input_loading {
+	background: url("../images/loading.gif") 98% 50% no-repeat transparent;
+	background-size: 4%;
+	padding-right: 30px !important;
+}
+
+.mp_credential_input_success {
+	background: url("../images/icon-success.png") 98% 50% no-repeat transparent;
+	padding-right: 30px !important;
+}
+
+.mp_credential_input_warning {
+	background: url("../images/icon-warning.png") 98% 50% no-repeat transparent;
+	padding-right: 30px !important;
+}

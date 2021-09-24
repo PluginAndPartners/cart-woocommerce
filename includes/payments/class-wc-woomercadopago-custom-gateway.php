@@ -50,7 +50,6 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 		$this->field_forms_order  = $this->get_fields_sequence();
 		parent::__construct();
 		$this->form_fields         = $this->get_form_mp_fields( 'Custom' );
-		$this->customer            = $this->get_or_create_customer();
 		$this->hook                = new WC_WooMercadoPago_Hook_Custom( $this );
 		$this->notification        = new WC_WooMercadoPago_Notification_Webhook( $this );
 		$this->currency_convertion = true;
@@ -71,6 +70,13 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 				array(),
 				WC_WooMercadoPago_Constants::VERSION,
 				false
+			);
+			wp_enqueue_script(
+				'woocommerce-mercadopago-credentials',
+				plugins_url( '../assets/js/validate-credentials' . $suffix . '.js', plugin_dir_path( __FILE__ ) ),
+				array(),
+				WC_WooMercadoPago_Constants::VERSION,
+				true
 			);
 		}
 
@@ -124,11 +130,6 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			'checkout_btn_save',
 			// Carga tus credenciales.
 			'checkout_credential_title',
-			'checkout_credential_mod_test_title',
-			'checkout_credential_mod_test_description',
-			'checkout_credential_mod_prod_title',
-			'checkout_credential_mod_prod_description',
-			'checkout_credential_prod',
 			'checkout_credential_link',
 			'checkout_credential_title_prod',
 			'checkout_credential_description_prod',
@@ -138,6 +139,15 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			'checkout_credential_description_test',
 			'_mp_public_key_test',
 			'_mp_access_token_test',
+			'checkout_mode_title',
+			'checkout_subtitle_checkout_mode',
+			'checkbox_checkout_test_mode',
+			'checkbox_checkout_production_mode',
+			'checkout_mode_alert',
+			// Everything ready for the takeoff of your sales?
+			'checkout_ready_title',
+			'checkout_ready_description',
+			'checkout_ready_description_link',
 			// No olvides de homologar tu cuenta.
 			'checkout_homolog_title',
 			'checkout_homolog_subtitle',
@@ -174,10 +184,6 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			'checkout_support_description',
 			'checkout_support_description_link',
 			'checkout_support_problem',
-			// Everything ready for the takeoff of your sales?
-			'checkout_ready_title',
-			'checkout_ready_description',
-			'checkout_ready_description_link',
 		);
 	}
 
@@ -357,7 +363,16 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			$currency_ratio = WC_WooMercadoPago_Helpers_CurrencyConverter::DEFAULT_RATIO;
 		}
 
-		$parameters = array(
+		$test_mode_rules_link = $this->get_mp_devsite_link($this->checkout_country);
+		$parameters           = array(
+			'checkout_alert_test_mode' => $this->is_production_mode()
+			? ''
+			: $this->checkout_alert_test_mode_template(
+				__( 'Cards in Test Mode', 'woocommerce-mercadopago' ),
+				__( 'Use the test-specific cards that are in the', 'woocommerce-mercadopago' )
+				. "<a style='color: #74AFFC; text-decoration: none; outline: none;' target='_blank' href='$test_mode_rules_link'> "
+				. __( 'test mode rules', 'woocommerce-mercadopago' ) . '</a>.</p>'
+			),
 			'amount'               => $amount,
 			'site_id'              => $this->get_option_mp( '_site_id_v1' ),
 			'public_key'           => $this->get_public_key(),
@@ -543,6 +558,7 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 	protected function process_discount_and_commission( $order_id, $order ) {
 		$amount = $this->get_order_total();
 		if ( method_exists( $order, 'update_meta_data' ) ) {
+			$order->update_meta_data( 'is_production_mode', $this->get_option_mp( 'checkbox_checkout_production_mode' ) );
 			$order->update_meta_data( '_used_gateway', get_class( $this ) );
 
 			if ( ! empty( $this->gateway_discount ) ) {
@@ -652,40 +668,6 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 	}
 
 	/**
-	 * Check and save customer card
-	 *
-	 * @param array $checkout_info Checkout info.
-	 */
-	public function check_and_save_customer_card( $checkout_info ) {
-		$this->log->write_log( __FUNCTION__, 'checking info to create card: ' . wp_json_encode( $checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
-		$cust_id           = null;
-		$token             = null;
-		$issuer_id         = null;
-		$payment_method_id = null;
-		if ( isset( $checkout_info['payer']['id'] ) && ! empty( $checkout_info['payer']['id'] ) ) {
-			$cust_id = $checkout_info['payer']['id'];
-		} else {
-			return;
-		}
-		if ( isset( $checkout_info['metadata']['token'] ) && ! empty( $checkout_info['metadata']['token'] ) ) {
-			$token = $checkout_info['metadata']['token'];
-		} else {
-			return;
-		}
-		if ( isset( $checkout_info['issuer_id'] ) && ! empty( $checkout_info['issuer_id'] ) ) {
-			$issuer_id = (int) ( $checkout_info['issuer_id'] );
-		}
-		if ( isset( $checkout_info['payment_method_id'] ) && ! empty( $checkout_info['payment_method_id'] ) ) {
-			$payment_method_id = $checkout_info['payment_method_id'];
-		}
-		try {
-			$this->mp->create_card_in_customer( $cust_id, $token, $payment_method_id, $issuer_id );
-		} catch ( WC_WooMercadoPago_Exception $ex ) {
-			$this->log->write_log( __FUNCTION__, 'card creation failed: ' . wp_json_encode( $ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
-		}
-	}
-
-	/**
 	 * Is available?
 	 *
 	 * @return bool
@@ -704,19 +686,6 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 		}
 
 		return true;
-	}
-
-	/**
-	 * Get or create customer
-	 *
-	 * @return array|mixed|null
-	 * @throws WC_WooMercadoPago_Exception Get or create user exception.
-	 */
-	public function get_or_create_customer() {
-		if ( empty( $this->mp ) ) {
-			return null;
-		}
-		return isset( $this->logged_user_email ) ? $this->mp->get_or_create_customer( $this->logged_user_email ) : null;
 	}
 
 	/**
