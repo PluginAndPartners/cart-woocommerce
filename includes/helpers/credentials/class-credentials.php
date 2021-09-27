@@ -12,6 +12,8 @@
 
 namespace Helpers;
 
+use WC_WooMercadoPago_Constants;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
@@ -21,19 +23,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Credentials {
 
-	public $public_key;
-	public $access_token;
+	private $is_production_mode;
 
 	/**
 	 * Credentials constructor
 	 */
-	public function __construct() {
-		$is_production_mode = get_option( 'checkbox_checkout_test_mode', 'yes' ) === 'no';
-		$public_key         = $is_production_mode ? get_option( '_mp_public_key_prod', '' ) : get_option( '_mp_public_key_test', '' );
-		$access_token       = $is_production_mode ? get_option( '_mp_access_token_prod', '' ) : get_option( '_mp_access_token_test', '' );
+	public function __construct( $payment_method ) {
+		$key     = 'woocommerce_' . $payment_method . '_settings';
+		$options = get_option( $key );
 
-		$this->public_key   = $public_key;
-		$this->access_token = $access_token;
+		$this->is_production_mode = ( 'no' === $options['checkbox_checkout_test_mode'] );
 	}
 
 	/**
@@ -42,7 +41,7 @@ class Credentials {
 	 * @return $access_token
 	 */
 	public function get_access_token() {
-		return $this->access_token;
+		return $this->is_production_mode ? get_option( '_mp_access_token_prod', '' ) : get_option( '_mp_access_token_test', '' );
 	}
 
 	/**
@@ -51,6 +50,7 @@ class Credentials {
 	 * @return $public_key
 	 */
 	public function get_public_key() {
-		return $this->public_key;
+		return $this->is_production_mode ? get_option( '_mp_public_key_prod', '' ) : get_option( '_mp_public_key_test', '' );
 	}
+
 }

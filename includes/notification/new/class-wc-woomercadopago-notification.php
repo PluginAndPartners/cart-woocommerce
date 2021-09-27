@@ -100,17 +100,17 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public function get_order( $data ) {
 		try {
-			$secret = $this->get_credentials();
+			$order = wc_get_order( $data['external_reference'] );
+
+			if ( ! $order ) {
+				return $this->set_response( 404, null, 'Order not found' );
+			}
+
+			$secret = $this->get_credentials($order->get_payment_method());
 
 			if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
 				if ( ! $this->valid_get_payload( $data ) ) {
 					return $this->set_response(400, null, 'Missing fields');
-				}
-
-				$order = wc_get_order( $data['external_reference'] );
-
-				if ( ! $order ) {
-					return $this->set_response( 404, null, 'Order not found' );
 				}
 
 			$response = $this->build_get_response( $order );
@@ -136,12 +136,12 @@ class WC_WooMercadoPago_Notification {
 	 */
 	public function post_order( $data ) {
 		try {
-			$secret = $this->get_credentials();
+			$order  = wc_get_order( $data['external_reference'] );
+			$secret = $this->get_credentials($order->get_payment_method());
+
 			if ( $this->assert_payload_hmac_is_valid( $data, $secret ) ) {
 
 				if ( $this->valid_post_payload( $data ) ) {
-					$order = wc_get_order( $data['external_reference'] );
-
 					$response         = $this->build_post_response( $data, $order );
 					$hmac             = Cryptography::encrypt($response, $secret);
 					$response['hmac'] = $hmac;
@@ -240,10 +240,10 @@ class WC_WooMercadoPago_Notification {
 	/**
 	 * Get Secret Key
 	 */
-	public function get_credentials() {
-		$credentials = new Credentials();
-		$secret      = $credentials->get_access_token();
-		return $secret;
+	public function get_credentials( $payment_method ) {
+		$credentials = new Credentials($payment_method);
+
+		return $credentials->get_access_token();
 	}
 
 	/**
