@@ -12,8 +12,6 @@
 
 namespace Helpers;
 
-use WC_WooMercadoPago_Constants;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
