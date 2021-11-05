@@ -84,6 +84,10 @@ You can set up a time limit for customers to pay after they receive the code, am
 
 == Installation ==
 
+> Caution!
+>
+> Versions prior to 4.5.0 will be discontinued due to security reasons. Please update your checkout.
+
 = Minimum Technical Requirements =
 * WordPress version
 * Compatibility and dependency of WooCommerce VXX
