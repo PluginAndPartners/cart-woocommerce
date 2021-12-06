@@ -108,8 +108,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="mp-row-checkout mp-pt-10">
 						<div class="mp-col-md-12">
 							<label for="mp-card-number" class="mp-label-form"><?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?> <em>*</em></label>
-							<input type="text" onkeyup="mpCreditMaskDate(this, mpMcc);" class="mp-form-control mp-mt-5" id="mp-card-number" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
-
+							<div class="mp-form-control mp-mt-5" id="mp-card-number" data-checkout="cardNumber"></div>
 							<span class="mp-error mp-mt-5" id="mp-error-205" data-main="#mp-card-number"><?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?></span>
 							<span class="mp-error mp-mt-5" id="mp-error-E301" data-main="#mp-card-number"><?php echo esc_html__( 'Invalid Card Number', 'woocommerce-mercadopago' ); ?></span>
 						</div>
@@ -129,15 +128,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<!-- Input expiration date -->
 						<div class="mp-col-md-6 mp-pr-15">
 							<label for="mp-card-expiration-date" class="mp-label-form"><?php echo esc_html__( 'Expiration date', 'woocommerce-mercadopago' ); ?> <em>*</em></label>
-							<input type="text" onkeyup="mpCreditMaskDate(this, mpDate);" onblur="mpValidateMonthYear()" class="mp-form-control mp-mt-5" id="mp-card-expiration-date" data-checkout="cardExpirationDate" autocomplete="off" placeholder="MM/AAAA" maxlength="7" />
-							<input type="hidden" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
-							<input type="hidden" id="cardExpirationYear" data-checkout="cardExpirationYear">
+
+							<div id="cardExpirationMonth" data-checkout="cardExpirationMonth" class="mp-form-control mp-mt-5"></div>
+							<div id="cardExpirationYear" data-checkout="cardExpirationYear" class="mp-form-control mp-mt-5"></div>
+
 							<span class="mp-error mp-mt-5" id="mp-error-208" data-main="#mp-card-expiration-date"><?php echo esc_html__( 'Invalid Expiration Date', 'woocommerce-mercadopago' ); ?></span>
 						</div>
 						<!-- Input Security Code -->
 						<div class="mp-col-md-6">
 							<label for="mp-security-code" class="mp-label-form"><?php echo esc_html__( 'Security code', 'woocommerce-mercadopago' ); ?> <em>*</em></label>
-							<input type="text" onkeyup="mpCreditMaskDate(this, mpInteger);" class="mp-form-control mp-mt-5" id="mp-security-code" data-checkout="securityCode" autocomplete="off" maxlength="4" />
+
+							<div class="mp-form-control mp-mt-5" id="mp-security-code" data-checkout="securityCode"></div>
+
 							<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"><?php echo esc_html__( 'Last 3 numbers on the back', 'woocommerce-mercadopago' ); ?></p>
 							<span class="mp-error mp-mt-5" id="mp-error-224" data-main="#mp-security-code"><?php echo esc_html__( 'Check the informed security code.', 'woocommerce-mercadopago' ); ?></span>
 							<span class="mp-error mp-mt-5" id="mp-error-E302" data-main="#mp-security-code"><?php echo esc_html__( 'Check the informed security code.', 'woocommerce-mercadopago' ); ?></span>
@@ -247,11 +249,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </div>
 <!-- Terms and conditions link at checkout -->
-<div>       
-	<p class="mp-terms-and-conditions"> 
-		<?php echo esc_html($text_prefix); ?> 		
+<div>
+	<p class="mp-terms-and-conditions">
+		<?php echo esc_html($text_prefix); ?>
 		<a target="_blank" href="<?php echo esc_html($link_terms_and_conditions); ?>">  <?php echo esc_html($text_suffix); ?> </a>
-	</p> 		
+	</p>
 </div>
 
 <script type="text/javascript">
