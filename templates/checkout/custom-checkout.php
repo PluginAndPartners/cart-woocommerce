@@ -15,10 +15,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="mp-panel-custom-checkout">
-	<?php
-		// @codingStandardsIgnoreLine
-		echo $checkout_alert_test_mode;
-	?>
+	<?php if ( true === $test_mode ) : ?>
+		<div class="mp-checkout-pro-test-mode">
+			<test-mode
+				title="<?php echo esc_html_e( 'Checkout Custom in Test Mode', 'woocommerce-mercadopago' ); ?>"
+				description="<?php echo esc_html_e( 'Use Checkout Custom without real charges. ', 'woocommerce-mercadopago' ); ?>"
+				link-text="<?php echo esc_html_e( 'See the rules for the test mode.', 'woocommerce-mercadopago' ); ?>"
+				link-src="<?php echo esc_html( $test_mode_link ); ?>"
+			>
+			</test-mode>
+		</div>
+	<?php endif; ?>
+
 	<div class="mp-row-checkout">
 		<?php if ( 'yes' === $wallet_button ) : ?>
 			<div class='mp-wallet-button-container'>
@@ -86,17 +94,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 			</div>
 
-			<input-document label='' documents='[
+			<input-document
+				label=''
+				validate=true
+				documents='[
 					{"name":"CPF"},
-					{"name":"CNPJ"}]' validate=true>
+					{"name":"CNPJ"}
+				]'
+			>
 			</input-document>
 
 			<div name='mp-installments'>
-				
+
 			</div>
-
-			
-
 		</div>
 
 		<div class="mp-col-md-12">
@@ -247,12 +257,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	</div>
 </div>
+
 <!-- Terms and conditions link at checkout -->
-<div>       
-	<p class="mp-terms-and-conditions"> 
-		<?php echo esc_html($text_prefix); ?> 		
+<div>
+	<p class="mp-terms-and-conditions">
+		<?php echo esc_html($text_prefix); ?>
 		<a target="_blank" href="<?php echo esc_html($link_terms_and_conditions); ?>">  <?php echo esc_html($text_suffix); ?> </a>
-	</p> 		
+	</p>
 </div>
 
 <script type="text/javascript">
@@ -268,13 +279,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 	function mpMcc(value) {
-		if(mpIsMobile()){
+		if (mpIsMobile()) {
 			return value;
 		}
+
 		value = value.replace(/\D/g, "");
 		value = value.replace(/^(\d{4})(\d)/g, "$1 $2");
 		value = value.replace(/^(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3");
 		value = value.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
+
 		return value;
 	}
 
@@ -282,6 +295,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		v = v.replace(/\D/g, "");
 		v = v.replace(/(\d{2})(\d)/, "$1/$2");
 		v = v.replace(/(\d{2})(\d{2})$/, "$1$2");
+
 		return v;
 	}
 
@@ -297,10 +311,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 	function mpIsMobile() {
-		try{
+		try {
 			document.createEvent("TouchEvent");
 			return true;
-		}catch(e){
+		} catch(e) {
 			return false;
 		}
 	}
@@ -310,10 +324,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		jQuery('#mp_checkout_type').val('wallet_button');
 		jQuery('form.checkout, form#order_review').submit();
 	}
-
-</script>
-
-<script>
 
 	avaiablePayment = document.getElementsByClassName('mp-avaiable-payments')[0];
 	collapsible = avaiablePayment.getElementsByClassName('mp-header')[0];

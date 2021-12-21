@@ -338,11 +338,13 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			WC_WooMercadoPago_Constants::VERSION
 		);
 
-		$amount     = $this->get_order_total();
-		$discount   = $amount * ( $this->gateway_discount / 100 );
-		$comission  = $amount * ( $this->commission / 100 );
-		$amount     = $amount - $discount + $comission;
-		$banner_url = $this->get_option_mp( '_mp_custom_banner' );
+		$amount         = $this->get_order_total();
+		$discount       = $amount * ( $this->gateway_discount / 100 );
+		$comission      = $amount * ( $this->commission / 100 );
+		$amount         = $amount - $discount + $comission;
+		$test_mode_link = $this->get_mp_devsite_link($this->checkout_country);
+		$banner_url     = $this->get_option_mp( '_mp_custom_banner' );
+
 		if ( ! isset( $banner_url ) || empty( $banner_url ) ) {
 			$banner_url = $this->site_data['checkout_banner_custom'];
 		}
@@ -389,16 +391,9 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			$currency_ratio = WC_WooMercadoPago_Helpers_CurrencyConverter::DEFAULT_RATIO;
 		}
 
-		$test_mode_rules_link = $this->get_mp_devsite_link($this->checkout_country);
-		$parameters           = array(
-			'checkout_alert_test_mode' => $this->is_production_mode()
-			? ''
-			: $this->checkout_alert_test_mode_template(
-				__( 'Cards in Test Mode', 'woocommerce-mercadopago' ),
-				__( 'Use the test-specific cards that are in the', 'woocommerce-mercadopago' )
-				. "<a style='color: #74AFFC; text-decoration: none; outline: none;' target='_blank' href='$test_mode_rules_link'> "
-				. __( 'test mode rules', 'woocommerce-mercadopago' ) . '</a>.</p>'
-			),
+		$parameters = array(
+			'test_mode'            => ! $this->is_production_mode(),
+			'test_mode_link'       => $test_mode_link,
 			'amount'               => $amount,
 			'site_id'              => $this->get_option_mp( '_site_id_v1' ),
 			'public_key'           => $this->get_public_key(),
