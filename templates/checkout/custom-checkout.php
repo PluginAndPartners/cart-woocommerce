@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class='mp-checkout-custom-available-payments-content'>
-			<payment-methods methods="<?php echo wp_json_encode($payment_methods); ?>"></payment-methods>
+			<payment-methods methods='<?php echo wp_json_encode($payment_methods); ?>'></payment-methods>
 			<hr>
 		</div>
 	</div>
