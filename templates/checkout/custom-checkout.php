@@ -26,6 +26,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</test-mode>
 		</div>
 	<?php endif; ?>
+
+	<?php if ( 'yes' === $wallet_button ) : ?>
+		<div class='mp-wallet-button-container'>
+			<div class='mp-wallet-button-title'>
+				<img src="<?php echo esc_url( plugins_url( '../assets/images/mp_logo.png', plugin_dir_path( __FILE__ ) ) ); ?>">
+				<span>Paga con Mercado Pago</span>
+			</div>
+
+			<div class='mp-wallet-button-description'>
+				Paga más rápido con tus tarjetas guardadas y sin completar datos.
+			</div>
+
+			<div class='mp-wallet-button-button'>
+				<button>
+					Pagar con Mercado Pago
+				</button>
+			</div>
+		</div>
+	<?php endif; ?>
 </div>
 
 <div class="mp-panel-custom-checkout">
