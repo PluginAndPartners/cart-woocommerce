@@ -45,27 +45,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	<?php endif; ?>
+
+	<div class='mp-checkout-custom-available-payments'>
+		<div class='mp-checkout-custom-available-payments-header'>
+			<div class="mp-checkout-custom-available-payments-title">
+				<img src="../../assets/images/purple_card.png" class='mp-icon'>
+				<p>¿Con qué tarjeta puedes pagar?</p>
+			</div>
+
+			<img src="../../assets/images/chefron-down.png" class='mp-checkout-custom-available-payments-collapsible'>
+		</div>
+
+		<div class='mp-checkout-custom-available-payments-content'>
+			<payment-methods methods='[
+					{
+						"title":"Cartão de crédito",
+						"label":"Em até 24 parcelas",
+						"payment_methods":[
+							{
+								"src":"https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo-7.png",
+								"alt":"Dummy image"
+							}
+						]
+					},
+					{
+						"title":"Cartão de débito",
+						"payment_methods":[
+							{
+								"src":"https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo-7.png",
+								"alt":"Dummy image"
+							}
+						]
+					}
+				]'>
+			</payment-methods>
+			<hr>
+		</div>
+	</div>
 </div>
 
 <div class="mp-panel-custom-checkout">
 	<div class="mp-row-checkout">
-		<?php if ( 'yes' === $wallet_button ) : ?>
-			<div class='mp-wallet-button-container'>
-				<div class='mp-title'>
-					<img src='<?php echo esc_url( plugins_url( '../assets/images/mp_logo.png', plugin_dir_path( __FILE__ ) ) ); ?>'>
-					Paga con Mercado Pago
-				</div>
-				<div class='mp-description'>
-					Paga más rápido con tus tarjetas guardadas y sin completar datos.
-				</div>
-				<div class='mp-button'>
-					<button id="mp-wallet-button" onclick="submitWalletButton(event)">
-						Pagar con Mercado Pago
-					</button>
-				</div>
-			</div>
-		<?php endif; ?>
-
 		<div class='mp-avaiable-payments'>
 			<div class='mp-header'>
 				<div class="mp-title">
