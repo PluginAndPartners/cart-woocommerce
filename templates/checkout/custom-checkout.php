@@ -124,6 +124,96 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</input-document>
 		</div>
 	</div>
+
+	<div class="mp-checkout-custom-installments">
+		<p class='mp-checkout-custom-card-form-title'>Selecciona la cantidad de cuotas</p>
+
+		<input-table
+			name="installments"
+			button-name="more options"
+			columns='
+				[
+					{
+						"id": "visa",
+						"value": "visa",
+						"rowText": "1x R$ 150,00",
+						"rowObs": "R$ 150,00",
+						"highlight": "true"
+					},
+					{
+						"id": "master",
+						"value": "master",
+						"rowText": "2x R$ 80,00",
+						"rowObs": "R$ 160,00",
+						"highlight": "true"
+					},
+					{
+						"id": "elo",
+						"value": "elo",
+						"rowText": "3x R$ 70,00",
+						"rowObs": "R$ 210,00"
+					},
+					{
+						"id": "visa2",
+						"value": "visa",
+						"rowText": "4x R$ 150,00",
+						"rowObs": "R$ 150,00"
+					},
+					{
+						"id": "master2",
+						"value": "master",
+						"rowText": "5x R$ 80,00",
+						"rowObs": "R$ 160,00"
+					},
+					{
+						"id": "elo2",
+						"value": "elo",
+						"rowText": "6x R$ 70,00",
+						"rowObs": "R$ 210,00"
+					},
+					{
+						"id": "visa3",
+						"value": "visa",
+						"rowText": "7x R$ 150,00",
+						"rowObs": "R$ 150,00"
+					},
+					{
+						"id": "master4",
+						"value": "master",
+						"rowText": "8x R$ 80,00",
+						"rowObs": "R$ 160,00"
+					},
+					{
+						"id": "elo5",
+						"value": "elo",
+						"rowText": "9x R$ 70,00",
+						"rowObs": "R$ 210,00"
+					},
+					{
+						"id": "elo6",
+						"value": "elo",
+						"rowText": "10x R$ 70,00",
+						"rowObs": "R$ 210,00"
+					},
+					{
+						"id": "elo7",
+						"value": "elo",
+						"rowText": "11x R$ 70,00",
+						"rowObs": "R$ 210,00"
+					}
+				]
+			'>
+		</input-table>
+	</div>
+
+	<div class="mp-checkout-custom-terms-and-conditions">
+		<terms-and-conditions
+			description="By continuing, you agree with our"
+			link-text="Terms and Conditions"
+			link-src="https://developers.mercadopago.com"
+		>
+		</terms-and-conditions>
+	</div>
 </div>
 
 <div class="mp-panel-custom-checkout">
