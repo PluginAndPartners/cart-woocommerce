@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<img
-				src="<?php echo esc_url( plugins_url( '../assets/images/chefron-up.png', plugin_dir_path( __FILE__ ) ) ); ?>"
+				src="<?php echo esc_url( plugins_url( '../assets/images/chefron-down.png', plugin_dir_path( __FILE__ ) ) ); ?>"
 				class='mp-checkout-custom-available-payments-collapsible'
 			/>
 		</div>
@@ -379,11 +379,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if (content.style.maxHeight) {
 			content.style.maxHeight = null;
 			content.style.padding = "0px";
-			icon.src = "../../assets/images/chefron-down.png";
+			icon.src = "<?php echo esc_url( plugins_url( '../assets/images/chefron-down.png', plugin_dir_path( __FILE__ ) ) ); ?>";
 		} else {
 			content.style.maxHeight = content.scrollHeight + "px";
 			content.style.padding = "24px 0px 0px";
-			icon.src = "../../assets/images/chefron-up.png";
+			icon.src = "<?php echo esc_url( plugins_url( '../assets/images/chefron-up.png', plugin_dir_path( __FILE__ ) ) ); ?>";
 		}
 	});
 
