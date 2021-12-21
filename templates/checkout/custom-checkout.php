@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input-label message="Vencimento" isOptinal=false></input-label>
 				<input
 					type="text"
-					class="mp-checkout-custom-card-input"
+					class="mp-checkout-custom-card-input mp-checkout-custom-margin-right-16"
 					id="mp-card-expiration-date"
 					maxlength="5"
 					placeholder="mm/aa"
