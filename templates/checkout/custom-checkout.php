@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<div class="mp-panel-custom-checkout">
+<div class='mp-checkout-custom-container'>
 	<?php if ( true === $test_mode ) : ?>
 		<div class="mp-checkout-pro-test-mode">
 			<test-mode
@@ -26,7 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</test-mode>
 		</div>
 	<?php endif; ?>
+</div>
 
+<div class="mp-panel-custom-checkout">
 	<div class="mp-row-checkout">
 		<?php if ( 'yes' === $wallet_button ) : ?>
 			<div class='mp-wallet-button-container'>
