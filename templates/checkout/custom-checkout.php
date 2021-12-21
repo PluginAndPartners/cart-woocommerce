@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class='mp-wallet-button-button'>
-				<button>
+				<button id="mp-wallet-button" onclick="submitWalletButton(event)">
 					Pagar con Mercado Pago
 				</button>
 			</div>
