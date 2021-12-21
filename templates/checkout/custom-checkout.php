@@ -366,19 +366,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 		jQuery('form.checkout, form#order_review').submit();
 	}
 
-	avaiablePayment = document.getElementsByClassName('mp-avaiable-payments')[0];
-	collapsible = avaiablePayment.getElementsByClassName('mp-header')[0];
+	const availablePayment = document.getElementsByClassName('mp-checkout-custom-available-payments')[0];
+	const collapsible = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-header')[0];
 
 	collapsible.addEventListener("click", function () {
-		icon = collapsible.getElementsByClassName('mp-collapsible')[0];
-		content = avaiablePayment.getElementsByClassName('mp-content')[0];
+		const icon = collapsible.getElementsByClassName('mp-checkout-custom-available-payments-collapsible')[0];
+		const content = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-content')[0];
 
 		if (content.style.maxHeight) {
 			content.style.maxHeight = null;
-			icon.src = "<?php echo esc_url( plugins_url( '../assets/images/chefron-up.png', plugin_dir_path( __FILE__ ) ) ); ?>";
+			content.style.padding = "0px";
+			icon.src = "../../assets/images/chefron-down.png";
 		} else {
 			content.style.maxHeight = content.scrollHeight + "px";
-			icon.src = "<?php echo esc_url( plugins_url( '../assets/images/chefron-down.png', plugin_dir_path( __FILE__ ) ) ); ?>";
+			content.style.padding = "24px 0px 0px";
+			icon.src = "../../assets/images/chefron-up.png";
 		}
+	});
+
+	const cardNumber = document.getElementById('mp-card-number');
+
+	cardNumber.addEventListener('input', (e) => {
+		e.target.value = e.target.value.replace(/\D/g, "")
+			.replace(/^(\d{4})(\d)/g, "$1 $2")
+			.replace(/^(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3")
+			.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
+	});
+
+	const cardExpirationDate = document.getElementById('mp-card-expiration-date');
+
+	cardExpirationDate.addEventListener('input', (e) => {
+		e.target.value = e.target.value.replace(/\D/g, "")
+			.replace(/(\d{2})(\d)/, "$1/$2")
+			.replace(/(\d{2})(\d{2})$/, "$1$2");
 	});
 </script>
