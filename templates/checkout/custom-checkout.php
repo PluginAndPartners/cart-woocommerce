@@ -49,11 +49,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class='mp-checkout-custom-available-payments'>
 		<div class='mp-checkout-custom-available-payments-header'>
 			<div class="mp-checkout-custom-available-payments-title">
-				<img src="../../assets/images/purple_card.png" class='mp-icon'>
+				<img src="<?php echo esc_url( plugins_url( '../assets/images/purple_card.png', plugin_dir_path( __FILE__ ) ) ); ?>" class='mp-icon'>
 				<p>¿Con qué tarjeta puedes pagar?</p>
 			</div>
 
-			<img src="../../assets/images/chefron-down.png" class='mp-checkout-custom-available-payments-collapsible'>
+			<img
+				src="<?php echo esc_url( plugins_url( '../assets/images/chefron-up.png', plugin_dir_path( __FILE__ ) ) ); ?>"
+				class='mp-checkout-custom-available-payments-collapsible'
+			/>
 		</div>
 
 		<div class='mp-checkout-custom-available-payments-content'>
