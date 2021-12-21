@@ -62,6 +62,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class='mp-checkout-custom-available-payments-content'>
 			<payment-methods methods='<?php echo wp_json_encode($payment_methods); ?>'></payment-methods>
 			<hr>
+
+
+				<span id="mp_promotion_link"> | </span>
+				<a href="https://www.mercadopago.com.ar/cuotas" id="mp_checkout_link" class="mp-checkout-link mp-pl-10" target="_blank">
+					<?php echo esc_html__( 'See current promotions', 'woocommerce-mercadopago' ); ?>
+				</a>
+
 		</div>
 	</div>
 </div>
