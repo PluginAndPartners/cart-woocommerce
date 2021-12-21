@@ -60,28 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class='mp-checkout-custom-available-payments-content'>
-			<payment-methods methods='[
-					{
-						"title":"Cartão de crédito",
-						"label":"Em até 24 parcelas",
-						"payment_methods":[
-							{
-								"src":"https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo-7.png",
-								"alt":"Dummy image"
-							}
-						]
-					},
-					{
-						"title":"Cartão de débito",
-						"payment_methods":[
-							{
-								"src":"https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo-7.png",
-								"alt":"Dummy image"
-							}
-						]
-					}
-				]'>
-			</payment-methods>
+			<payment-methods methods="<?php echo wp_json_encode($payment_methods); ?>"></payment-methods>
 			<hr>
 		</div>
 	</div>
