@@ -366,12 +366,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		jQuery('form.checkout, form#order_review').submit();
 	}
 
-	const availablePayment = document.getElementsByClassName('mp-checkout-custom-available-payments')[0];
-	const collapsible = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-header')[0];
+	var availablePayment = document.getElementsByClassName('mp-checkout-custom-available-payments')[0];
+	var collapsible = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-header')[0];
 
 	collapsible.addEventListener("click", function () {
-		const icon = collapsible.getElementsByClassName('mp-checkout-custom-available-payments-collapsible')[0];
-		const content = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-content')[0];
+		var icon = collapsible.getElementsByClassName('mp-checkout-custom-available-payments-collapsible')[0];
+		var content = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-content')[0];
 
 		if (content.style.maxHeight) {
 			content.style.maxHeight = null;
@@ -384,7 +384,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 	});
 
-	const cardNumber = document.getElementById('mp-card-number');
+	var cardNumber = document.getElementById('mp-card-number');
 
 	cardNumber.addEventListener('input', (e) => {
 		e.target.value = e.target.value.replace(/\D/g, "")
@@ -393,7 +393,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
 	});
 
-	const cardExpirationDate = document.getElementById('mp-card-expiration-date');
+	var cardExpirationDate = document.getElementById('mp-card-expiration-date');
 
 	cardExpirationDate.addEventListener('input', (e) => {
 		e.target.value = e.target.value.replace(/\D/g, "")
