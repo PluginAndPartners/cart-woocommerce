@@ -64,31 +64,70 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<hr>
 		</div>
 	</div>
+
+	<div class='mp-checkout-custom-card-form'>
+		<p class='mp-checkout-custom-card-form-title'>Completa los datos de tu tarjeta</p>
+
+		<div class='mp-checkout-custom-card-row'>
+			<input-label isOptinal=false message="Número de cartão" for='mp-card-number'></input-label>
+			<input
+				type="text"
+				class="mp-checkout-custom-card-input"
+				id="mp-card-number"
+				autocomplete="off"
+				maxlength="19"
+				placeholder="1234 1234 1234 1234"
+			/>
+			<input-helper isVisible=false message="Número incompleto" for='mp-card-number'></input-helper>
+		</div>
+
+		<div class='mp-checkout-custom-card-row'>
+			<input-label message="Nome" isOptinal=false></input-label>
+			<input type="text" class="mp-checkout-custom-card-input" id="mp-card-holder-name" placeholder="Ex.: María López" />
+			<input-helper isVisible=false message="Dado obrigatório"></input-helper>
+		</div>
+
+		<div class='mp-checkout-custom-card-row mp-checkout-custom-flex-direction-row'>
+			<div class='mp-checkout-custom-card-column'>
+				<input-label message="Vencimento" isOptinal=false></input-label>
+				<input
+					type="text"
+					class="mp-checkout-custom-card-input"
+					id="mp-card-expiration-date"
+					maxlength="5"
+					placeholder="mm/aa"
+				/>
+				<input-helper isVisible=false message="Dado obrigatório"></input-helper>
+			</div>
+
+			<div class='mp-checkout-custom-card-column'>
+				<input-label message="Código de Segurança" isOptinal=false></input-label>
+				<input
+					type="text"
+					class="mp-checkout-custom-card-input"
+					id="mp-security-code"
+					maxlength="4"
+					placeholder="123"
+				/>
+				<input-helper isVisible=false message="Dado obrigatório"></input-helper>
+			</div>
+		</div>
+
+		<div class="mp-checkout-custom-input-document">
+			<input-document
+				documents='[
+					{ "name": "CPF" },
+					{ "name": "CNPJ" }
+				]'
+				validate=true
+			>
+			</input-document>
+		</div>
+	</div>
 </div>
 
 <div class="mp-panel-custom-checkout">
 	<div class="mp-row-checkout">
-		<div class='mp-avaiable-payments'>
-			<div class='mp-header'>
-				<div class="mp-title">
-					<img src="<?php echo esc_url( plugins_url( '../assets/images/purple_card.png', plugin_dir_path( __FILE__ ) ) ); ?>" class='mp-icon'>
-					<p><?php echo esc_html__( 'With what cards can I pay', 'woocommerce-mercadopago' ); ?></p>
-				</div>
-				<img src="<?php echo esc_url( plugins_url( '../assets/images/chefron-up.png', plugin_dir_path( __FILE__ ) ) ); ?>" class='mp-collapsible'>
-			</div>
-			<div class='mp-content'>
-				<payment-methods methods='<?php echo wp_json_encode($payment_methods); ?>'>
-				</payment-methods>
-				<hr>
-				<?php if ( 'MLA' === $site_id ) : ?>
-					<span id="mp_promotion_link"> | </span>
-					<a href="https://www.mercadopago.com.ar/cuotas" id="mp_checkout_link" class="mp-checkout-link mp-pl-10" target="_blank">
-						<?php echo esc_html__( 'See current promotions', 'woocommerce-mercadopago' ); ?>
-					</a>
-				<?php endif; ?>
-			</div>
-		</div>
-
 		<div class='mp-card-form'>
 			<div class='mp-card-form-title'>
 			<?php echo esc_html__( 'Enter your card details', 'woocommerce-mercadopago' ); ?>
