@@ -260,6 +260,11 @@
       if (status === 200) {
 
         var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+
+				if (selectorInstallments.firstElementChild) {
+          selectorInstallments.removeChild(selectorInstallments.firstElementChild);
+        }
+
 				var installments = [];
         var payerCosts = [];
 

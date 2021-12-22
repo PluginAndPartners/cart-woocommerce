@@ -87,12 +87,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input-helper isVisible=false message="Dado obrigatório"></input-helper>
 		</div>
 
-		<div class='mp-checkout-custom-card-row mp-checkout-custom-flex-direction-row'>
+		<div class='mp-checkout-custom-card-row mp-checkout-custom-dual-column-row'>
 			<div class='mp-checkout-custom-card-column'>
 				<input-label message="Vencimento" isOptinal=false></input-label>
 				<input
 					type="text"
-					class="mp-checkout-custom-card-input mp-checkout-custom-margin-right-16"
+					class="mp-checkout-custom-card-input mp-checkout-custom-left-card-input"
 					id="mp-card-expiration-date"
 					maxlength="5"
 					placeholder="mm/aa"
@@ -127,85 +127,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="mp-checkout-custom-installments">
 		<p class='mp-checkout-custom-card-form-title'>Selecciona la cantidad de cuotas</p>
-
-		<div id="mp-checkout-custom-installments-container">
-			<input-table
-				name="installments"
-				button-name="more options"
-				columns='
-					[
-						{
-							"id": "visa",
-							"value": "visa",
-							"rowText": "1x R$ 150,00",
-							"rowObs": "R$ 150,00",
-							"highlight": "true"
-						},
-						{
-							"id": "master",
-							"value": "master",
-							"rowText": "2x R$ 80,00",
-							"rowObs": "R$ 160,00",
-							"highlight": "true"
-						},
-						{
-							"id": "elo",
-							"value": "elo",
-							"rowText": "3x R$ 70,00",
-							"rowObs": "R$ 210,00"
-						},
-						{
-							"id": "visa2",
-							"value": "visa",
-							"rowText": "4x R$ 150,00",
-							"rowObs": "R$ 150,00"
-						},
-						{
-							"id": "master2",
-							"value": "master",
-							"rowText": "5x R$ 80,00",
-							"rowObs": "R$ 160,00"
-						},
-						{
-							"id": "elo2",
-							"value": "elo",
-							"rowText": "6x R$ 70,00",
-							"rowObs": "R$ 210,00"
-						},
-						{
-							"id": "visa3",
-							"value": "visa",
-							"rowText": "7x R$ 150,00",
-							"rowObs": "R$ 150,00"
-						},
-						{
-							"id": "master4",
-							"value": "master",
-							"rowText": "8x R$ 80,00",
-							"rowObs": "R$ 160,00"
-						},
-						{
-							"id": "elo5",
-							"value": "elo",
-							"rowText": "9x R$ 70,00",
-							"rowObs": "R$ 210,00"
-						},
-						{
-							"id": "elo6",
-							"value": "elo",
-							"rowText": "10x R$ 70,00",
-							"rowObs": "R$ 210,00"
-						},
-						{
-							"id": "elo7",
-							"value": "elo",
-							"rowText": "11x R$ 70,00",
-							"rowObs": "R$ 210,00"
-						}
-					]
-				'>
-			</input-table>
-		</div>
+		<div id="mp-checkout-custom-installments-container"></div>
 	</div>
 
 	<div class="mp-checkout-custom-terms-and-conditions">
