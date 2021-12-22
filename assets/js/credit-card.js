@@ -240,6 +240,14 @@
 		function setCvvProperties(security_code) {
 			document.getElementById('mp-security-code').setAttribute('maxlength', security_code.length);
 			document.getElementById('mp-security-code-helper').innerHTML = `Last ${ security_code.length } digits in ${ security_code.card_location }`;
+			document.getElementById('mp-security-code').setAttribute('placeholder', countPlaceHolder());
+			function countPlaceHolder() {
+				var placeholder = '';
+				for (var i = 0; i < security_code.length; i++) {
+						 placeholder+= i+1;
+				}
+				return placeholder;
+			}
 		}
     /**
      * Resolution 51/2017
