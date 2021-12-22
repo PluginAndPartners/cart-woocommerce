@@ -22,14 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="mp-row-checkout">
 		<?php if ( 'yes' === $wallet_button ) : ?>
 			<div class='mp-wallet-button-container'>
-				<div class='mp-title'>
+				<div class='mp-wallet-button-title''>
 					<img src='<?php echo esc_url( plugins_url( '../assets/images/mp_logo.png', plugin_dir_path( __FILE__ ) ) ); ?>'>
 					Paga con Mercado Pago
 				</div>
-				<div class='mp-description'>
+				<div class='mp-wallet-button-description'>
 					Paga más rápido con tus tarjetas guardadas y sin completar datos.
 				</div>
-				<div class='mp-button'>
+				<div class='mp-wallet-button-button'>
 					<button id="mp-wallet-button" onclick="submitWalletButton(event)">
 						Pagar con Mercado Pago
 					</button>
@@ -37,15 +37,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		<?php endif; ?>
 
-		<div class='mp-avaiable-payments'>
-			<div class='mp-header'>
-				<div class="mp-title">
+		<div class='mp-checkout-custom-available-payments'>
+			<div class='mp-checkout-custom-available-payments-header'>
+				<div class="mp-checkout-custom-available-payments-title">
 					<img src="<?php echo esc_url( plugins_url( '../assets/images/purple_card.png', plugin_dir_path( __FILE__ ) ) ); ?>" class='mp-icon'>
 					<p><?php echo esc_html__( 'With what cards can I pay', 'woocommerce-mercadopago' ); ?></p>
 				</div>
-				<img src="<?php echo esc_url( plugins_url( '../assets/images/chefron-up.png', plugin_dir_path( __FILE__ ) ) ); ?>" class='mp-collapsible'>
+				<img src="<?php echo esc_url( plugins_url( '../assets/images/chefron-up.png', plugin_dir_path( __FILE__ ) ) ); ?>" class='mp-checkout-custom-available-payments-collapsible'>
 			</div>
-			<div class='mp-content'>
+			<div class='mp-checkout-custom-available-payments-content'>
 				<payment-methods methods='<?php echo wp_json_encode($payment_methods); ?>'>
 				</payment-methods>
 				<hr>
@@ -58,45 +58,87 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div class='mp-card-form'>
-			<div class='mp-card-form-title'>
-			<?php echo esc_html__( 'Enter your card details', 'woocommerce-mercadopago' ); ?>
-			</div>
-			<input-label isOptinal=false message="<?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?>" for='mp-card-number'></input-label>
-			<input type="text" class="mp-card-input" id="mp-card-number" autocomplete="off" maxlength="19"
-				placeholder="1234 1234 1234 1234" onkeyup="mpCreditMaskDate(this, mpMcc);"/>
-			<input-helper isVisible=false message="Número incompleto" for='mp-card-number'></input-helper>
-
-			<input-label message="<?php echo esc_html__( 'Name and surname of the cardholder', 'woocommerce-mercadopago' ); ?>" isOptinal=false></input-label>
-			<input type="text" class="mp-card-input" id="mp-card-holder-name" placeholder="Ex.: María López" />
-			<input-helper isVisible=false message="Dado obrigatório"></input-helper>
-
-			<div class='mp-card-row'>
-				<div class='mp-card-colunm'>
-					<input-label message="<?php echo esc_html__( 'Expiration date', 'woocommerce-mercadopago' ); ?>" isOptinal=false></input-label>
-					<input type="text" class="mp-card-input mp-card-half-input" id="mp-card-expiration-date"
-						maxlength="5" placeholder="mm/aa" />
-					<input-helper isVisible=false message="Dado obrigatório"></input-helper>
-				</div>
-				<div class='mp-card-colunm'>
-					<input-label message="<?php echo esc_html__( 'Security code', 'woocommerce-mercadopago' ); ?>" isOptinal=false></input-label>
-					<input type="text" class="mp-card-input mp-card-half-input" id="mp-security-code" maxlength="4"
-						placeholder="123" />
-					<input-helper isVisible=false message="Dado obrigatório"></input-helper>
-				</div>
+		<div class='mp-checkout-custom-card-form'>
+			<p class='mp-checkout-custom-card-form-title'>
+				<?php echo esc_html__( 'Enter your card details', 'woocommerce-mercadopago' ); ?>
+			</p>
+			<div class='mp-checkout-custom-card-row'>
+				<input-label isOptinal=false message="<?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?>" for='mp-card-number'></input-label>
+				<input 
+					type="text" 
+					class="mp-checkout-custom-card-input" 
+					id="mp-card-number" 
+					autocomplete="off" 
+					maxlength="19"
+					placeholder="1234 1234 1234 1234" 
+					onkeyup="mpCreditMaskDate(this, mpMcc);"
+				/>
+				<input-helper isVisible=false message="Número incompleto" for='mp-card-number'></input-helper>
 			</div>
 
-			<input-document label='' documents='[
-					{"name":"CPF"},
-					{"name":"CNPJ"}]' validate=true>
-			</input-document>
+			<div class='mp-checkout-custom-card-row'>
+				<input-label 
+					message="<?php echo esc_html__( 'Name and surname of the cardholder', 'woocommere-mercadopago' ); ?>" 
+					isOptinal=false
+				></input-label>
+				<input 
+					type="text" 
+					class="mp-checkout-custom-card-input" 
+					id="mp-card-holder-name" 
+					placeholder="Ex.: María López" 
+				/>
+				<input-helper 
+					isVisible=false 
+					message="Dado obrigatório"
+				></input-helper>
+			</div>
+
+			<div class='mp-checkout-custom-card-row mp-checkout-custom-flex-direction-row'>
+				<div class='mp-checkout-custom-card-column'>
+					<input-label 
+						message="<?php echo esc_html__( 'Expiration date', 'woocommerce-mercadopago' ); ?>" 
+						isOptinal=false
+					></input-label>
+					<input 
+						type="text" 
+						class="mp-checkout-custom-card-input" 
+						id="mp-card-expiration-date"						
+						maxlength="5" 
+						placeholder="mm/aa" 
+					/>
+					<input-helper isVisible=false message="Dado obrigatório"></input-helper>
+				</div>
+				<div class='mp-checkout-custom-card-column'>
+					<input-label 
+						message="<?php echo esc_html__( 'Security code', 'woocommerce-mercadopago' ); ?>"
+						isOptinal=false
+					></input-label>
+					<input 
+						type="text" 
+						class="mp-checkout-custom-card-input" 
+						id="mp-security-code" 
+						maxlength="4"
+						placeholder="123" 
+					/>
+					<input-helper 
+						isVisible=false 
+						message="Dado obrigatório"
+					></input-helper>
+				</div>
+			</div>
+
+			<input-document 
+				label-message = '<?php echo esc_html__( 'Document number', 'woocommerce-mercadopago' ); ?> '
+				helper-message = '<?php echo esc_html__( 'Invalid Document Number', 'woocommerce-mercadopago' ); ?>'
+				input-name = 'docNumber'
+				select-name = 'docType'
+				flag-error = 'docNumberError'
+				documents = '["CPF","CNPJ","CI","Outro"]'
+				validate = true
+			></input-document>
 
 			<div name='mp-installments'>
-				
 			</div>
-
-			
-
 		</div>
 
 		<div class="mp-col-md-12">
@@ -315,12 +357,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <script>
 
-	avaiablePayment = document.getElementsByClassName('mp-avaiable-payments')[0];
-	collapsible = avaiablePayment.getElementsByClassName('mp-header')[0];
+	avaiablePayment = document.getElementsByClassName('mp-checkout-custom-available-payments')[0];
+	collapsible = avaiablePayment.getElementsByClassName('mp-checkout-custom-available-payments-header')[0];
 
 	collapsible.addEventListener("click", function () {
-		icon = collapsible.getElementsByClassName('mp-collapsible')[0];
-		content = avaiablePayment.getElementsByClassName('mp-content')[0];
+		icon = collapsible.getElementsByClassName('mp-checkout-custom-available-payments-collapsible')[0];
+		content = avaiablePayment.getElementsByClassName('mp-checkout-custom-available-payments-content')[0];
 
 		if (content.style.maxHeight) {
 			content.style.maxHeight = null;
