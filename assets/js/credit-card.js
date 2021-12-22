@@ -125,6 +125,7 @@
         objPaymentMethod = response[0];
         setPaymentMethodId(objPaymentMethod.id);
         setImageCard(objPaymentMethod.secure_thumbnail);
+				setCvvProperties(objPaymentMethod.settings[0].security_code);
         loadAdditionalInfo(objPaymentMethod.additional_info_needed);
         additionalInfoHandler();
         document.getElementById('mp-card-number').classList.remove('mp-form-control-error');
@@ -231,6 +232,15 @@
       document.getElementById('mp-card-number').style.background = 'url(' + secureThumbnail + ') 98% 50% no-repeat #fff';
     }
 
+		/**
+     * Set maxlength on element
+     *
+     * @param {obj} security_code
+     */
+		function setCvvProperties(security_code) {
+			document.getElementById('mp-security-code').setAttribute('maxlength', security_code.length);
+			document.getElementById('mp-security-code-helper').innerHTML = `Last ${ security_code.length } digits ${ security_code.card_location }`;
+		}
     /**
      * Resolution 51/2017
      *

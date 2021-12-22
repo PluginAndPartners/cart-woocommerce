@@ -80,8 +80,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 				<div class='mp-card-colunm'>
 					<input-label message="<?php echo esc_html__( 'Security code', 'woocommerce-mercadopago' ); ?>" isOptinal=false></input-label>
-					<input type="text" class="mp-card-input mp-card-half-input" id="mp-security-code" maxlength="4"
-						placeholder="123" />
+					<input type="text" class="mp-card-input mp-card-half-input" id="mp-security-code" placeholder="123" />
+					<p id="mp-security-code-helper" class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"></p>
 					<input-helper isVisible=false message="Dado obrigatório"></input-helper>
 				</div>
 			</div>
@@ -92,10 +92,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</input-document>
 
 			<div name='mp-installments'>
-				
+
 			</div>
 
-			
+
 
 		</div>
 
@@ -248,11 +248,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </div>
 <!-- Terms and conditions link at checkout -->
-<div>       
-	<p class="mp-terms-and-conditions"> 
-		<?php echo esc_html($text_prefix); ?> 		
+<div>
+	<p class="mp-terms-and-conditions">
+		<?php echo esc_html($text_prefix); ?>
 		<a target="_blank" href="<?php echo esc_html($link_terms_and_conditions); ?>">  <?php echo esc_html($text_suffix); ?> </a>
-	</p> 		
+	</p>
 </div>
 
 <script type="text/javascript">
