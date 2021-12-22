@@ -286,7 +286,7 @@
 				var inputTable = document.createElement('input-table');
 				inputTable.setAttribute('name', 'installments');
 				inputTable.setAttribute('button-name', 'more-options');
-				inputTable.setAttribute('columns', installments);
+				inputTable.setAttribute('columns', JSON.stringify(installments));
 
 				selectorInstallments.appendChild(inputTable);
 
