@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class='mp-checkout-custom-card-row'>
 				<input-label
-					message="<?php echo esc_html__( 'Name and surname of the cardholder', 'woocommere-mercadopago' ); ?>"
+					message="<?php echo esc_html__( 'Name and surname of the cardholder', 'woocommerce-mercadopago' ); ?>"
 					isOptinal=false
 				></input-label>
 				<input
