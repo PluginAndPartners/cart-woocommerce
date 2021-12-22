@@ -239,7 +239,7 @@
      */
 		function setCvvProperties(security_code) {
 			document.getElementById('mp-security-code').setAttribute('maxlength', security_code.length);
-			document.getElementById('mp-security-code-helper').innerHTML = `Last ${ security_code.length } digits ${ security_code.card_location }`;
+			document.getElementById('mp-security-code-helper').innerHTML = `Last ${ security_code.length } digits in ${ security_code.card_location }`;
 		}
     /**
      * Resolution 51/2017
