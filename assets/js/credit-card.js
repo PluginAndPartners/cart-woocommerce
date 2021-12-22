@@ -258,9 +258,11 @@
      */
     function installmentHandler(status, response) {
       if (status === 200) {
-        var selectorInstallments = document.getElementById('mp-installments');
-        var html_option = '<option value="-1">' + wc_mercadopago_params.choose + '...</option>';
+
+        var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+				var installments = [];
         var payerCosts = [];
+
         for (var i = 0; i < response.length; i++) {
           if (response[i].processing_mode === 'aggregator') {
             payerCosts = response[i].payer_costs;
@@ -268,16 +270,26 @@
         }
 
         for (var j = 0; j < payerCosts.length; j++) {
-          html_option += '<option value="' + payerCosts[j].installments + '" ' + argentinaResolution(payerCosts[j].labels) + '>' +
-            (payerCosts[j].recommended_message || payerCosts[j].installments) +
-            '</option>';
+					installments.push({
+						id: 'installment-' + payerCosts[j].installments,
+						value: payerCosts[j].installments,
+						rowText: payerCosts[j].recommended_message || payerCosts[j].installments,
+						rowObs: payerCosts[j].total_amount
+					});
         }
 
-        selectorInstallments.innerHTML = html_option;
+				var inputTable = document.createElement('input-table');
+				inputTable.setAttribute('name', 'installments');
+				inputTable.setAttribute('button-name', 'more-options');
+				inputTable.setAttribute('columns', installments);
+
+				selectorInstallments.appendChild(inputTable);
+
         if (seller.site_id === 'MLA') {
           clearTax();
           $('body').on('change', '#mp-installments', showTaxes);
         }
+
       } else {
         clearInstallments();
         clearTax();
