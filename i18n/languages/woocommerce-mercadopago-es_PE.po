@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-"
 "mercadopago\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-12-14 14:40-0300\n"
+"PO-Revision-Date: 2021-12-16 13:16-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -36,8 +36,8 @@ msgstr "Convertir moneda"
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:1311,
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:1440,
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:1477,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:308,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:308
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:331,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:331
 msgid "No"
 msgstr "No"
 
@@ -48,8 +48,8 @@ msgstr "No"
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:1312,
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:1441,
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:1476,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:309,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:309
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:332,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:332
 msgid "Yes"
 msgstr "Sí"
 
@@ -428,8 +428,8 @@ msgstr ""
 
 #: ../../includes/payments/class-wc-woomercadopago-basic-gateway.php:301,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:326,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:251,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:251
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:274,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:274
 msgid "Configure Mercado Pago for WooCommerce"
 msgstr "Ingresá la información de tu negocio"
 
@@ -543,20 +543,20 @@ msgid "Select credit cards"
 msgstr "Selecciona tarjetas de crédito"
 
 #: ../../includes/payments/class-wc-woomercadopago-basic-gateway.php:504,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:360,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:360
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:383,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:383
 msgid "Payment methods"
 msgstr "Medios de pagos"
 
 #: ../../includes/payments/class-wc-woomercadopago-basic-gateway.php:505,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:361,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:361
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:384,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:384
 msgid "Choose the available payment methods in your store."
 msgstr "Selecciona los medios de pago disponibles en tu tienda."
 
 #: ../../includes/payments/class-wc-woomercadopago-basic-gateway.php:511,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:364,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:364
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:387,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:387
 msgid "Activate the available payment methods to your clients."
 msgstr "Habilita los medios de pago disponibles para tus clientes."
 
@@ -604,8 +604,8 @@ msgstr "Pagos en efectivo"
 #: ../../includes/payments/class-wc-woomercadopago-custom-gateway.php:571,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:480,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:467,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:493,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:480,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:513,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:500,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-abstract.php:169,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-abstract.php:167,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-abstract.php:167
@@ -618,8 +618,8 @@ msgstr "descuento de"
 #: ../../includes/payments/class-wc-woomercadopago-custom-gateway.php:576,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:485,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:472,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:498,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:485,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:518,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:505,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-abstract.php:171,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-abstract.php:171
 msgid "fee of"
@@ -1755,15 +1755,15 @@ msgstr ""
 "sus ventajas."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:549,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:597,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:597
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:635,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:635
 msgid "A problem occurred when processing your payment. Please try again."
 msgstr ""
 "Un problema se produjo al procesar su pago. Por favor, inténtelo de nuevo."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:535,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:583,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:583
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:621,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:621
 msgid ""
 "A problem occurred when processing your payment. Are you sure you have "
 "correctly filled in all the information on the checkout form?"
@@ -1772,8 +1772,8 @@ msgstr ""
 "correctamente toda la información en el formulario de checkout?"
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:514,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:558,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:558
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:596,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:596
 msgid "The customer has not paid yet."
 msgstr "El cliente no ha pagado todavía."
 
@@ -1830,23 +1830,23 @@ msgstr "Paga con dinero en efectivo"
 #. translators: %s checkout
 #. translators: %s checkout
 #. translators: %s checkout
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:227,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:227
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:250,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:250
 msgid "Checkout of payments with cash %s"
 msgstr "Paga con dinero en efectivo"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:230,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:230
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:253,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:253
 msgid "Accept face-to-face payments, do not leave anyone out!"
 msgstr "Acepta pagos presenciales ¡no dejes a nadie afuera!"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:234,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:234
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:257,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:257
 msgid "Include this preferred purchase option by some customers."
 msgstr "Incluye esta opción de compra preferida por algunos clientes."
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:264,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:264
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:287,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:287
 msgid ""
 "Enable Mercado Pago for cash payments in your store and <br> select the "
 "options available to your customers."
@@ -1854,23 +1854,23 @@ msgstr ""
 "Habilita Mercado Pago para pagos en efectivo en tu tienda y <br> selecciona "
 "las opciones disponibles para tus clientes."
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:277,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:277
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:300,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:300
 msgid "Set payment preferences with cash"
 msgstr "Configura las preferencias de pago con dinero en efectivo"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:290,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:290
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:313,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:313
 msgid "Advanced configuration of the cash payment experience"
 msgstr "Configuración avanzada de la experiencia de pago en efectivo"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:303,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:303
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:326,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:326
 msgid "Reduce inventory"
 msgstr "Reducir inventario"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:306,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:306
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:329,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:329
 msgid ""
 "Activates inventory reduction during the creation of an order, whether or "
 "not the final payment is credited. Disable this option to reduce it only "
@@ -1880,38 +1880,24 @@ msgstr ""
 "acredite o no el pago final. Desactiva esta opción para reducirlo solo "
 "cuando los pagos estén aprobados."
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:321,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:321
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:344,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:344
 msgid "Payment Due"
 msgstr "Vencimiento del pago"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:323,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:323
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:346,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:346
 msgid "In how many days will cash payments expire."
 msgstr "En cuántos días caducarán los pagos en efectivo."
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:353,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:353
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:376,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:376
 msgid "All payment methods"
 msgstr "Todos los medios de pago"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:420,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:420
-msgid "Offline Methods in Test Mode"
-msgstr "Facturas en Modo Test"
-
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:421,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:421
-msgid ""
-"You can test the flow to generate an invoice, but you cannot finalize the "
-"payment."
-msgstr ""
-"Es posible testear el flujo para generar una factura, pero no es posible "
-"finalizar el pago."
-
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:508,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:526,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:526
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:536,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:563,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:563
 msgid ""
 "There was a problem processing your payment. Are you sure you have correctly "
 "filled out all the information on the payment form?"
@@ -1919,18 +1905,24 @@ msgstr ""
 "Se produjo un problema al procesar su pago. ¿Está seguro de que ha llenado "
 "correctamente toda la información en el formulario de pago?"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:563,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:563
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:529,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:556,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:556
+msgid "Your document data is invalid"
+msgstr "Los datos de su documento no son válidos"
+
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:601,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:601
 msgid "To print the ticket again click"
 msgstr "Para imprimir nuevamente el ticket hace clic"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:566,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:566
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:604,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:604
 msgid "here"
 msgstr "aquí"
 
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:684,
-#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:684
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:722,
+#: ../../includes/payments/class-wc-woomercadopago-ticket-gateway.php:722
 msgid " and "
 msgstr " y "
 
@@ -2541,80 +2533,79 @@ msgstr "Cancelar &amp; Limpiar carrito"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:85,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:75,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:73,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:74,
 #: ../../templates/checkout/custom-checkout.php:92,
-#: ../../templates/checkout/ticket-checkout.php:34,
-#: ../../templates/checkout/ticket-checkout.php:34
+#: ../../templates/checkout/custom-checkout.php:92
 msgid "Apply"
 msgstr "Aplicar"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:86,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:76,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:74,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:74
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:75,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:75
 msgid "Remove"
 msgstr "Retirar"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:87,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:77,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:75,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:75
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:76,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:76
 msgid "Please, inform your coupon code"
 msgstr "Por favor, informe su código de cupón"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:88,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:78,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:76,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:76
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:77,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:77
 msgid "To choose"
 msgstr "Elegir"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:89,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:79,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:77,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:77
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:78,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:78
 msgid "Other bank"
 msgstr "Otro banco"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:90,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:80,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:78,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:78
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:79,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:79
 msgid "You will save"
 msgstr "Salvarás"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:91,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:81,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:79,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:79
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:80,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:80
 msgid "with discount of"
 msgstr "con descuento de"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:92,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:82,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:80,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:80
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:81,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:81
 msgid "Total of your purchase:"
 msgstr "Total de su compra:"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:93,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:83,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:81,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:81
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:82,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:82
 msgid "Total of your purchase with discount:"
 msgstr "Total de su compra con descuento:"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:94,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:84,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:82,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:82
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:83,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:83
 msgid "*After payment approval"
 msgstr "*Tras la aprobación del pago"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:95,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:85,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:83,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:83
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:84,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:84
 msgid "Terms and conditions of use"
 msgstr "Términos y condiciones de uso"
 
@@ -2693,7 +2684,8 @@ msgid "Use Mercado Pago's payment methods without real charges. "
 msgstr "Utiliza los medios de Mercado Pago sin cobros reales. "
 
 #: ../../templates/checkout/basic-checkout.php:24,
-#: ../../templates/checkout/basic-checkout.php:24
+#: ../../templates/checkout/ticket-checkout.php:25,
+#: ../../templates/checkout/ticket-checkout.php:25
 msgid "See the rules for the test mode."
 msgstr "Consulta las reglas del modo test."
 
@@ -2736,13 +2728,15 @@ msgstr "Imagen de información de redireccionamiento de Checkout Pro"
 
 #: ../../templates/checkout/basic-checkout.php:63,
 #: ../../templates/checkout/pix-checkout.php:39,
-#: ../../templates/checkout/pix-checkout.php:39
+#: ../../templates/checkout/ticket-checkout.php:80,
+#: ../../templates/checkout/ticket-checkout.php:80
 msgid "By continuing, you agree with our"
 msgstr "Al continuar, aceptas nuestros"
 
 #: ../../templates/checkout/basic-checkout.php:64,
 #: ../../templates/checkout/pix-checkout.php:40,
-#: ../../templates/checkout/pix-checkout.php:40
+#: ../../templates/checkout/ticket-checkout.php:81,
+#: ../../templates/checkout/ticket-checkout.php:81
 msgid "Terms and Conditions"
 msgstr "Términos y Condiciones"
 
@@ -2777,20 +2771,17 @@ msgid "Debit card"
 msgstr "Tarjetas de débito"
 
 #: ../../templates/checkout/custom-checkout.php:84,
-#: ../../templates/checkout/ticket-checkout.php:27,
-#: ../../templates/checkout/ticket-checkout.php:27
+#: ../../templates/checkout/custom-checkout.php:84
 msgid "Enter your discount coupon"
 msgstr "Ingresa tu cupón de descuento"
 
 #: ../../templates/checkout/custom-checkout.php:88,
-#: ../../templates/checkout/ticket-checkout.php:31,
-#: ../../templates/checkout/ticket-checkout.php:31
+#: ../../templates/checkout/custom-checkout.php:88
 msgid "Enter your coupon"
 msgstr "Ingresa tu cupón"
 
 #: ../../templates/checkout/custom-checkout.php:95,
-#: ../../templates/checkout/ticket-checkout.php:38,
-#: ../../templates/checkout/ticket-checkout.php:38
+#: ../../templates/checkout/custom-checkout.php:95
 msgid "The code you entered is incorrect"
 msgstr "El código que ingresaste es incorrecto"
 
@@ -2863,20 +2854,17 @@ msgid "for"
 msgstr "para"
 
 #: ../../templates/checkout/custom-checkout.php:196,
-#: ../../templates/checkout/ticket-checkout.php:51,
-#: ../../templates/checkout/ticket-checkout.php:51
+#: ../../templates/checkout/custom-checkout.php:196
 msgid "Enter your document number"
 msgstr "Ingresa tu número de documento"
 
 #: ../../templates/checkout/custom-checkout.php:202,
-#: ../../templates/checkout/ticket-checkout.php:53,
-#: ../../templates/checkout/ticket-checkout.php:53
+#: ../../templates/checkout/custom-checkout.php:202
 msgid "Type"
 msgstr "Tipo"
 
 #: ../../templates/checkout/custom-checkout.php:209,
-#: ../../templates/checkout/ticket-checkout.php:59,
-#: ../../templates/checkout/ticket-checkout.php:59
+#: ../../templates/checkout/custom-checkout.php:209
 msgid "Document number"
 msgstr "Número de documento"
 
@@ -2887,9 +2875,7 @@ msgstr "Sólo números"
 
 #: ../../templates/checkout/custom-checkout.php:212,
 #: ../../templates/checkout/custom-checkout.php:213,
-#: ../../templates/checkout/ticket-checkout.php:62,
-#: ../../templates/checkout/ticket-checkout.php:125,
-#: ../../templates/checkout/ticket-checkout.php:125
+#: ../../templates/checkout/custom-checkout.php:213
 msgid "Invalid Document Number"
 msgstr "Número de documento no válido"
 
@@ -2929,36 +2915,29 @@ msgstr ""
 msgid "PIX logo"
 msgstr "Logotipo de PIX"
 
-#: ../../templates/checkout/ticket-checkout.php:55,
-#: ../../templates/checkout/ticket-checkout.php:55
-msgid "CI"
-msgstr "CI"
+#: ../../templates/checkout/ticket-checkout.php:23,
+#: ../../templates/checkout/ticket-checkout.php:23
+msgid "Offline Methods in Test Mode"
+msgstr "Facturas en Modo Test"
 
-#: ../../templates/checkout/ticket-checkout.php:61,
-#: ../../templates/checkout/ticket-checkout.php:124,
-#: ../../templates/checkout/ticket-checkout.php:124
-msgid "You must provide your document number"
-msgstr "Debe informar su número de documento"
+#: ../../templates/checkout/ticket-checkout.php:24,
+#: ../../templates/checkout/ticket-checkout.php:24
+msgid ""
+"You can test the flow to generate an invoice, but you cannot finalize the "
+"payment. "
+msgstr ""
+"Es posible testear el flujo para generar una factura, pero no es posible "
+"finalizar el pago. "
 
-#: ../../templates/checkout/ticket-checkout.php:68,
-#: ../../templates/checkout/ticket-checkout.php:68
-msgid "Complete all fields, they are mandatory."
-msgstr "Complete todos los campos, son obligatorios."
+#: ../../templates/checkout/ticket-checkout.php:56,
+#: ../../templates/checkout/ticket-checkout.php:56
+msgid "Select where you want to pay"
+msgstr "Selecciona el punto de pago donde quieres pagar"
 
-#: ../../templates/checkout/ticket-checkout.php:77,
-#: ../../templates/checkout/ticket-checkout.php:77
-msgid "Select the issuer with whom you want to process the payment"
-msgstr "Selecciona el emisor con el que quieras procesar el pago"
-
-#: ../../templates/checkout/ticket-checkout.php:109,
-#: ../../templates/checkout/ticket-checkout.php:109
-msgid "Lottery"
-msgstr "Lotéricas"
-
-#: ../../templates/checkout/ticket-checkout.php:122,
-#: ../../templates/checkout/ticket-checkout.php:122
-msgid "CPF/CNPJ"
-msgstr "CPF/CNPJ"
+#: ../../templates/checkout/ticket-checkout.php:60,
+#: ../../templates/checkout/ticket-checkout.php:60
+msgid "more options"
+msgstr "mas opciones"
 
 #: ../../templates/order/payment-status-metabox-content.php:20,
 #: ../../templates/order/payment-status-metabox-content.php:20
@@ -2982,6 +2961,24 @@ msgstr ""
 #: ../../templates/order-received/show-ticket.php:23
 msgid "Print ticket"
 msgstr "Imprimir ticket"
+
+#~ msgid "CI"
+#~ msgstr "CI"
+
+#~ msgid "You must provide your document number"
+#~ msgstr "Debe informar su número de documento"
+
+#~ msgid "Complete all fields, they are mandatory."
+#~ msgstr "Complete todos los campos, son obligatorios."
+
+#~ msgid "Select the issuer with whom you want to process the payment"
+#~ msgstr "Selecciona el emisor con el que quieras procesar el pago"
+
+#~ msgid "Lottery"
+#~ msgstr "Lotéricas"
+
+#~ msgid "CPF/CNPJ"
+#~ msgstr "CPF/CNPJ"
 
 #~ msgid "Pay with PIX "
 #~ msgstr "Paga vía Pix "
