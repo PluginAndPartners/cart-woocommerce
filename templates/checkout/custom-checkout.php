@@ -64,70 +64,70 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</p>
 			<div class='mp-checkout-custom-card-row'>
 				<input-label isOptinal=false message="<?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?>" for='mp-card-number'></input-label>
-				<input 
-					type="text" 
-					class="mp-checkout-custom-card-input" 
-					id="mp-card-number" 
-					autocomplete="off" 
+				<input
+					type="text"
+					class="mp-checkout-custom-card-input"
+					id="mp-card-number"
+					autocomplete="off"
 					maxlength="19"
-					placeholder="1234 1234 1234 1234" 
+					placeholder="1234 1234 1234 1234"
 					onkeyup="mpCreditMaskDate(this, mpMcc);"
 				/>
 				<input-helper isVisible=false message="Número incompleto" for='mp-card-number'></input-helper>
 			</div>
 
 			<div class='mp-checkout-custom-card-row'>
-				<input-label 
-					message="<?php echo esc_html__( 'Name and surname of the cardholder', 'woocommere-mercadopago' ); ?>" 
+				<input-label
+					message="<?php echo esc_html__( 'Name and surname of the cardholder', 'woocommerce-mercadopago' ); ?>"
 					isOptinal=false
 				></input-label>
-				<input 
-					type="text" 
-					class="mp-checkout-custom-card-input" 
-					id="mp-card-holder-name" 
-					placeholder="Ex.: María López" 
+				<input
+					type="text"
+					class="mp-checkout-custom-card-input"
+					id="mp-card-holder-name"
+					placeholder="Ex.: María López"
 				/>
-				<input-helper 
-					isVisible=false 
+				<input-helper
+					isVisible=false
 					message="Dado obrigatório"
 				></input-helper>
 			</div>
 
 			<div class='mp-checkout-custom-card-row mp-checkout-custom-flex-direction-row'>
 				<div class='mp-checkout-custom-card-column'>
-					<input-label 
-						message="<?php echo esc_html__( 'Expiration date', 'woocommerce-mercadopago' ); ?>" 
+					<input-label
+						message="<?php echo esc_html__( 'Expiration date', 'woocommerce-mercadopago' ); ?>"
 						isOptinal=false
 					></input-label>
-					<input 
-						type="text" 
-						class="mp-checkout-custom-card-input" 
-						id="mp-card-expiration-date"						
-						maxlength="5" 
-						placeholder="mm/aa" 
+					<input
+						type="text"
+						class="mp-checkout-custom-card-input"
+						id="mp-card-expiration-date"
+						maxlength="5"
+						placeholder="mm/aa"
 					/>
 					<input-helper isVisible=false message="Dado obrigatório"></input-helper>
 				</div>
 				<div class='mp-checkout-custom-card-column'>
-					<input-label 
+					<input-label
 						message="<?php echo esc_html__( 'Security code', 'woocommerce-mercadopago' ); ?>"
 						isOptinal=false
 					></input-label>
-					<input 
-						type="text" 
-						class="mp-checkout-custom-card-input" 
-						id="mp-security-code" 
-						maxlength="4"
-						placeholder="123" 
+					<input
+						type="text"
+						class="mp-checkout-custom-card-input"
+						id="mp-security-code"
+						placeholder="123"
 					/>
-					<input-helper 
-						isVisible=false 
+					<p id="mp-security-code-helper" class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"></p>
+					<input-helper
+						isVisible=false
 						message="Dado obrigatório"
 					></input-helper>
 				</div>
 			</div>
 
-			<input-document 
+			<input-document
 				label-message = '<?php echo esc_html__( 'Document number', 'woocommerce-mercadopago' ); ?> '
 				helper-message = '<?php echo esc_html__( 'Invalid Document Number', 'woocommerce-mercadopago' ); ?>'
 				input-name = 'docNumber'
@@ -290,11 +290,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </div>
 <!-- Terms and conditions link at checkout -->
-<div>       
-	<p class="mp-terms-and-conditions"> 
-		<?php echo esc_html($text_prefix); ?> 		
+<div>
+	<p class="mp-terms-and-conditions">
+		<?php echo esc_html($text_prefix); ?>
 		<a target="_blank" href="<?php echo esc_html($link_terms_and_conditions); ?>">  <?php echo esc_html($text_suffix); ?> </a>
-	</p> 		
+	</p>
 </div>
 
 <script type="text/javascript">
