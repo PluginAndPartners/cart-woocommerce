@@ -348,9 +348,9 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 		}
 
 		// credit or debit card.
-		$debit_card  	 = array();
-		$credit_card 	 = array();
-		$tarjetas    	 = get_option( '_checkout_payments_methods', '' );
+		$debit_card  = array();
+		$credit_card = array();
+		$tarjetas    = get_option( '_checkout_payments_methods', '' );
 
 		foreach ( $tarjetas as $tarjeta ) {
 			if ( 'credit_card' === $tarjeta['type'] ) {
@@ -371,7 +371,7 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 		if ( 0 !== count( $credit_card ) ) {
 			$payment_methods[] = array(
 				'title' => __( 'Credit cards', 'woocommerce-mercadopago' ),
-				'label' => "Em 24 parcelas",
+				'label' => 'Em 24 parcelas',
 				'payment_methods' => $credit_card,
 			);
 		}
