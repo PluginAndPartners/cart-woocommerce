@@ -1893,30 +1893,6 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Checkout Alert Test Mode Template
-	 *
-	 * @param String $alertTitle Title
-	 * @param String $alertDescription Description
-	 *
-	 * @return String
-	 */
-	public function checkout_alert_test_mode_template( $alertTitle, $alertDescription ) {
-		return "<div class='mp-alert-checkout-test-mode'>
-			<div class='mp-alert-icon-checkout-test-mode'>
-				<img
-					src='" . esc_url( plugins_url( '../assets/images/generics/circle-alert.png', plugin_dir_path( __FILE__ ) ) ) . "'
-					alt='alert'
-					class='mp-alert-circle-img'
-				>
-			</div>
-			<div class='mp-alert-texts-checkout-test-mode'>
-				<h2 class='mp-alert-title-checkout-test-mode'>$alertTitle</h2>
-				<p class='mp-alert-description-checkout-test-mode'>$alertDescription</p>
-			</div>
-		</div>";
-	}
-
-	/**
 	 * Get Country Domain By MELI Acronym
 	 *
 	 * @return String

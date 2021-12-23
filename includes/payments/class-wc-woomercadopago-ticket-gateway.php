@@ -438,8 +438,8 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 		}
 
 		$parameters = array(
-			'test_mode'           => ! $this->is_production_mode(),
-			'test_mode_link'      => $test_mode_link,
+			'test_mode'            => ! $this->is_production_mode(),
+			'test_mode_link'       => $test_mode_link,
 			'amount'               => $amount,
 			'payment_methods'      => $this->activated_payment,
 			'site_id'              => $this->get_option_mp( '_site_id_v1' ),

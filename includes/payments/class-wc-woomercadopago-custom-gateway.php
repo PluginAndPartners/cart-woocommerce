@@ -389,16 +389,10 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			$currency_ratio = WC_WooMercadoPago_Helpers_CurrencyConverter::DEFAULT_RATIO;
 		}
 
-		$test_mode_rules_link = $this->get_mp_devsite_link($this->checkout_country);
+		$test_mode_link = $this->get_mp_devsite_link($this->checkout_country);
 		$parameters           = array(
-			'checkout_alert_test_mode' => $this->is_production_mode()
-			? ''
-			: $this->checkout_alert_test_mode_template(
-				__( 'Cards in Test Mode', 'woocommerce-mercadopago' ),
-				__( 'Use the test-specific cards that are in the', 'woocommerce-mercadopago' )
-				. "<a style='color: #74AFFC; text-decoration: none; outline: none;' target='_blank' href='$test_mode_rules_link'> "
-				. __( 'test mode rules', 'woocommerce-mercadopago' ) . '</a>.</p>'
-			),
+			'test_mode'            => ! $this->is_production_mode(),
+			'test_mode_link'       => $test_mode_link,
 			'amount'               => $amount,
 			'site_id'              => $this->get_option_mp( '_site_id_v1' ),
 			'public_key'           => $this->get_public_key(),
