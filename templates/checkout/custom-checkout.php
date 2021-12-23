@@ -15,10 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="mp-panel-custom-checkout">
-	<?php
-		// @codingStandardsIgnoreLine
-		echo $checkout_alert_test_mode;
-	?>
+	<?php if ( true === $test_mode ) : ?>
+		<div class="mp-checkout-custom-test-mode">
+			<test-mode
+				title="<?php echo esc_html_e( 'Cards in Test Mode', 'woocommerce-mercadopago' ); ?>"
+				description="<?php echo esc_html_e( 'Use Mercado Pago media without real charges. ', 'woocommerce-mercadopago' ); ?>"
+				link-text="<?php echo esc_html_e('See the rules for the test mode.', 'woocommerce-mercadopago'); ?>"
+				link-src="<?php echo esc_html($test_mode_link); ?>"
+			>
+			</test-mode>
+		</div>
+	<?php endif; ?>
 	<div class="mp-row-checkout">
 		<?php if ( 'yes' === $wallet_button ) : ?>
 			<div class='mp-wallet-button-container'>
