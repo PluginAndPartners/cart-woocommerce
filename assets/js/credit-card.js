@@ -12,7 +12,6 @@
 
     // Set mercadopago public_key
     $.getScript('https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js').done(function () {
-      // Set Public_key
       Mercadopago.setPublishableKey(seller.public_key);
     });
 
@@ -30,12 +29,12 @@
       if (coupon_of_discounts.activated === 'yes') {
         $('#applyCoupon').on('click', discountCampaignsHandler);
       }
+
       showPaymentsLink();
     }
 
     // Load woocommerce checkout form
     $('body').on('updated_checkout', function () {
-
       if (coupon_of_discounts.activated === 'yes') {
         $('#applyCoupon').on('click', discountCampaignsHandler);
       }
@@ -258,15 +257,13 @@
      */
     function installmentHandler(status, response) {
       if (status === 200) {
-
+        var payerCosts = [];
+				var installments = [];
         var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
 
 				if (selectorInstallments.firstElementChild) {
           selectorInstallments.removeChild(selectorInstallments.firstElementChild);
         }
-
-				var installments = [];
-        var payerCosts = [];
 
         for (var i = 0; i < response.length; i++) {
           if (response[i].processing_mode === 'aggregator') {
@@ -275,17 +272,21 @@
         }
 
         for (var j = 0; j < payerCosts.length; j++) {
+					var installment = payerCosts[j].installments;
+					var installmentRate = payerCosts[j].installment_rate === 0;
+
 					installments.push({
-						id: 'installment-' + payerCosts[j].installments,
-						value: payerCosts[j].installments,
-						rowText: payerCosts[j].recommended_message || payerCosts[j].installments,
-						rowObs: payerCosts[j].total_amount
+						id: 'installment-' + installment,
+						value: installment,
+						rowText: installment + 'x ' + formatCurrency(payerCosts[j].installment_amount),
+						rowObs: installmentRate ? wc_mercadopago_params.rate_text : formatCurrency(payerCosts[j].total_amount),
+            highlight: installmentRate ? 'true' : '',
 					});
         }
 
 				var inputTable = document.createElement('input-table');
-				inputTable.setAttribute('name', 'installments');
-				inputTable.setAttribute('button-name', 'more-options');
+				inputTable.setAttribute('name', 'mercadopago_custom[installments]');
+				inputTable.setAttribute('button-name', wc_mercadopago_params.more_installments_text);
 				inputTable.setAttribute('columns', JSON.stringify(installments));
 
 				selectorInstallments.appendChild(inputTable);
@@ -294,7 +295,6 @@
           clearTax();
           $('body').on('change', '#mp-installments', showTaxes);
         }
-
       } else {
         clearInstallments();
         clearTax();
@@ -814,6 +814,15 @@
       }
 
       return false;
+    }
+
+		function formatCurrency(value) {
+      var formatter = new Intl.NumberFormat(wc_mercadopago_params.intl, {
+        style: 'currency',
+        currency: wc_mercadopago_params.currency,
+      });
+
+			return formatter.format(value);
     }
 
     // Process when submit the checkout form.
