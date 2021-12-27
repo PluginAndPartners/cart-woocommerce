@@ -125,7 +125,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 
-	<div class="mp-checkout-custom-installments">
+	<div id="mp-checkout-custom-installments" class="mp-checkout-custom-installments-display-none">
 		<p class='mp-checkout-custom-card-form-title'>Selecciona la cantidad de cuotas</p>
 		<div id="mp-checkout-custom-installments-container"></div>
 	</div>

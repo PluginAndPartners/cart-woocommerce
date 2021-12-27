@@ -259,6 +259,7 @@
       if (status === 200) {
         var payerCosts = [];
 				var installments = [];
+				var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
         var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
 
 				if (selectorInstallments.firstElementChild) {
@@ -288,6 +289,9 @@
 				inputTable.setAttribute('name', 'mercadopago_custom[installments]');
 				inputTable.setAttribute('button-name', wc_mercadopago_params.more_installments_text);
 				inputTable.setAttribute('columns', JSON.stringify(installments));
+
+				installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
+				installmentsContainer.classList.add('mp-checkout-custom-installments');
 
 				selectorInstallments.appendChild(inputTable);
 
