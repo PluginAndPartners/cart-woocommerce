@@ -330,7 +330,12 @@
     * Clear input select
     */
     function clearInstallments() {
-      document.getElementById('mp-installments').innerHTML = '';
+      var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
+
+			if (installmentsContainer) {
+				installmentsContainer.classList.remove('mp-checkout-custom-installments');
+				installmentsContainer.classList.add('mp-checkout-custom-installments-display-none');
+			}
     }
 
     /**
