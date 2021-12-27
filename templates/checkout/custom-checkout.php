@@ -19,8 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="mp-checkout-pro-test-mode">
 			<test-mode
 				title="<?php echo esc_html_e( 'Checkout Custom in Test Mode', 'woocommerce-mercadopago' ); ?>"
-				description="<?php echo esc_html_e( 'Use Checkout Custom without real charges. ', 'woocommerce-mercadopago' ); ?>"
-				link-text="<?php echo esc_html_e( 'See the rules for the test mode.', 'woocommerce-mercadopago' ); ?>"
+				description="<?php echo esc_html_e( 'Use the test-specific cards that are in the ', 'woocommerce-mercadopago' ); ?>"
+				link-text="<?php echo esc_html_e( 'test mode rules.', 'woocommerce-mercadopago' ); ?>"
 				link-src="<?php echo esc_html( $test_mode_link ); ?>"
 			>
 			</test-mode>
