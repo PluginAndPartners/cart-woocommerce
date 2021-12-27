@@ -115,10 +115,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="mp-checkout-custom-input-document">
 			<input-document
-				documents='[
-					{ "name": "CPF" },
-					{ "name": "CNPJ" }
-				]'
+				label-message = 'Documento'
+				helper-message = 'Documento Inválido'
+				documents='["CPF","CNPJ"]'
 				validate=true
 			>
 			</input-document>
