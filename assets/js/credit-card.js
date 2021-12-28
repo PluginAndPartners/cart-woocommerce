@@ -424,6 +424,12 @@
         };
 
         if (issuerId === '-1') {
+					var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+
+					if (selectorInstallments.firstElementChild) {
+						selectorInstallments.removeChild(selectorInstallments.firstElementChild);
+					}
+
           return;
         }
       } else {

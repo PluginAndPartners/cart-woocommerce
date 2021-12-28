@@ -131,7 +131,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input-select
 				name="mp-issuer"
 				optional="false"
-				options='["<?php echo __( 'To choose', 'woocommerce-mercadopago' ) ?>"]'
 				label="Banco emissor"
 			>
 			</input-select>
