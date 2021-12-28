@@ -176,14 +176,8 @@
       }
 
       if (additionalInfoNeeded.issuer) {
-				var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
-				installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
-				installmentsContainer.classList.add('mp-checkout-custom-installments');
-
-				var issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
-        issuersContainer.classList.remove('mp-checkout-custom-issuers-container-display-none');
-				issuersContainer.classList.add('mp-checkout-custom-issuers-container');
-
+				showInstallments();
+				showIssuers();
         Mercadopago.getIssuers(objPaymentMethod.id, getBin(), issuersHandler);
       } else {
         clearIssuer();
@@ -267,12 +261,9 @@
       if (status === 200) {
         var payerCosts = [];
 				var installments = [];
-				var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
-        var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+				var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
 
-				if (selectorInstallments.firstElementChild) {
-          selectorInstallments.removeChild(selectorInstallments.firstElementChild);
-        }
+				clearInstallmentsComponent();
 
         for (var i = 0; i < response.length; i++) {
           if (response[i].processing_mode === 'aggregator') {
@@ -298,8 +289,7 @@
 				inputTable.setAttribute('button-name', wc_mercadopago_params.more_installments_text);
 				inputTable.setAttribute('columns', JSON.stringify(installments));
 
-				installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
-				installmentsContainer.classList.add('mp-checkout-custom-installments');
+				showInstallments();
 
 				selectorInstallments.appendChild(inputTable);
 
@@ -338,6 +328,24 @@
       document.querySelector('#mp-tax-tea-text').innerHTML = tea;
     }
 
+		/**
+		 * Show installments
+		 */
+		function showInstallments() {
+			var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
+			installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
+			installmentsContainer.classList.add('mp-checkout-custom-installments');
+		}
+
+		/**
+		 * Show issuers
+		 */
+		function showIssuers() {
+			var issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
+			issuersContainer.classList.remove('mp-checkout-custom-issuers-container-display-none');
+			issuersContainer.classList.add('mp-checkout-custom-issuers-container');
+		}
+
     /**
     * Clear input select
     */
@@ -349,6 +357,14 @@
 				installmentsContainer.classList.add('mp-checkout-custom-installments-display-none');
 			}
     }
+
+		function clearInstallmentsComponent() {
+			var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+
+			if (selectorInstallments.firstElementChild) {
+				selectorInstallments.removeChild(selectorInstallments.firstElementChild);
+			}
+		}
 
     /**
     * Clear Tax
@@ -424,12 +440,7 @@
         };
 
         if (issuerId === '-1') {
-					var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
-
-					if (selectorInstallments.firstElementChild) {
-						selectorInstallments.removeChild(selectorInstallments.firstElementChild);
-					}
-
+					clearInstallmentsComponent();
           return;
         }
       } else {
@@ -450,11 +461,7 @@
      */
     function issuersHandler(status, response) {
       if (status === 200) {
-				var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
-
-				if (selectorInstallments.firstElementChild) {
-          selectorInstallments.removeChild(selectorInstallments.firstElementChild);
-        }
+				clearInstallmentsComponent();
 
         var issuersSelector = document.getElementById('mp-issuer');
         var fragment = document.createDocumentFragment();
