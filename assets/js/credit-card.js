@@ -235,13 +235,13 @@
      * @param {*} payerCosts
      * @returns {string}
      */
-    function argentinaResolution(payerCosts) {
+		function argentinaResolution(payerCosts) {
       var dataInput = '';
 
 			if (seller.site_id === 'MLA') {
         for (var l = 0; l < payerCosts.length; l++) {
           if (payerCosts[l].indexOf('CFT_') !== -1) {
-            dataInput = 'data-tax="' + payerCosts[l] + '"';
+            dataInput = payerCosts[l];
           }
         }
 
@@ -281,6 +281,7 @@
 						rowText: installment + 'x ' + formatCurrency(payerCosts[j].installment_amount),
 						rowObs: installmentRate ? wc_mercadopago_params.rate_text : formatCurrency(payerCosts[j].total_amount),
             highlight: installmentRate ? 'true' : '',
+						dataRate: argentinaResolution(payerCosts[j].labels),
 					});
         }
 
@@ -295,7 +296,7 @@
 
         if (seller.site_id === 'MLA') {
           clearTax();
-          $('body').on('change', '#mp-installments', showTaxes);
+          $('body').on('click', '.mp-input-table-label', showTaxes);
         }
       } else {
         clearInstallments();
@@ -307,8 +308,16 @@
     * Show taxes resolution 51/2017 for MLA
     */
     function showTaxes() {
-      var selectorInstallments = document.querySelector('#mp-installments');
-      var tax = selectorInstallments.options[selectorInstallments.selectedIndex].getAttribute('data-tax');
+			var selectorInstallments = document.querySelectorAll('.mp-input-radio-radio');
+      var tax = null;
+
+      selectorInstallments.forEach(installment => {
+        if (installment.checked) {
+          tax = installment.getAttribute('datarate');
+          return;
+        }
+      });
+
       var cft = '';
       var tea = '';
 
