@@ -96,6 +96,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				/>
 				<input-helper
 					isVisible=false
+					input-id='mp-card-holder-name-helper'
 					message="Dado obrigatório"
 				></input-helper>
 			</div>
