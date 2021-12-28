@@ -310,6 +310,7 @@
     function showTaxes() {
 			var selectorInstallments = document.querySelectorAll('.mp-input-radio-radio');
       var tax = null;
+      var display = 'block';
 
       selectorInstallments.forEach(installment => {
         if (installment.checked) {
@@ -328,11 +329,13 @@
         tea = tax_split[1].replace('_', ' ');
 
         if (cft === 'CFT 0,00%' && tea === 'TEA 0,00%') {
+          display = 'none';
           cft = '';
           tea = '';
         }
       }
 
+      document.querySelector('#mp-box-input-tax-cft').style.display = display;
       document.querySelector('#mp-tax-cft-text').innerHTML = cft;
       document.querySelector('#mp-tax-tea-text').innerHTML = tea;
     }
@@ -379,6 +382,7 @@
     * Clear Tax
     */
     function clearTax() {
+      document.querySelector('#mp-box-input-tax-cft').style.display = 'none';
       document.querySelector('#mp-tax-cft-text').innerHTML = '';
       document.querySelector('#mp-tax-tea-text').innerHTML = '';
     }
@@ -450,6 +454,7 @@
 
         if (issuerId === '-1') {
 					clearInstallmentsComponent();
+          clearTax();
           return;
         }
       } else {

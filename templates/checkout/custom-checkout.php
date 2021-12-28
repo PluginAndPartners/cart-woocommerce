@@ -136,7 +136,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</input-select>
 		</div>
 
-		<div id="mp-checkout-custom-installments-container"></div>
+		<div id="mp-checkout-custom-installments-container" class="mp-checkout-custom-installments-container"></div>
 
 		<div id="mp-box-input-tax-cft">
 			<div id="mp-box-input-tax-tea">
