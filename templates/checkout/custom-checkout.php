@@ -76,11 +76,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					class="mp-checkout-custom-card-input"
 					id="mp-card-number"
 					autocomplete="off"
-					maxlength="19"
+					maxlength="23" 
 					placeholder="1234 1234 1234 1234"
 					onkeyup="mpCreditMaskDate(this, mpMcc);"
 				/>
-				<input-helper isVisible=false message="Número incompleto" for='mp-card-number'></input-helper>
+				<input-helper 
+					isVisible=false 
+					input-id='mp-card-number-helper'
+					message="<?php echo esc_html__( 'Invalid Card Number', 'woocommerce-mercadopago' ); ?>" 
+				></input-helper>
 			</div>
 
 			<div class='mp-checkout-custom-card-row'>
@@ -95,7 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					placeholder="Ex.: María López"
 				/>
 				<input-helper
-					isVisible=false
+					is-visible=false
 					message="Dado obrigatório"
 				></input-helper>
 			</div>
@@ -113,7 +117,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						maxlength="5"
 						placeholder="mm/aa"
 					/>
-					<input-helper isVisible=false message="Dado obrigatório"></input-helper>
+					<input-helper is-visible=false message="Dado obrigatório"></input-helper>
 				</div>
 				<div class='mp-checkout-custom-card-column'>
 					<input-label
@@ -128,7 +132,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					/>
 					<p id="mp-security-code-helper" class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"></p>
 					<input-helper
-						isVisible=false
+						is-visible=false
 						message="Dado obrigatório"
 					></input-helper>
 				</div>
@@ -154,16 +158,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="mp-subtitle-custom-checkout"><?php echo esc_html__( 'Enter your card details', 'woocommerce-mercadopago' ); ?></p>
 
 				<div id="mercadopago-form">
-					<!-- Input Card number -->
-					<div class="mp-row-checkout mp-pt-10">
-						<div class="mp-col-md-12">
-							<label for="mp-card-number" class="mp-label-form"><?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?> <em>*</em></label>
-							<input type="text" onkeyup="mpCreditMaskDate(this, mpMcc);" class="mp-form-control mp-mt-5" id="mp-card-number" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
-
-							<span class="mp-error mp-mt-5" id="mp-error-205" data-main="#mp-card-number"><?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?></span>
-							<span class="mp-error mp-mt-5" id="mp-error-E301" data-main="#mp-card-number"><?php echo esc_html__( 'Invalid Card Number', 'woocommerce-mercadopago' ); ?></span>
-						</div>
-					</div>
 					<!-- Input Name and Surname -->
 					<div class="mp-row-checkout mp-pt-10" id="mp-card-holder-div">
 						<div class="mp-col-md-12">
