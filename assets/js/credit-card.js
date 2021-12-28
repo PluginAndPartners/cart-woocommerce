@@ -261,7 +261,6 @@
       if (status === 200) {
         var payerCosts = [];
 				var installments = [];
-				var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
 
 				clearInstallmentsComponent();
 
@@ -291,8 +290,7 @@
 				inputTable.setAttribute('columns', JSON.stringify(installments));
 
 				showInstallments();
-
-				selectorInstallments.appendChild(inputTable);
+				showInstallmentsComponent(inputTable);
 
         if (seller.site_id === 'MLA') {
           clearTax();
@@ -350,6 +348,15 @@
 		}
 
 		/**
+		 * Show installments component
+		 */
+		function showInstallmentsComponent(child) {
+			var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+			selectorInstallments.classList.add('mp-checkout-custom-installments-container');
+			selectorInstallments.appendChild(child);
+		}
+
+		/**
 		 * Show issuers
 		 */
 		function showIssuers() {
@@ -372,6 +379,7 @@
 
 		function clearInstallmentsComponent() {
 			var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+			selectorInstallments.classList.remove('mp-checkout-custom-installments-container');
 
 			if (selectorInstallments.firstElementChild) {
 				selectorInstallments.removeChild(selectorInstallments.firstElementChild);
