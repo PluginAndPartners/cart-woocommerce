@@ -138,11 +138,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div id="mp-checkout-custom-installments-container" class="mp-checkout-custom-installments-container"></div>
 
-		<div id="mp-box-input-tax-cft">
-			<div id="mp-box-input-tax-tea">
-				<div id="mp-tax-tea-text"></div>
+		<div id="mp-checkout-custom-box-input-tax-cft">
+			<div id="mp-checkout-custom-box-input-tax-tea">
+				<div id="mp-checkout-custom-tax-tea-text"></div>
 			</div>
-			<div id="mp-tax-cft-text"></div>
+			<div id="mp-checkout-custom-tax-cft-text"></div>
 		</div>
 	</div>
 

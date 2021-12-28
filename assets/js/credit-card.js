@@ -335,9 +335,9 @@
         }
       }
 
-      document.querySelector('#mp-box-input-tax-cft').style.display = display;
-      document.querySelector('#mp-tax-cft-text').innerHTML = cft;
-      document.querySelector('#mp-tax-tea-text').innerHTML = tea;
+      document.querySelector('#mp-checkout-custom-box-input-tax-cft').style.display = display;
+      document.querySelector('#mp-checkout-custom-tax-cft-text').innerHTML = cft;
+      document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = tea;
     }
 
 		/**
@@ -382,9 +382,9 @@
     * Clear Tax
     */
     function clearTax() {
-      document.querySelector('#mp-box-input-tax-cft').style.display = 'none';
-      document.querySelector('#mp-tax-cft-text').innerHTML = '';
-      document.querySelector('#mp-tax-tea-text').innerHTML = '';
+      document.querySelector('#mp-checkout-custom-box-input-tax-cft').style.display = 'none';
+      document.querySelector('#mp-checkout-custom-tax-cft-text').innerHTML = '';
+      document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = '';
     }
 
     /**
