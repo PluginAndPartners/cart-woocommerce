@@ -117,7 +117,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						maxlength="5"
 						placeholder="mm/aa"
 					/>
-					<input-helper is-visible=false message="Dado obrigatório"></input-helper>
+					<input-helper isVisible=false message="Dado obrigatório"></input-helper>
 				</div>
 				<div class='mp-checkout-custom-card-column'>
 					<input-label
@@ -132,7 +132,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					/>
 					<p id="mp-security-code-helper" class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"></p>
 					<input-helper
-						is-visible=false
+						isVisible=false
 						message="Dado obrigatório"
 					></input-helper>
 				</div>
