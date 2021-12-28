@@ -99,7 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					placeholder="Ex.: María López"
 				/>
 				<input-helper
-					is-visible=false
+					isVisible=false
 					message="Dado obrigatório"
 				></input-helper>
 			</div>
