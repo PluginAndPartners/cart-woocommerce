@@ -128,12 +128,12 @@
 				setCvvProperties(objPaymentMethod.settings[0].security_code);
         loadAdditionalInfo(objPaymentMethod.additional_info_needed);
         additionalInfoHandler();
-        document.getElementById('mp-card-number').classList.remove('mp-form-control-error');
-        document.getElementById('mp-error-E301').style.display = 'none';
+        document.getElementById('mp-card-number').classList.remove('mp-error');
+        document.getElementById('mp-card-number-helper').style.display = 'none';
       } else {
         resetBackgroundCard();
-        document.getElementById('mp-card-number').classList.add('mp-form-control-error');
-        document.getElementById('mp-error-E301').style.display = 'inline-block';
+        document.getElementById('mp-card-number').classList.add('mp-error');
+        document.getElementById('mp-card-number-helper').style.display = 'flex';
       }
     }
 
@@ -569,11 +569,6 @@
         var field = document.querySelectorAll('[data-checkout]')[x];
         field.classList.remove('mp-error-input');
         field.classList.remove('mp-form-control-error');
-      }
-
-      for (var y = 0; y < document.querySelectorAll('.mp-error').length; y++) {
-        var span = document.querySelectorAll('.mp-error')[y];
-        span.style.display = 'none';
       }
     }
 
