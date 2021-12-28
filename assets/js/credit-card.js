@@ -464,10 +464,14 @@
       }
       if (additionalInfoNeeded.cardholder_name) {
         var inputCardholderName = document.getElementById('mp-card-holder-name');
+        console.log("Nome do Cartão: " + inputCardholderName.value);
         if (inputCardholderName.value === '-1' || inputCardholderName.value === '') {
           inputCardholderName.classList.add('mp-error');
           document.getElementById('mp-card-holder-name-helper').style.display = "flex";
           emptyInputs = true;
+        } else {
+          inputCardholderName.classList.remove('mp-error');
+          document.getElementById('mp-card-holder-name-helper').style.display = "none";
         }
       }
       if (additionalInfoNeeded.cardholder_identification_type) {
