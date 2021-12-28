@@ -127,12 +127,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div id="mp-checkout-custom-installments" class="mp-checkout-custom-installments-display-none">
 		<p class='mp-checkout-custom-card-form-title'>Selecciona la cantidad de cuotas</p>
 
-		<div class="mp-checkout-custom-issuers-container">
+		<div id="mp-checkout-custom-issuers-container" class="mp-checkout-custom-issuers-container-display-none">
 			<input-select
-				name="select"
-				label="Issuer"
+				name="mp-issuer"
 				optional="false"
-				options='["Choose..."]'
+				options='["<?php echo __( 'To choose', 'woocommerce-mercadopago' ) ?>"]'
+				label="Banco emissor"
 			>
 			</input-select>
 		</div>

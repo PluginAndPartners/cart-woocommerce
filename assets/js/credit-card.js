@@ -176,9 +176,14 @@
       }
 
       if (additionalInfoNeeded.issuer) {
-        document.getElementById('mp-issuer-div').style.display = 'block';
-        document.getElementById('installments-div').classList.remove('mp-col-md-12');
-        document.getElementById('installments-div').classList.add('mp-col-md-8');
+				var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
+				installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
+				installmentsContainer.classList.add('mp-checkout-custom-installments');
+
+				var issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
+        issuersContainer.classList.remove('mp-checkout-custom-issuers-container-display-none');
+				issuersContainer.classList.add('mp-checkout-custom-issuers-container');
+
         Mercadopago.getIssuers(objPaymentMethod.id, getBin(), issuersHandler);
       } else {
         clearIssuer();
@@ -238,14 +243,17 @@
      */
     function argentinaResolution(payerCosts) {
       var dataInput = '';
-      if (seller.site_id === 'MLA') {
+
+			if (seller.site_id === 'MLA') {
         for (var l = 0; l < payerCosts.length; l++) {
           if (payerCosts[l].indexOf('CFT_') !== -1) {
             dataInput = 'data-tax="' + payerCosts[l] + '"';
           }
         }
+
         return dataInput;
       }
+
       return dataInput;
     }
 
@@ -313,15 +321,19 @@
       var tax = selectorInstallments.options[selectorInstallments.selectedIndex].getAttribute('data-tax');
       var cft = '';
       var tea = '';
+
       if (tax != null) {
         var tax_split = tax.split('|');
+
         cft = tax_split[0].replace('_', ' ');
         tea = tax_split[1].replace('_', ' ');
+
         if (cft === 'CFT 0,00%' && tea === 'TEA 0,00%') {
           cft = '';
           tea = '';
         }
       }
+
       document.querySelector('#mp-tax-cft-text').innerHTML = cft;
       document.querySelector('#mp-tax-tea-text').innerHTML = tea;
     }
@@ -350,9 +362,10 @@
      * Clear input select and change to default layout
      */
     function clearIssuer() {
-      document.getElementById('mp-issuer-div').style.display = 'none';
-      document.getElementById('installments-div').classList.remove('mp-col-md-8');
-      document.getElementById('installments-div').classList.add('mp-dis-md-12');
+      var issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
+			issuersContainer.classList.remove('mp-checkout-custom-issuers-container');
+			issuersContainer.classList.add('mp-checkout-custom-issuers-container-display-none');
+
       document.getElementById('mp-issuer').innerHTML = '';
     }
 
@@ -394,14 +407,17 @@
       var params_installments = {};
       var amount = getAmount();
       var issuer = false;
+
       for (var i = 0; i < objPaymentMethod.additional_info_needed.length; i++) {
         if (objPaymentMethod.additional_info_needed[i] === 'issuer_id') {
           issuer = true;
         }
       }
+
       if (issuer) {
         var issuerId = document.getElementById('mp-issuer').value;
-        params_installments = {
+
+				params_installments = {
           'bin': getBin(),
           'amount': amount,
           'issuer_id': issuerId
@@ -416,6 +432,7 @@
           'amount': amount
         };
       }
+
       Mercadopago.getInstallments(params_installments, installmentHandler);
     }
 
@@ -427,11 +444,17 @@
      */
     function issuersHandler(status, response) {
       if (status === 200) {
-        // If the API does not return any bank.
+				var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+
+				if (selectorInstallments.firstElementChild) {
+          selectorInstallments.removeChild(selectorInstallments.firstElementChild);
+        }
+
         var issuersSelector = document.getElementById('mp-issuer');
         var fragment = document.createDocumentFragment();
 
         issuersSelector.options.length = 0;
+
         var option = new Option(wc_mercadopago_params.choose + '...', '-1');
         fragment.appendChild(option);
 
@@ -442,6 +465,7 @@
 
         issuersSelector.appendChild(fragment);
         issuersSelector.removeAttribute('disabled');
+
         $('body').on('change', '#mp-issuer', setInstallments);
       } else {
         clearIssuer();
@@ -507,6 +531,7 @@
     */
     function validateInputsCreateToken() {
       hideErrors();
+
       var fixedInputs = validateFixedInputs();
       var additionalInputs = validateAdditionalInputs();
 
@@ -549,13 +574,15 @@
 
       for (var x = 0; x < form_inputs.length; x++) {
         var element = form_inputs[x];
-        // Check is a input to create token.
+
         if (fixed_inputs.indexOf(element.getAttribute('data-checkout')) > -1) {
           if (element.value === '-1' || element.value === '') {
             var span = form.querySelectorAll('span[data-main="#' + element.id + '"]');
-            if (span.length > 0) {
+
+						if (span.length > 0) {
               span[0].style.display = 'inline-block';
             }
+
             element.classList.add('mp-form-control-error');
             emptyInputs = true;
           }
@@ -640,7 +667,8 @@
      */
     function showErrors(response) {
       var form = getForm();
-      for (var x = 0; x < response.cause.length; x++) {
+
+			for (var x = 0; x < response.cause.length; x++) {
         var error = response.cause[x];
         var span = undefined;
 
@@ -656,6 +684,7 @@
           input.classList.add('mp-form-control-error');
         }
       }
+
       return;
     }
 
@@ -696,9 +725,11 @@
     function getDiscountCampaigns() {
       var url = coupon_of_discounts.discount_action_url;
       var sp = '?';
+
       if (url.indexOf('?') >= 0) {
         sp = '&';
       }
+
       url += sp + 'site_id=' + wc_mercadopago_params.site_id;
       url += '&coupon_id=' + document.querySelector('#couponCode').value;
       url += '&amount=' + document.querySelector('#mp-amount').value;
@@ -810,7 +841,7 @@
 
       if ($('#mp_checkout_type').val() === 'wallet_button') {
       	return true;
-	  }
+	  	}
 
       if (!document.getElementById('payment_method_woo-mercado-pago-custom').checked) {
         return true;
@@ -825,10 +856,17 @@
       return false;
     }
 
+		/**
+		 * Format the number to show the text in the correct currency
+		 *
+		 * @param {number} value
+		 * @returns {string}
+		 */
 		function formatCurrency(value) {
       var formatter = new Intl.NumberFormat(wc_mercadopago_params.intl, {
         style: 'currency',
         currency: wc_mercadopago_params.currency,
+        currencyDisplay: 'narrowSymbol',
       });
 
 			return formatter.format(value);
