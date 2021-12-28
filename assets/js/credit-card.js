@@ -636,12 +636,16 @@
         var span = undefined;
 
         if (error.code === '208' || error.code === '209' || error.code === '325' || error.code === '326') {
-          span = form.querySelector('#mp-error-208');
+          span = document.getElementById('mp-card-expiration-date-helper');
         } else {
           span = form.querySelector('#mp-error-' + error.code);
         }
 
-        if (span !== undefined) {
+        if (span.id == 'mp-card-expiration-date-helper') {
+          var input = document.getElementById('mp-card-expiration-date');
+          input.classList.add('mp-error');
+          span.style.display = "flex";
+        } else if (span !== undefined) {
           var input = form.querySelector(span.getAttribute('data-main'));
           span.style.display = 'inline-block';
           input.classList.add('mp-form-control-error');

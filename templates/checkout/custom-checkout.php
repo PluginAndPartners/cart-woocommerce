@@ -117,8 +117,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 						id="mp-card-expiration-date"
 						maxlength="5"
 						placeholder="mm/aa"
+						onkeyup="mpCreditMaskDate(this, mpDate);" 
+						onblur="mpValidateMonthYear()"
 					/>
-					<input-helper isVisible=false message="Dado obrigatório"></input-helper>
+					<input type="hidden" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
+					<input type="hidden" id="cardExpirationYear" data-checkout="cardExpirationYear">							
+					<input-helper 
+						isVisible=false 
+						input-id='mp-card-expiration-date-helper'
+						message="<?php echo esc_html__( 'Invalid Expiration Date', 'woocommerce-mercadopago' ); ?>"
+					></input-helper>
 				</div>
 				<div class='mp-checkout-custom-card-column'>
 					<input-label
@@ -164,8 +172,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="mp-col-md-6 mp-pr-15">
 							<label for="mp-card-expiration-date" class="mp-label-form"><?php echo esc_html__( 'Expiration date', 'woocommerce-mercadopago' ); ?> <em>*</em></label>
 							<input type="text" onkeyup="mpCreditMaskDate(this, mpDate);" onblur="mpValidateMonthYear()" class="mp-form-control mp-mt-5" id="mp-card-expiration-date" data-checkout="cardExpirationDate" autocomplete="off" placeholder="MM/AAAA" maxlength="7" />
-							<input type="hidden" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
-							<input type="hidden" id="cardExpirationYear" data-checkout="cardExpirationYear">
 							<span class="mp-error mp-mt-5" id="mp-error-208" data-main="#mp-card-expiration-date"><?php echo esc_html__( 'Invalid Expiration Date', 'woocommerce-mercadopago' ); ?></span>
 						</div>
 						<!-- Input Security Code -->
