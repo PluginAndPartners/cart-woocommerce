@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-"
 "mercadopago\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-12-27 16:14-0300\n"
+"PO-Revision-Date: 2021-12-29 10:26-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -744,9 +744,9 @@ msgid "Check the information provided."
 msgstr "Compruebe la información informada."
 
 #: ../../includes/payments/class-wc-woomercadopago-custom-gateway.php:301,
-#: ../../templates/checkout/custom-checkout.php:187,
-#: ../../templates/checkout/custom-checkout.php:188,
-#: ../../templates/checkout/custom-checkout.php:188
+#: ../../templates/checkout/custom-checkout.php:203,
+#: ../../templates/checkout/custom-checkout.php:204,
+#: ../../templates/checkout/custom-checkout.php:204
 msgid "Check the informed security code."
 msgstr "Compruebe el código de seguridad informado."
 
@@ -2519,9 +2519,8 @@ msgstr "Cancelar &amp; Limpiar carrito"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:93,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:75,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:73,
-#: ../../templates/checkout/ticket-checkout.php:34,
-#: ../../templates/checkout/ticket-checkout.php:34
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:74,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:74
 msgid "Apply"
 msgstr "Aplicar"
 
@@ -2751,107 +2750,102 @@ msgstr "Utiliza las tarjetas específicas para testear que estén bajo las "
 msgid "test mode rules."
 msgstr "reglas del modo test."
 
-#: ../../templates/checkout/custom-checkout.php:149,
-#: ../../templates/checkout/custom-checkout.php:149
+#: ../../templates/checkout/custom-checkout.php:165,
+#: ../../templates/checkout/custom-checkout.php:165
 msgid "Enter your card details"
 msgstr "Ingresa los datos de tu tarjeta"
 
-#: ../../templates/checkout/custom-checkout.php:155,
-#: ../../templates/checkout/custom-checkout.php:158,
-#: ../../templates/checkout/custom-checkout.php:158
+#: ../../templates/checkout/custom-checkout.php:171,
+#: ../../templates/checkout/custom-checkout.php:174,
+#: ../../templates/checkout/custom-checkout.php:174
 msgid "Card number"
 msgstr "Número de Tarjeta"
 
-#: ../../templates/checkout/custom-checkout.php:159,
-#: ../../templates/checkout/custom-checkout.php:168,
-#: ../../templates/checkout/custom-checkout.php:169,
-#: ../../templates/checkout/custom-checkout.php:169
+#: ../../templates/checkout/custom-checkout.php:175,
+#: ../../templates/checkout/custom-checkout.php:184,
+#: ../../templates/checkout/custom-checkout.php:185,
+#: ../../templates/checkout/custom-checkout.php:185
 msgid "Invalid Card Number"
 msgstr "Numero de tarjeta invalido"
 
-#: ../../templates/checkout/custom-checkout.php:165,
-#: ../../templates/checkout/custom-checkout.php:165
+#: ../../templates/checkout/custom-checkout.php:181,
+#: ../../templates/checkout/custom-checkout.php:181
 msgid "Name and surname of the cardholder"
 msgstr "Nombre y apellido del titular de la tarjeta"
 
-#: ../../templates/checkout/custom-checkout.php:176,
-#: ../../templates/checkout/custom-checkout.php:176
+#: ../../templates/checkout/custom-checkout.php:192,
+#: ../../templates/checkout/custom-checkout.php:192
 msgid "Expiration date"
 msgstr "Fecha de vencimiento"
 
-#: ../../templates/checkout/custom-checkout.php:180,
-#: ../../templates/checkout/custom-checkout.php:180
+#: ../../templates/checkout/custom-checkout.php:196,
+#: ../../templates/checkout/custom-checkout.php:196
 msgid "Invalid Expiration Date"
 msgstr "Fecha de expiracion inválida"
 
-#: ../../templates/checkout/custom-checkout.php:184,
-#: ../../templates/checkout/custom-checkout.php:184
+#: ../../templates/checkout/custom-checkout.php:200,
+#: ../../templates/checkout/custom-checkout.php:200
 msgid "Security code"
 msgstr "Código de seguridad"
 
-#: ../../templates/checkout/custom-checkout.php:186,
-#: ../../templates/checkout/custom-checkout.php:186
+#: ../../templates/checkout/custom-checkout.php:202,
+#: ../../templates/checkout/custom-checkout.php:202
 msgid "Last 3 numbers on the back"
 msgstr "Últimos 3 números en el reverso"
 
-#: ../../templates/checkout/custom-checkout.php:195,
-#: ../../templates/checkout/custom-checkout.php:195
+#: ../../templates/checkout/custom-checkout.php:211,
+#: ../../templates/checkout/custom-checkout.php:211
 msgid "In how many installments do you want to pay"
 msgstr "En cuántas cuotas quieres pagar"
 
-#: ../../templates/checkout/custom-checkout.php:201,
-#: ../../templates/checkout/custom-checkout.php:201
+#: ../../templates/checkout/custom-checkout.php:217,
+#: ../../templates/checkout/custom-checkout.php:217
 msgid "Issuer"
 msgstr "Banco"
 
-#: ../../templates/checkout/custom-checkout.php:222,
-#: ../../templates/checkout/custom-checkout.php:222
+#: ../../templates/checkout/custom-checkout.php:238,
+#: ../../templates/checkout/custom-checkout.php:238
 msgid "Select the number of installment"
 msgstr "Seleccione el número de cuotas"
 
-#: ../../templates/checkout/custom-checkout.php:213,
-#: ../../templates/checkout/custom-checkout.php:213
+#: ../../templates/checkout/custom-checkout.php:229,
+#: ../../templates/checkout/custom-checkout.php:229
 msgid "Converted payment of"
 msgstr "Pago convertido de"
 
-#: ../../templates/checkout/custom-checkout.php:214,
-#: ../../templates/checkout/custom-checkout.php:214
+#: ../../templates/checkout/custom-checkout.php:230,
+#: ../../templates/checkout/custom-checkout.php:230
 msgid "for"
 msgstr "para"
 
-#: ../../templates/checkout/custom-checkout.php:241,
-#: ../../templates/checkout/ticket-checkout.php:51,
-#: ../../templates/checkout/ticket-checkout.php:51
+#: ../../templates/checkout/custom-checkout.php:257,
+#: ../../templates/checkout/custom-checkout.php:257
 msgid "Enter your document number"
 msgstr "Ingresa tu número de documento"
 
-#: ../../templates/checkout/custom-checkout.php:247,
-#: ../../templates/checkout/ticket-checkout.php:53,
-#: ../../templates/checkout/ticket-checkout.php:53
+#: ../../templates/checkout/custom-checkout.php:263,
+#: ../../templates/checkout/custom-checkout.php:263
 msgid "Type"
 msgstr "Tipo"
 
-#: ../../templates/checkout/custom-checkout.php:254,
-#: ../../templates/checkout/ticket-checkout.php:59,
-#: ../../templates/checkout/ticket-checkout.php:59
+#: ../../templates/checkout/custom-checkout.php:270,
+#: ../../templates/checkout/custom-checkout.php:270
 msgid "Document number"
 msgstr "Número de documento"
 
-#: ../../templates/checkout/custom-checkout.php:256,
-#: ../../templates/checkout/custom-checkout.php:256
+#: ../../templates/checkout/custom-checkout.php:272,
+#: ../../templates/checkout/custom-checkout.php:272
 msgid "Only numbers"
 msgstr "Sólo números"
 
-#: ../../templates/checkout/custom-checkout.php:257,
-#: ../../templates/checkout/custom-checkout.php:258,
-#: ../../templates/checkout/ticket-checkout.php:62,
-#: ../../templates/checkout/ticket-checkout.php:125,
-#: ../../templates/checkout/ticket-checkout.php:125
+#: ../../templates/checkout/custom-checkout.php:273,
+#: ../../templates/checkout/custom-checkout.php:274,
+#: ../../templates/checkout/custom-checkout.php:274
 msgid "Invalid Document Number"
 msgstr "Número de documento no válido"
 
-#: ../../templates/checkout/custom-checkout.php:268,
-#: ../../templates/checkout/custom-checkout.php:268
+#: ../../templates/checkout/custom-checkout.php:284,
+#: ../../templates/checkout/custom-checkout.php:284
 msgid "Obligatory field"
 msgstr "Campo obligatorio"
 
@@ -2886,51 +2880,37 @@ msgstr ""
 msgid "PIX logo"
 msgstr "Logotipo de PIX"
 
-#: ../../templates/checkout/ticket-checkout.php:27,
-#: ../../templates/checkout/ticket-checkout.php:27
-msgid "Enter your discount coupon"
-msgstr "Ingresa tu cupón de descuento"
+#: ../../templates/checkout/ticket-checkout.php:23,
+#: ../../templates/checkout/ticket-checkout.php:23
+#, fuzzy
+#| msgid "Cards in Test Mode"
+msgid "Offline Methods in Test Mode"
+msgstr "Tarjetas de crédito en Modo Test"
 
-#: ../../templates/checkout/ticket-checkout.php:31,
-#: ../../templates/checkout/ticket-checkout.php:31
-msgid "Enter your coupon"
-msgstr "Ingresa tu cupón"
+#: ../../templates/checkout/ticket-checkout.php:24,
+#: ../../templates/checkout/ticket-checkout.php:24
+#, fuzzy
+#| msgid ""
+#| "You can test the flow to generate a code, but you cannot finalize the "
+#| "payment."
+msgid ""
+"You can test the flow to generate an invoice, but you cannot finalize the "
+"payment. "
+msgstr ""
+"Es posible testear el flujo para generar el código, pero no es posible "
+"finalizar el pago."
 
-#: ../../templates/checkout/ticket-checkout.php:38,
-#: ../../templates/checkout/ticket-checkout.php:38
-msgid "The code you entered is incorrect"
-msgstr "El código que ingresaste es incorrecto"
+#: ../../templates/checkout/ticket-checkout.php:56,
+#: ../../templates/checkout/ticket-checkout.php:56
+msgid "Select where you want to pay"
+msgstr ""
 
-#: ../../templates/checkout/ticket-checkout.php:55,
-#: ../../templates/checkout/ticket-checkout.php:55
-msgid "CI"
-msgstr "CI"
-
-#: ../../templates/checkout/ticket-checkout.php:61,
-#: ../../templates/checkout/ticket-checkout.php:124,
-#: ../../templates/checkout/ticket-checkout.php:124
-msgid "You must provide your document number"
-msgstr "Debe informar su número de documento"
-
-#: ../../templates/checkout/ticket-checkout.php:68,
-#: ../../templates/checkout/ticket-checkout.php:68
-msgid "Complete all fields, they are mandatory."
-msgstr "Complete todos los campos, son obligatorios."
-
-#: ../../templates/checkout/ticket-checkout.php:77,
-#: ../../templates/checkout/ticket-checkout.php:77
-msgid "Select the issuer with whom you want to process the payment"
-msgstr "Selecciona el emisor con el que quieras procesar el pago"
-
-#: ../../templates/checkout/ticket-checkout.php:109,
-#: ../../templates/checkout/ticket-checkout.php:109
-msgid "Lottery"
-msgstr "Lotéricas"
-
-#: ../../templates/checkout/ticket-checkout.php:122,
-#: ../../templates/checkout/ticket-checkout.php:122
-msgid "CPF/CNPJ"
-msgstr "CPF/CNPJ"
+#: ../../templates/checkout/ticket-checkout.php:60,
+#: ../../templates/checkout/ticket-checkout.php:60
+#, fuzzy
+#| msgid "More options"
+msgid "more options"
+msgstr "Más opciones"
 
 #: ../../templates/order/payment-status-metabox-content.php:20,
 #: ../../templates/order/payment-status-metabox-content.php:20
@@ -2955,8 +2935,32 @@ msgstr ""
 msgid "Print ticket"
 msgstr "Imprimir ticket"
 
-#~ msgid "Cards in Test Mode"
-#~ msgstr "Tarjetas de crédito en Modo Test"
+#~ msgid "Enter your discount coupon"
+#~ msgstr "Ingresa tu cupón de descuento"
+
+#~ msgid "Enter your coupon"
+#~ msgstr "Ingresa tu cupón"
+
+#~ msgid "The code you entered is incorrect"
+#~ msgstr "El código que ingresaste es incorrecto"
+
+#~ msgid "CI"
+#~ msgstr "CI"
+
+#~ msgid "You must provide your document number"
+#~ msgstr "Debe informar su número de documento"
+
+#~ msgid "Complete all fields, they are mandatory."
+#~ msgstr "Complete todos los campos, son obligatorios."
+
+#~ msgid "Select the issuer with whom you want to process the payment"
+#~ msgstr "Selecciona el emisor con el que quieras procesar el pago"
+
+#~ msgid "Lottery"
+#~ msgstr "Lotéricas"
+
+#~ msgid "CPF/CNPJ"
+#~ msgstr "CPF/CNPJ"
 
 #~ msgid "Use your Mercado Pago"
 #~ msgstr "Usa tu Mercado Pago"
