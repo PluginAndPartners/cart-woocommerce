@@ -12,7 +12,6 @@
 
     // Set mercadopago public_key
     $.getScript('https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js').done(function () {
-      // Set Public_key
       Mercadopago.setPublishableKey(seller.public_key);
     });
 
@@ -30,12 +29,12 @@
       if (coupon_of_discounts.activated === 'yes') {
         $('#applyCoupon').on('click', discountCampaignsHandler);
       }
+
       showPaymentsLink();
     }
 
     // Load woocommerce checkout form
     $('body').on('updated_checkout', function () {
-
       if (coupon_of_discounts.activated === 'yes') {
         $('#applyCoupon').on('click', discountCampaignsHandler);
       }
@@ -125,15 +124,14 @@
         objPaymentMethod = response[0];
         setPaymentMethodId(objPaymentMethod.id);
         setImageCard(objPaymentMethod.secure_thumbnail);
-				setCvvProperties(objPaymentMethod.settings[0].security_code);
         loadAdditionalInfo(objPaymentMethod.additional_info_needed);
         additionalInfoHandler();
-        document.getElementById('mp-card-number').classList.remove('mp-error');
-        document.getElementById('mp-card-number-helper').style.display = 'none';
+        document.getElementById('mp-card-number').classList.remove('mp-form-control-error');
+        document.getElementById('mp-error-E301').style.display = 'none';
       } else {
         resetBackgroundCard();
-        document.getElementById('mp-card-number').classList.add('mp-error');
-        document.getElementById('mp-card-number-helper').style.display = 'flex';
+        document.getElementById('mp-card-number').classList.add('mp-form-control-error');
+        document.getElementById('mp-error-E301').style.display = 'inline-block';
       }
     }
 
@@ -178,9 +176,8 @@
       }
 
       if (additionalInfoNeeded.issuer) {
-        document.getElementById('mp-issuer-div').style.display = 'block';
-        document.getElementById('installments-div').classList.remove('mp-col-md-12');
-        document.getElementById('installments-div').classList.add('mp-col-md-8');
+				showInstallments();
+				showIssuers();
         Mercadopago.getIssuers(objPaymentMethod.id, getBin(), issuersHandler);
       } else {
         clearIssuer();
@@ -232,39 +229,25 @@
       document.getElementById('mp-card-number').style.background = 'url(' + secureThumbnail + ') 98% 50% no-repeat #fff';
     }
 
-		/**
-     * Set maxlength on element
-     *
-     * @param {obj} security_code
-     */
-		function setCvvProperties(security_code) {
-			document.getElementById('mp-security-code').setAttribute('maxlength', security_code.length);
-			document.getElementById('mp-security-code-helper').innerHTML = `Last ${ security_code.length } digits in ${ security_code.card_location }`;
-			document.getElementById('mp-security-code').setAttribute('placeholder', countPlaceHolder());
-			function countPlaceHolder() {
-				var placeholder = '';
-				for (var i = 0; i < security_code.length; i++) {
-						 placeholder+= i+1;
-				}
-				return placeholder;
-			}
-		}
     /**
      * Resolution 51/2017
      *
      * @param {*} payerCosts
      * @returns {string}
      */
-    function argentinaResolution(payerCosts) {
+		function argentinaResolution(payerCosts) {
       var dataInput = '';
-      if (seller.site_id === 'MLA') {
+
+			if (seller.site_id === 'MLA') {
         for (var l = 0; l < payerCosts.length; l++) {
           if (payerCosts[l].indexOf('CFT_') !== -1) {
-            dataInput = 'data-tax="' + payerCosts[l] + '"';
+            dataInput = payerCosts[l];
           }
         }
+
         return dataInput;
       }
+
       return dataInput;
     }
 
@@ -276,9 +259,11 @@
      */
     function installmentHandler(status, response) {
       if (status === 200) {
-        var selectorInstallments = document.getElementById('mp-installments');
-        var html_option = '<option value="-1">' + wc_mercadopago_params.choose + '...</option>';
         var payerCosts = [];
+				var installments = [];
+
+				clearInstallmentsComponent();
+
         for (var i = 0; i < response.length; i++) {
           if (response[i].processing_mode === 'aggregator') {
             payerCosts = response[i].payer_costs;
@@ -286,15 +271,30 @@
         }
 
         for (var j = 0; j < payerCosts.length; j++) {
-          html_option += '<option value="' + payerCosts[j].installments + '" ' + argentinaResolution(payerCosts[j].labels) + '>' +
-            (payerCosts[j].recommended_message || payerCosts[j].installments) +
-            '</option>';
+					var installment = payerCosts[j].installments;
+					var installmentRate = payerCosts[j].installment_rate === 0;
+
+					installments.push({
+						id: 'installment-' + installment,
+						value: installment,
+						rowText: installment + 'x ' + formatCurrency(payerCosts[j].installment_amount),
+						rowObs: installmentRate ? wc_mercadopago_params.rate_text : formatCurrency(payerCosts[j].total_amount),
+            highlight: installmentRate ? 'true' : '',
+						dataRate: argentinaResolution(payerCosts[j].labels),
+					});
         }
 
-        selectorInstallments.innerHTML = html_option;
+				var inputTable = document.createElement('input-table');
+				inputTable.setAttribute('name', 'mercadopago_custom[installments]');
+				inputTable.setAttribute('button-name', wc_mercadopago_params.more_installments_text);
+				inputTable.setAttribute('columns', JSON.stringify(installments));
+
+				showInstallments();
+				showInstallmentsComponent(inputTable);
+
         if (seller.site_id === 'MLA') {
           clearTax();
-          $('body').on('change', '#mp-installments', showTaxes);
+          $('body').on('click', '.mp-input-table-label', showTaxes);
         }
       } else {
         clearInstallments();
@@ -306,45 +306,103 @@
     * Show taxes resolution 51/2017 for MLA
     */
     function showTaxes() {
-      var selectorInstallments = document.querySelector('#mp-installments');
-      var tax = selectorInstallments.options[selectorInstallments.selectedIndex].getAttribute('data-tax');
+			var selectorInstallments = document.querySelectorAll('.mp-input-radio-radio');
+      var tax = null;
+      var display = 'block';
+
+      selectorInstallments.forEach(installment => {
+        if (installment.checked) {
+          tax = installment.getAttribute('datarate');
+          return;
+        }
+      });
+
       var cft = '';
       var tea = '';
+
       if (tax != null) {
         var tax_split = tax.split('|');
+
         cft = tax_split[0].replace('_', ' ');
         tea = tax_split[1].replace('_', ' ');
+
         if (cft === 'CFT 0,00%' && tea === 'TEA 0,00%') {
+          display = 'none';
           cft = '';
           tea = '';
         }
       }
-      document.querySelector('#mp-tax-cft-text').innerHTML = cft;
-      document.querySelector('#mp-tax-tea-text').innerHTML = tea;
+
+      document.querySelector('#mp-checkout-custom-box-input-tax-cft').style.display = display;
+      document.querySelector('#mp-checkout-custom-tax-cft-text').innerHTML = cft;
+      document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = tea;
     }
+
+		/**
+		 * Show installments
+		 */
+		function showInstallments() {
+			var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
+			installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
+			installmentsContainer.classList.add('mp-checkout-custom-installments');
+		}
+
+		/**
+		 * Show installments component
+		 */
+		function showInstallmentsComponent(child) {
+			var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+			selectorInstallments.classList.add('mp-checkout-custom-installments-container');
+			selectorInstallments.appendChild(child);
+		}
+
+		/**
+		 * Show issuers
+		 */
+		function showIssuers() {
+			var issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
+			issuersContainer.classList.remove('mp-checkout-custom-issuers-container-display-none');
+			issuersContainer.classList.add('mp-checkout-custom-issuers-container');
+		}
 
     /**
     * Clear input select
     */
     function clearInstallments() {
-      document.getElementById('mp-installments').innerHTML = '';
+      var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
+
+			if (installmentsContainer) {
+				installmentsContainer.classList.remove('mp-checkout-custom-installments');
+				installmentsContainer.classList.add('mp-checkout-custom-installments-display-none');
+			}
     }
+
+		function clearInstallmentsComponent() {
+			var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+			selectorInstallments.classList.remove('mp-checkout-custom-installments-container');
+
+			if (selectorInstallments.firstElementChild) {
+				selectorInstallments.removeChild(selectorInstallments.firstElementChild);
+			}
+		}
 
     /**
     * Clear Tax
     */
     function clearTax() {
-      document.querySelector('#mp-tax-cft-text').innerHTML = '';
-      document.querySelector('#mp-tax-tea-text').innerHTML = '';
+      document.querySelector('#mp-checkout-custom-box-input-tax-cft').style.display = 'none';
+      document.querySelector('#mp-checkout-custom-tax-cft-text').innerHTML = '';
+      document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = '';
     }
 
     /**
      * Clear input select and change to default layout
      */
     function clearIssuer() {
-      document.getElementById('mp-issuer-div').style.display = 'none';
-      document.getElementById('installments-div').classList.remove('mp-col-md-8');
-      document.getElementById('installments-div').classList.add('mp-dis-md-12');
+      var issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
+			issuersContainer.classList.remove('mp-checkout-custom-issuers-container');
+			issuersContainer.classList.add('mp-checkout-custom-issuers-container-display-none');
+
       document.getElementById('mp-issuer').innerHTML = '';
     }
 
@@ -386,20 +444,25 @@
       var params_installments = {};
       var amount = getAmount();
       var issuer = false;
+
       for (var i = 0; i < objPaymentMethod.additional_info_needed.length; i++) {
         if (objPaymentMethod.additional_info_needed[i] === 'issuer_id') {
           issuer = true;
         }
       }
+
       if (issuer) {
         var issuerId = document.getElementById('mp-issuer').value;
-        params_installments = {
+
+				params_installments = {
           'bin': getBin(),
           'amount': amount,
           'issuer_id': issuerId
         };
 
         if (issuerId === '-1') {
+					clearInstallmentsComponent();
+          clearTax();
           return;
         }
       } else {
@@ -408,6 +471,7 @@
           'amount': amount
         };
       }
+
       Mercadopago.getInstallments(params_installments, installmentHandler);
     }
 
@@ -419,11 +483,13 @@
      */
     function issuersHandler(status, response) {
       if (status === 200) {
-        // If the API does not return any bank.
+				clearInstallmentsComponent();
+
         var issuersSelector = document.getElementById('mp-issuer');
         var fragment = document.createDocumentFragment();
 
         issuersSelector.options.length = 0;
+
         var option = new Option(wc_mercadopago_params.choose + '...', '-1');
         fragment.appendChild(option);
 
@@ -434,6 +500,7 @@
 
         issuersSelector.appendChild(fragment);
         issuersSelector.removeAttribute('disabled');
+
         $('body').on('change', '#mp-issuer', setInstallments);
       } else {
         clearIssuer();
@@ -465,12 +532,8 @@
       if (additionalInfoNeeded.cardholder_name) {
         var inputCardholderName = document.getElementById('mp-card-holder-name');
         if (inputCardholderName.value === '-1' || inputCardholderName.value === '') {
-          inputCardholderName.classList.add('mp-error');
-          document.getElementById('mp-card-holder-name-helper').style.display = "flex";
+          inputCardholderName.classList.add('mp-form-control-error');
           emptyInputs = true;
-        } else {
-          inputCardholderName.classList.remove('mp-error');
-          document.getElementById('mp-card-holder-name-helper').style.display = "none";
         }
       }
       if (additionalInfoNeeded.cardholder_identification_type) {
@@ -503,6 +566,7 @@
     */
     function validateInputsCreateToken() {
       hideErrors();
+
       var fixedInputs = validateFixedInputs();
       var additionalInputs = validateAdditionalInputs();
 
@@ -545,13 +609,15 @@
 
       for (var x = 0; x < form_inputs.length; x++) {
         var element = form_inputs[x];
-        // Check is a input to create token.
+
         if (fixed_inputs.indexOf(element.getAttribute('data-checkout')) > -1) {
           if (element.value === '-1' || element.value === '') {
             var span = form.querySelectorAll('span[data-main="#' + element.id + '"]');
-            if (span.length > 0) {
+
+						if (span.length > 0) {
               span[0].style.display = 'inline-block';
             }
+
             element.classList.add('mp-form-control-error');
             emptyInputs = true;
           }
@@ -573,6 +639,11 @@
         var field = document.querySelectorAll('[data-checkout]')[x];
         field.classList.remove('mp-error-input');
         field.classList.remove('mp-form-control-error');
+      }
+
+      for (var y = 0; y < document.querySelectorAll('.mp-error').length; y++) {
+        var span = document.querySelectorAll('.mp-error')[y];
+        span.style.display = 'none';
       }
     }
 
@@ -631,7 +702,8 @@
      */
     function showErrors(response) {
       var form = getForm();
-      for (var x = 0; x < response.cause.length; x++) {
+
+			for (var x = 0; x < response.cause.length; x++) {
         var error = response.cause[x];
         var span = undefined;
 
@@ -647,6 +719,7 @@
           input.classList.add('mp-form-control-error');
         }
       }
+
       return;
     }
 
@@ -687,9 +760,11 @@
     function getDiscountCampaigns() {
       var url = coupon_of_discounts.discount_action_url;
       var sp = '?';
+
       if (url.indexOf('?') >= 0) {
         sp = '&';
       }
+
       url += sp + 'site_id=' + wc_mercadopago_params.site_id;
       url += '&coupon_id=' + document.querySelector('#couponCode').value;
       url += '&amount=' + document.querySelector('#mp-amount').value;
@@ -801,7 +876,7 @@
 
       if ($('#mp_checkout_type').val() === 'wallet_button') {
       	return true;
-	  }
+	  	}
 
       if (!document.getElementById('payment_method_woo-mercado-pago-custom').checked) {
         return true;
@@ -814,6 +889,22 @@
       }
 
       return false;
+    }
+
+		/**
+		 * Format the number to show the text in the correct currency
+		 *
+		 * @param {number} value
+		 * @returns {string}
+		 */
+		function formatCurrency(value) {
+      var formatter = new Intl.NumberFormat(wc_mercadopago_params.intl, {
+        style: 'currency',
+        currency: wc_mercadopago_params.currency,
+        currencyDisplay: 'narrowSymbol',
+      });
+
+			return formatter.format(value);
     }
 
     // Process when submit the checkout form.
