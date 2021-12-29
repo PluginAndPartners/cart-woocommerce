@@ -165,6 +165,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="mp-subtitle-custom-checkout"><?php echo esc_html__( 'Enter your card details', 'woocommerce-mercadopago' ); ?></p>
 
 				<div id="mercadopago-form">
+					<!-- Input Card number -->
+					<div class="mp-row-checkout mp-pt-10">
+						<div class="mp-col-md-12">
+							<label for="mp-card-number" class="mp-label-form"><?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?> <em>*</em></label>
+							<input type="text" onkeyup="mpCreditMaskDate(this, mpMcc);" class="mp-form-control mp-mt-5" id="mp-card-number" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
+
+							<span class="mp-error mp-mt-5" id="mp-error-205" data-main="#mp-card-number"><?php echo esc_html__( 'Card number', 'woocommerce-mercadopago' ); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-E301" data-main="#mp-card-number"><?php echo esc_html__( 'Invalid Card Number', 'woocommerce-mercadopago' ); ?></span>
+						</div>
+					</div>
+					<!-- Input Name and Surname -->
+					<div class="mp-row-checkout mp-pt-10" id="mp-card-holder-div">
+						<div class="mp-col-md-12">
+							<label for="mp-card-holder-name" class="mp-label-form"><?php echo esc_html__( 'Name and surname of the cardholder', 'woocommerce-mercadopago' ); ?> <em>*</em></label>
+							<input type="text" class="mp-form-control mp-mt-5" id="mp-card-holder-name" data-checkout="cardholderName" autocomplete="off" />
+
+							<span class="mp-error mp-mt-5" id="mp-error-221" data-main="#mp-card-holder-name"><?php echo esc_html__( 'Invalid Card Number', 'woocommerce-mercadopago' ); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-E301" data-main="#mp-card-holder-name"><?php echo esc_html__( 'Invalid Card Number', 'woocommerce-mercadopago' ); ?></span>
+						</div>
+					</div>
+
 					<div class="mp-row-checkout mp-pt-10">
 						<!-- Input expiration date -->
 						<div class="mp-col-md-6 mp-pr-15">
