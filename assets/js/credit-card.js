@@ -124,14 +124,15 @@
         objPaymentMethod = response[0];
         setPaymentMethodId(objPaymentMethod.id);
         setImageCard(objPaymentMethod.secure_thumbnail);
+				setCvvProperties(objPaymentMethod.settings[0].security_code);
         loadAdditionalInfo(objPaymentMethod.additional_info_needed);
         additionalInfoHandler();
-        document.getElementById('mp-card-number').classList.remove('mp-form-control-error');
-        document.getElementById('mp-error-E301').style.display = 'none';
+        document.getElementById('mp-card-number').classList.remove('mp-error');
+        document.getElementById('mp-card-number-helper').style.display = 'none';
       } else {
         resetBackgroundCard();
-        document.getElementById('mp-card-number').classList.add('mp-form-control-error');
-        document.getElementById('mp-error-E301').style.display = 'inline-block';
+        document.getElementById('mp-card-number').classList.add('mp-error');
+        document.getElementById('mp-card-number-helper').style.display = 'flex';
       }
     }
 
@@ -229,6 +230,23 @@
       document.getElementById('mp-card-number').style.background = 'url(' + secureThumbnail + ') 98% 50% no-repeat #fff';
     }
 
+		/**
+     * Set maxlength on element
+     *
+     * @param {obj} security_code
+     */
+		function setCvvProperties(security_code) {
+			document.getElementById('mp-security-code').setAttribute('maxlength', security_code.length);
+			document.getElementById('mp-security-code-helper').innerHTML = `Last ${ security_code.length } digits in ${ security_code.card_location }`;
+			document.getElementById('mp-security-code').setAttribute('placeholder', countPlaceHolder());
+			function countPlaceHolder() {
+				var placeholder = '';
+				for (var i = 0; i < security_code.length; i++) {
+						 placeholder+= i+1;
+				}
+				return placeholder;
+			}
+		}
     /**
      * Resolution 51/2017
      *
@@ -532,8 +550,12 @@
       if (additionalInfoNeeded.cardholder_name) {
         var inputCardholderName = document.getElementById('mp-card-holder-name');
         if (inputCardholderName.value === '-1' || inputCardholderName.value === '') {
-          inputCardholderName.classList.add('mp-form-control-error');
+          inputCardholderName.classList.add('mp-error');
+          document.getElementById('mp-card-holder-name-helper').style.display = "flex";
           emptyInputs = true;
+        } else {
+          inputCardholderName.classList.remove('mp-error');
+          document.getElementById('mp-card-holder-name-helper').style.display = "none";
         }
       }
       if (additionalInfoNeeded.cardholder_identification_type) {
@@ -639,11 +661,6 @@
         var field = document.querySelectorAll('[data-checkout]')[x];
         field.classList.remove('mp-error-input');
         field.classList.remove('mp-form-control-error');
-      }
-
-      for (var y = 0; y < document.querySelectorAll('.mp-error').length; y++) {
-        var span = document.querySelectorAll('.mp-error')[y];
-        span.style.display = 'none';
       }
     }
 
