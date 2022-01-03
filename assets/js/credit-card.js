@@ -1,920 +1,535 @@
-/* globals wc_mercadopago_params, Mercadopago */
-(function ($) {
-  'use strict';
+/* globals wc_mercadopago_ticket_params */
+(function () {
 
-  $(function () {
-    var mercado_pago_submit = false;
+  let mercado_pago_submit = false;
 
-    var seller = {
-      site_id: wc_mercadopago_params.site_id,
-      public_key: wc_mercadopago_params.public_key
+  const seller = {
+    site_id: wc_mercadopago_params.site_id,
+    public_key: wc_mercadopago_params.public_key
+  };
+
+  let objPaymentMethod = {};
+  let additionalInfoNeeded = {};
+
+  if (seller.public_key) {
+    window.Mercadopago.setPublishableKey(seller.public_key);
+  }
+
+  getCardNumberInput().addEventListener('change', guessPaymentMethod);
+
+  getForm().addEventListener('submit', (event) => {
+    event.preventDefault();
+    return mercadoPagoFormHandler();
+  });
+
+  function getForm() {
+    return document.querySelector('form');
+  }
+
+  function getCardNumberInput() {
+    return document.getElementById('mp-card-number');
+  }
+
+  function getAmount() {
+    return document.getElementById('amount').value;
+  }
+
+  function getBin() {
+    return getCardNumberInput().value.replace(/[ .-]/g, '').slice(0, 6);
+  }
+
+  function guessPaymentMethod() {
+    hideErrors();
+    clearHolderName();
+    clearExpirationDate();
+    clearSecurityCode();
+    clearIssuer();
+    clearInstallments();
+    clearTax();
+    // todo clearDoc()
+
+    const bin = getBin();
+
+    if (bin.length < 6) {
+      resetBackgroundCard();
+      return;
+    }
+
+    if (bin.length >= 6) {
+      Mercadopago.getPaymentMethod({ bin }, paymentMethodHandler);
+    }
+  }
+
+  function paymentMethodHandler(status, response) {
+    objPaymentMethod = response[0];
+
+    setPaymentMethodId(objPaymentMethod.id);
+    setImageCard(objPaymentMethod.secure_thumbnail);
+    setCvvProperties(objPaymentMethod.settings[0].security_code);
+    loadAdditionalInfo(objPaymentMethod.additional_info_needed);
+
+    additionalInfoHandler();
+  }
+
+  function setPaymentMethodId(paymentMethodId) {
+    document.getElementById('paymentMethodId').value = paymentMethodId;
+  }
+
+  function setImageCard(secureThumbnail) {
+    getCardNumberInput().style.background = `url(${secureThumbnail}) 98% 50% no-repeat #fff`;
+  }
+
+  function setCvvProperties(security_code) {
+    document.getElementById('mp-security-code').setAttribute('maxlength', security_code.length);
+    document.getElementById(
+      'mp-security-code-info',
+    ).innerText = `Last ${security_code.length} digits in ${security_code.card_location}`;
+    document.getElementById('mp-security-code').setAttribute('placeholder', countPlaceHolder());
+
+    function countPlaceHolder() {
+      let placeholder = '';
+
+      for (let i = 0; i < security_code.length; i++) {
+        placeholder += i + 1;
+      }
+
+      return placeholder;
+    }
+  }
+
+  function loadAdditionalInfo(additional_info_needed) {
+    additionalInfoNeeded = {
+      issuer: false,
+      cardholder_name: false,
+      cardholder_identification_type: false,
+      cardholder_identification_number: false,
     };
 
-    // Set mercadopago public_key
-    $.getScript('https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js').done(function () {
-      Mercadopago.setPublishableKey(seller.public_key);
-    });
-
-    var coupon_of_discounts = {
-      discount_action_url: wc_mercadopago_params.discount_action_url,
-      payer_email: wc_mercadopago_params.payer_email,
-      activated: wc_mercadopago_params.coupon_mode,
-      status: false
-    };
-
-    var objPaymentMethod = {};
-    var additionalInfoNeeded = {};
-
-    if ($('form#order_review').length > 0) {
-      if (coupon_of_discounts.activated === 'yes') {
-        $('#applyCoupon').on('click', discountCampaignsHandler);
+    for (let i = 0; i < additional_info_needed.length; i++) {
+      if (additional_info_needed[i] === 'issuer_id') {
+        additionalInfoNeeded.issuer = true;
       }
 
-      showPaymentsLink();
-    }
-
-    // Load woocommerce checkout form
-    $('body').on('updated_checkout', function () {
-      if (coupon_of_discounts.activated === 'yes') {
-        $('#applyCoupon').on('click', discountCampaignsHandler);
+      if (additional_info_needed[i] === 'cardholder_name') {
+        additionalInfoNeeded.cardholder_name = true;
       }
 
-      clearCard();
-      showPaymentsLink();
-    });
+      if (additional_info_needed[i] === 'cardholder_identification_type') {
+        additionalInfoNeeded.cardholder_identification_type = true;
+      }
 
-    $('body').on('change', '#mp-card-number', guessingPaymentMethod);
-
-    /**
-     * Clear Card input and all dependents inputs
-     */
-    function clearCard() {
-      if (document.getElementById('mp-card-number').value !== 0) {
-        document.getElementById('mp-card-number').value = '';
-        resetBackgroundCard();
-        clearInstallments();
-        clearTax();
-        clearIssuer();
-        clearDoc();
+      if (additional_info_needed[i] === 'cardholder_identification_number') {
+        additionalInfoNeeded.cardholder_identification_number = true;
       }
     }
+  }
 
-    /**
-      * Show Payments accepted when link was clicked
-      */
-    function showPaymentsLink() {
-      var frame_payments = document.querySelector('#mp-frame-payments');
-      $('#button-show-payments').on('click', function () {
-        frame_payments.style.display = frame_payments.style.display === 'inline-block' ? 'none' : 'inline-block';
-      });
-    }
-
-    /**
-     * Get Bin from Card Number
-     */
-    function getBin() {
-      var cardnumber = document.getElementById('mp-card-number');
-      return cardnumber.value.replace(/[ .-]/g, '').slice(0, 6);
-    }
-
-    /**
-     * Execute before event focusout on input Card Number
-     *
-     * @param {object} event
-     */
-    function guessingPaymentMethod() {
-      hideErrors();
-      clearHolderName();
-      clearExpirationDate();
-      clearSecurityCode();
+  function additionalInfoHandler() {
+    if (additionalInfoNeeded.issuer) {
+      showInstallments();
+      showIssuers();
+      Mercadopago.getIssuers(objPaymentMethod.id, getBin(), issuersHandler);
+    } else {
       clearIssuer();
-      clearInstallments();
-      clearTax();
-      clearDoc();
-
-      var bin = getBin();
-
-      if (bin.length < 6) {
-        resetBackgroundCard();
-        return;
-      }
-
-      if (bin.length >= 6) {
-        Mercadopago.getPaymentMethod({
-          'bin': bin
-        }, paymentMethodHandler);
-      }
+      setInstallments();
     }
 
-    /**
-    * Get Amount end calculate discount for hide inputs
-    */
-    function getAmount() {
-      return (document.getElementById('mp-amount').value - document.getElementById('mp-discount').value) * document.getElementById('currency_ratio').value;
-    }
+    // todo others
+  }
 
-    /**
-     * Handle payment Method response
-     *
-     * @param {number} status
-     * @param {object} response
-     */
-    function paymentMethodHandler(status, response) {
-      if (status === 200) {
-        objPaymentMethod = response[0];
-        setPaymentMethodId(objPaymentMethod.id);
-        setImageCard(objPaymentMethod.secure_thumbnail);
-        loadAdditionalInfo(objPaymentMethod.additional_info_needed);
-        additionalInfoHandler();
-        document.getElementById('mp-card-number').classList.remove('mp-form-control-error');
-        document.getElementById('mp-error-E301').style.display = 'none';
-      } else {
-        resetBackgroundCard();
-        document.getElementById('mp-card-number').classList.add('mp-form-control-error');
-        document.getElementById('mp-error-E301').style.display = 'inline-block';
+  function issuersHandler(status, response) {
+    if (status === 200) {
+      clearInstallmentsComponent();
+
+      const issuersSelector = document.getElementById('mp-issuer');
+      const fragment = document.createDocumentFragment();
+
+      issuersSelector.options.length = 0;
+
+      const option = new Option('Choose...', '-1');
+      fragment.appendChild(option);
+
+      for (let i = 0; i < response.length; i++) {
+        const name = response[i].name === 'default' ? 'Otro' : response[i].name;
+        fragment.appendChild(new Option(name, response[i].id));
       }
-    }
 
-    /**
-     *
-     * Load Additional Info to use for build payment form
-     *
-     * @param {array} additional_info_needed
-     */
-    function loadAdditionalInfo(additional_info_needed) {
-      additionalInfoNeeded = {
-        'issuer': false,
-        'cardholder_name': false,
-        'cardholder_identification_type': false,
-        'cardholder_identification_number': false
+      issuersSelector.appendChild(fragment);
+      issuersSelector.removeAttribute('disabled');
+      issuersSelector.addEventListener('change', setInstallments);
+    } else {
+      clearIssuer();
+    }
+  }
+
+  function setInstallments() {
+    let params_installments = {};
+    const amount = getAmount();
+    let issuer = false;
+
+    objPaymentMethod.additional_info_needed.forEach((info) => {
+      if (info === 'issuer_id') {
+        issuer = true;
+      }
+    });
+
+    if (issuer) {
+      const issuerId = document.getElementById('mp-issuer').value;
+
+      params_installments = {
+        bin: getBin(),
+        amount,
+        issuer_id: issuerId,
       };
 
-      for (var i = 0; i < additional_info_needed.length; i++) {
-        if (additional_info_needed[i] === 'issuer_id') {
-          additionalInfoNeeded.issuer = true;
+      if (issuerId === '-1') {
+        clearInstallmentsComponent();
+        clearTax();
+        return;
+      }
+    } else {
+      params_installments = {
+        bin: getBin(),
+        amount,
+      };
+    }
+
+    Mercadopago.getInstallments(params_installments, installmentHandler);
+  }
+
+  function installmentHandler(status, response) {
+    if (status === 200) {
+      let payerCosts = [];
+      const installments = [];
+
+      clearInstallmentsComponent();
+
+      for (var i = 0; i < response.length; i++) {
+        if (response[i].processing_mode === 'aggregator') {
+          payerCosts = response[i].payer_costs;
         }
-        if (additional_info_needed[i] === 'cardholder_name') {
-          additionalInfoNeeded.cardholder_name = true;
+      }
+
+      for (let j = 0; j < payerCosts.length; j++) {
+        const installment = payerCosts[j].installments;
+        const installmentRate = payerCosts[j].installment_rate === 0;
+
+        installments.push({
+          id: `installment-${installment}`,
+          value: installment,
+          rowText: `${installment}x ${formatCurrency(payerCosts[j].installment_amount)}`,
+          rowObs: installmentRate ? 'No fee' : formatCurrency(payerCosts[j].total_amount),
+          highlight: installmentRate ? 'true' : '',
+          dataRate: argentinaResolution(payerCosts[j].labels),
+        });
+      }
+
+      const inputTable = document.createElement('input-table');
+      inputTable.setAttribute('name', 'mp-installments');
+      inputTable.setAttribute('button-name', 'More options');
+      inputTable.setAttribute('columns', JSON.stringify(installments));
+
+      showInstallments();
+      showInstallmentsComponent(inputTable);
+
+      if (seller.site_id === 'MLA') {
+        clearTax();
+        const taxesElements = document.getElementsByClassName('mp-input-table-label');
+        for (var i = 0; i < taxesElements.length; i++) {
+          taxesElements[i].addEventListener('click', showTaxes);
         }
-        if (additional_info_needed[i] === 'cardholder_identification_type') {
-          additionalInfoNeeded.cardholder_identification_type = true;
-        }
-        if (additional_info_needed[i] === 'cardholder_identification_number') {
-          additionalInfoNeeded.cardholder_identification_number = true;
-        }
+      }
+    } else {
+      clearInstallments();
+      clearTax();
+    }
+  }
+
+  function showInstallments() {
+    const installmentsContainer = document.getElementById('mp-checkout-custom-installments');
+    installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
+    installmentsContainer.classList.add('mp-checkout-custom-installments');
+  }
+
+  function showInstallmentsComponent(child) {
+    const selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+    selectorInstallments.classList.add('mp-checkout-custom-installments-container');
+    selectorInstallments.appendChild(child);
+  }
+
+  function showIssuers() {
+    const issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
+    issuersContainer.classList.remove('mp-checkout-custom-issuers-container-display-none');
+    issuersContainer.classList.add('mp-checkout-custom-issuers-container');
+  }
+
+  function showTaxes() {
+    const selectorInstallments = document.querySelectorAll('.mp-input-radio-radio');
+    let tax = null;
+    let display = 'block';
+
+    selectorInstallments.forEach((installment) => {
+      if (installment.checked) {
+        tax = installment.getAttribute('datarate');
+      }
+    });
+
+    let cft = '';
+    let tea = '';
+
+    if (tax != null) {
+      const tax_split = tax.split('|');
+
+      cft = tax_split[0].replace('_', ' ');
+      tea = tax_split[1].replace('_', ' ');
+
+      if (cft === 'CFT 0,00%' && tea === 'TEA 0,00%') {
+        display = 'none';
+        cft = '';
+        tea = '';
       }
     }
 
-    /**
-     * Check what information is necessary to pay and show inputs
-     */
-    function additionalInfoHandler() {
-      if (additionalInfoNeeded.cardholder_name) {
-        document.getElementById('mp-card-holder-div').style.display = 'block';
-      } else {
-        document.getElementById('mp-card-holder-div').style.display = 'none';
-      }
+    document.querySelector('#mp-checkout-custom-box-input-tax-cft').style.display = display;
+    document.querySelector('#mp-checkout-custom-tax-cft-text').innerHTML = cft;
+    document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = tea;
+  }
 
-      if (additionalInfoNeeded.issuer) {
-				showInstallments();
-				showIssuers();
-        Mercadopago.getIssuers(objPaymentMethod.id, getBin(), issuersHandler);
-      } else {
-        clearIssuer();
-        setInstallments();
-      }
-
-      if (additionalInfoNeeded.cardholder_identification_type) {
-        document.getElementById('mp-doc-div').style.display = 'inline-block';
-        document.getElementById('mp-doc-type-div').style.display = 'block';
-        Mercadopago.getIdentificationTypes();
-      } else {
-        document.getElementById('mp-doc-type-div').style.display = 'none';
-      }
-
-      if (additionalInfoNeeded.cardholder_identification_number) {
-        document.getElementById('mp-doc-div').style.display = 'inline-block';
-        document.getElementById('mp-doc-number-div').style.display = 'block';
-      } else {
-        document.getElementById('mp-doc-number-div').style.display = 'none';
-      }
-
-      if (!additionalInfoNeeded.cardholder_identification_type && !additionalInfoNeeded.cardholder_identification_number) {
-        document.getElementById('mp-doc-div').style.display = 'none';
-      }
+  function clearInstallments() {
+    const installmentsContainer = document.getElementById('mp-checkout-custom-installments');
+    if (installmentsContainer) {
+      installmentsContainer.classList.remove('mp-checkout-custom-installments');
+      installmentsContainer.classList.add('mp-checkout-custom-installments-display-none');
     }
+  }
 
-    /**
-    * Remove background image from imput
-    */
-    function resetBackgroundCard() {
-      document.getElementById('mp-card-number').style.background = 'no-repeat #fff';
+  function clearInstallmentsComponent() {
+    const selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
+    selectorInstallments.classList.remove('mp-checkout-custom-installments-container');
+    if (selectorInstallments.firstElementChild) {
+      selectorInstallments.removeChild(selectorInstallments.firstElementChild);
     }
+  }
 
-    /**
-     * Set value on paymentMethodId element
-     *
-     * @param {string} paymentMethodId
-     */
-    function setPaymentMethodId(paymentMethodId) {
-      document.getElementById('paymentMethodId').value = paymentMethodId;
-    }
+  function clearIssuer() {
+    const issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
+    issuersContainer.classList.remove('mp-checkout-custom-issuers-container');
+    issuersContainer.classList.add('mp-checkout-custom-issuers-container-display-none');
+    document.getElementById('mp-issuer').innerHTML = '';
+  }
 
-    /**
-     * Set Imagem card on element
-     *
-     * @param {string} secureThumbnail
-     */
-    function setImageCard(secureThumbnail) {
-      document.getElementById('mp-card-number').style.background = 'url(' + secureThumbnail + ') 98% 50% no-repeat #fff';
-    }
+  function clearTax() {
+    document.querySelector('#mp-checkout-custom-box-input-tax-cft').style.display = 'none';
+    document.querySelector('#mp-checkout-custom-tax-cft-text').innerHTML = '';
+    document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = '';
+  }
 
-    /**
-     * Resolution 51/2017
-     *
-     * @param {*} payerCosts
-     * @returns {string}
-     */
-		function argentinaResolution(payerCosts) {
-      var dataInput = '';
+  function clearHolderName() {
+    document.getElementById('mp-card-holder-name').value = '';
+  }
 
-			if (seller.site_id === 'MLA') {
-        for (var l = 0; l < payerCosts.length; l++) {
-          if (payerCosts[l].indexOf('CFT_') !== -1) {
-            dataInput = payerCosts[l];
-          }
+  function clearExpirationDate() {
+    document.getElementById('mp-card-expiration-date').value = '';
+  }
+
+  function clearSecurityCode() {
+    document.getElementById('mp-security-code').value = '';
+  }
+
+  function resetBackgroundCard() {
+    document.getElementById('mp-card-number').style.background = 'no-repeat #fff';
+  }
+
+  function argentinaResolution(payerCosts) {
+    let dataInput = '';
+
+    if (seller.site_id === 'MLA') {
+      for (let l = 0; l < payerCosts.length; l++) {
+        if (payerCosts[l].indexOf('CFT_') !== -1) {
+          dataInput = payerCosts[l];
         }
-
-        return dataInput;
       }
 
       return dataInput;
     }
 
-    /**
-     * Get instalments
-     *
-     * @param {number} status
-     * @param {object} response
-     */
-    function installmentHandler(status, response) {
-      if (status === 200) {
-        var payerCosts = [];
-				var installments = [];
+    return dataInput;
+  }
 
-				clearInstallmentsComponent();
+  function formatCurrency(value) {
+    const formatter = new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency: 'ARS',
+      currencyDisplay: 'narrowSymbol',
+    });
 
-        for (var i = 0; i < response.length; i++) {
-          if (response[i].processing_mode === 'aggregator') {
-            payerCosts = response[i].payer_costs;
-          }
-        }
+    return formatter.format(value);
+  }
 
-        for (var j = 0; j < payerCosts.length; j++) {
-					var installment = payerCosts[j].installments;
-					var installmentRate = payerCosts[j].installment_rate === 0;
-
-					installments.push({
-						id: 'installment-' + installment,
-						value: installment,
-						rowText: installment + 'x ' + formatCurrency(payerCosts[j].installment_amount),
-						rowObs: installmentRate ? wc_mercadopago_params.rate_text : formatCurrency(payerCosts[j].total_amount),
-            highlight: installmentRate ? 'true' : '',
-						dataRate: argentinaResolution(payerCosts[j].labels),
-					});
-        }
-
-				var inputTable = document.createElement('input-table');
-				inputTable.setAttribute('name', 'mercadopago_custom[installments]');
-				inputTable.setAttribute('button-name', wc_mercadopago_params.more_installments_text);
-				inputTable.setAttribute('columns', JSON.stringify(installments));
-
-				showInstallments();
-				showInstallmentsComponent(inputTable);
-
-        if (seller.site_id === 'MLA') {
-          clearTax();
-          $('body').on('click', '.mp-input-table-label', showTaxes);
-        }
-      } else {
-        clearInstallments();
-        clearTax();
-      }
+  function focusInputError() {
+    if (document.querySelectorAll('.mp-error') !== undefined) {
+      document.querySelectorAll('.mp-error')[0].focus();
     }
+  }
 
-    /**
-    * Show taxes resolution 51/2017 for MLA
-    */
-    function showTaxes() {
-			var selectorInstallments = document.querySelectorAll('.mp-input-radio-radio');
-      var tax = null;
-      var display = 'block';
-
-      selectorInstallments.forEach(installment => {
-        if (installment.checked) {
-          tax = installment.getAttribute('datarate');
-          return;
-        }
-      });
-
-      var cft = '';
-      var tea = '';
-
-      if (tax != null) {
-        var tax_split = tax.split('|');
-
-        cft = tax_split[0].replace('_', ' ');
-        tea = tax_split[1].replace('_', ' ');
-
-        if (cft === 'CFT 0,00%' && tea === 'TEA 0,00%') {
-          display = 'none';
-          cft = '';
-          tea = '';
-        }
-      }
-
-      document.querySelector('#mp-checkout-custom-box-input-tax-cft').style.display = display;
-      document.querySelector('#mp-checkout-custom-tax-cft-text').innerHTML = cft;
-      document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = tea;
-    }
-
-		/**
-		 * Show installments
-		 */
-		function showInstallments() {
-			var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
-			installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
-			installmentsContainer.classList.add('mp-checkout-custom-installments');
-		}
-
-		/**
-		 * Show installments component
-		 */
-		function showInstallmentsComponent(child) {
-			var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
-			selectorInstallments.classList.add('mp-checkout-custom-installments-container');
-			selectorInstallments.appendChild(child);
-		}
-
-		/**
-		 * Show issuers
-		 */
-		function showIssuers() {
-			var issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
-			issuersContainer.classList.remove('mp-checkout-custom-issuers-container-display-none');
-			issuersContainer.classList.add('mp-checkout-custom-issuers-container');
-		}
-
-    /**
-    * Clear input select
-    */
-    function clearInstallments() {
-      var installmentsContainer = document.getElementById('mp-checkout-custom-installments');
-
-			if (installmentsContainer) {
-				installmentsContainer.classList.remove('mp-checkout-custom-installments');
-				installmentsContainer.classList.add('mp-checkout-custom-installments-display-none');
-			}
-    }
-
-		function clearInstallmentsComponent() {
-			var selectorInstallments = document.getElementById('mp-checkout-custom-installments-container');
-			selectorInstallments.classList.remove('mp-checkout-custom-installments-container');
-
-			if (selectorInstallments.firstElementChild) {
-				selectorInstallments.removeChild(selectorInstallments.firstElementChild);
-			}
-		}
-
-    /**
-    * Clear Tax
-    */
-    function clearTax() {
-      document.querySelector('#mp-checkout-custom-box-input-tax-cft').style.display = 'none';
-      document.querySelector('#mp-checkout-custom-tax-cft-text').innerHTML = '';
-      document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = '';
-    }
-
-    /**
-     * Clear input select and change to default layout
-     */
-    function clearIssuer() {
-      var issuersContainer = document.getElementById('mp-checkout-custom-issuers-container');
-			issuersContainer.classList.remove('mp-checkout-custom-issuers-container');
-			issuersContainer.classList.add('mp-checkout-custom-issuers-container-display-none');
-
-      document.getElementById('mp-issuer').innerHTML = '';
-    }
-
-    /**
-     * Clear input and change to default layout
-     */
-    function clearDoc() {
-      document.getElementById('mp-doc-div').style.display = 'none';
-      document.getElementById('mp-doc-type-div').style.display = 'none';
-      document.getElementById('docType').innerHTML = '';
-      document.getElementById('docNumber').value = '';
-    }
-
-    /**
-     * Clear input
-     */
-    function clearHolderName() {
-      document.getElementById('mp-card-holder-name').value = '';
-    }
-
-    /**
-     * Clear input
-     */
-    function clearExpirationDate() {
-      document.getElementById('mp-card-expiration-date').value = '';
-    }
-
-    /**
-     * Clear input
-     */
-    function clearSecurityCode() {
-      document.getElementById('mp-security-code').value = '';
-    }
-
-    /**
-     * Call insttalments with issuer ou not, depends on additionalInfoHandler()
-     */
-    function setInstallments() {
-      var params_installments = {};
-      var amount = getAmount();
-      var issuer = false;
-
-      for (var i = 0; i < objPaymentMethod.additional_info_needed.length; i++) {
-        if (objPaymentMethod.additional_info_needed[i] === 'issuer_id') {
-          issuer = true;
-        }
-      }
-
-      if (issuer) {
-        var issuerId = document.getElementById('mp-issuer').value;
-
-				params_installments = {
-          'bin': getBin(),
-          'amount': amount,
-          'issuer_id': issuerId
-        };
-
-        if (issuerId === '-1') {
-					clearInstallmentsComponent();
-          clearTax();
-          return;
-        }
-      } else {
-        params_installments = {
-          'bin': getBin(),
-          'amount': amount
-        };
-      }
-
-      Mercadopago.getInstallments(params_installments, installmentHandler);
-    }
-
-    /**
-     * Handle issuers response and build select
-     *
-     * @param {status} status
-     * @param {object} response
-     */
-    function issuersHandler(status, response) {
-      if (status === 200) {
-				clearInstallmentsComponent();
-
-        var issuersSelector = document.getElementById('mp-issuer');
-        var fragment = document.createDocumentFragment();
-
-        issuersSelector.options.length = 0;
-
-        var option = new Option(wc_mercadopago_params.choose + '...', '-1');
-        fragment.appendChild(option);
-
-        for (var i = 0; i < response.length; i++) {
-          var name = response[i].name === 'default' ? 'Otro' : response[i].name;
-          fragment.appendChild(new Option(name, response[i].id));
-        }
-
-        issuersSelector.appendChild(fragment);
-        issuersSelector.removeAttribute('disabled');
-
-        $('body').on('change', '#mp-issuer', setInstallments);
-      } else {
-        clearIssuer();
-      }
-    }
-
-    /**
-     * Get form
-     */
-    function getForm() {
-      return document.querySelector('#mercadopago-form');
-    }
-
-    /**
-     * Validate Additional Inputs
-     *
-     * @return {bool}
-     */
-    function validateAdditionalInputs() {
-      var emptyInputs = false;
-
-      if (additionalInfoNeeded.issuer) {
-        var inputMpIssuer = document.getElementById('mp-issuer');
-        if (inputMpIssuer.value === '-1' || inputMpIssuer.value === '') {
-          inputMpIssuer.classList.add('mp-form-control-error');
-          emptyInputs = true;
-        }
-      }
-      if (additionalInfoNeeded.cardholder_name) {
-        var inputCardholderName = document.getElementById('mp-card-holder-name');
-        if (inputCardholderName.value === '-1' || inputCardholderName.value === '') {
-          inputCardholderName.classList.add('mp-form-control-error');
-          emptyInputs = true;
-        }
-      }
-      if (additionalInfoNeeded.cardholder_identification_type) {
-        var inputDocType = document.getElementById('docType');
-        if (inputDocType.value === '-1' || inputDocType.value === '') {
-          inputDocType.classList.add('mp-form-control-error');
-          emptyInputs = true;
-        }
-      }
-      if (additionalInfoNeeded.cardholder_identification_number) {
-        var docNumber = document.getElementById('docNumber');
-        if (docNumber.value === '-1' || docNumber.value === '') {
-          docNumber.classList.add('mp-form-control-error');
-          document.getElementById('mp-error-324').style.display = 'inline-block';
-          emptyInputs = true;
-        }
-      }
-
-      if (emptyInputs) {
-        return emptyInputs;
-      } else {
-        return emptyInputs;
-      }
-    }
-
-    /**
-    * Validate Inputs to Create Token
-    *
-    * @return {bool}
-    */
-    function validateInputsCreateToken() {
-      hideErrors();
-
-      var fixedInputs = validateFixedInputs();
-      var additionalInputs = validateAdditionalInputs();
-
-      if (fixedInputs || additionalInputs) {
-        removeBlockOverlay();
-        focusInputError();
-        return false;
-      }
-
+  function mercadoPagoFormHandler() {
+    if (mercado_pago_submit) {
+      mercado_pago_submit = false;
       return true;
     }
 
-    /**
-    * Focus input with error
-    *
-    * @return {bool}
-    */
-    function focusInputError() {
-      if (document.querySelectorAll('.mp-form-control-error') !== undefined) {
-        var form_inputs = document.querySelectorAll('.mp-form-control-error');
-        form_inputs[0].focus();
-      }
+    if (validateInputsCreateToken()) {
+      return createToken();
     }
 
-    /**
-    * Validate fixed Inputs is empty
-    *
-    * @return {bool}
-    */
-    function validateFixedInputs() {
-      var emptyInputs = false;
-      var form = getForm();
-      var form_inputs = form.querySelectorAll('[data-checkout]');
-      var fixed_inputs = [
-        'installments',
-        'securityCode',
-        'cardExpirationDate',
-        'cardNumber'
-      ];
+    return false;
+  }
 
-      for (var x = 0; x < form_inputs.length; x++) {
-        var element = form_inputs[x];
+  function validateInputsCreateToken() {
+    hideErrors();
 
-        if (fixed_inputs.indexOf(element.getAttribute('data-checkout')) > -1) {
-          if (element.value === '-1' || element.value === '') {
-            var span = form.querySelectorAll('span[data-main="#' + element.id + '"]');
+    const fixedInputs = validateFixedInputs();
+    const additionalInputs = validateAdditionalInputs();
 
-						if (span.length > 0) {
-              span[0].style.display = 'inline-block';
-            }
-
-            element.classList.add('mp-form-control-error');
-            emptyInputs = true;
-          }
-        }
-      }
-
-      if (emptyInputs) {
-        return emptyInputs;
-      } else {
-        return emptyInputs;
-      }
-    }
-
-    /**
-     * Hide errors when return of cardToken error
-     */
-    function hideErrors() {
-      for (var x = 0; x < document.querySelectorAll('[data-checkout]').length; x++) {
-        var field = document.querySelectorAll('[data-checkout]')[x];
-        field.classList.remove('mp-error-input');
-        field.classList.remove('mp-form-control-error');
-      }
-
-      for (var y = 0; y < document.querySelectorAll('.mp-error').length; y++) {
-        var span = document.querySelectorAll('.mp-error')[y];
-        span.style.display = 'none';
-      }
-    }
-
-    /**
-     *  Create Token call Mercadopago.createToken
-     *
-     *  @return {bool}
-     */
-    function createToken() {
-      hideErrors();
-
-      // Show loading.
-      document.querySelector('#mp-box-loading').style.background = 'url(' + wc_mercadopago_params.loading + ') 0 50% no-repeat #fff';
-
-      // Form.
-      var form = getForm();
-
-      Mercadopago.createToken(form, sdkResponseHandler);
-
+    if (fixedInputs || additionalInputs) {
+      focusInputError();
       return false;
     }
 
-    /**
-     * Remove Block Overlay from Order Review page
-     */
-    function removeBlockOverlay() {
-      if ($('form#order_review').length > 0) {
-        $('.blockOverlay').css('display', 'none');
-      }
-    }
+    return true;
+  }
 
-    /**
-     * Handler Response of Mercadopago.createToken
-     *
-     * @param {number} status
-     * @param {object} response
-     */
-    function sdkResponseHandler(status, response) {
-      document.querySelector('#mp-box-loading').style.background = '';
+  function validateFixedInputs() {
+    // todo installments
 
-      if (status !== 200 && status !== 201) {
-        showErrors(response);
-        removeBlockOverlay();
-        focusInputError();
-      } else {
-        var token = document.querySelector('#token');
-        token.value = response.id;
-        mercado_pago_submit = true;
-        $('form.checkout, form#order_review').submit();
-      }
-    }
+    let emptyInputs = false;
+    const form = getForm();
+    const formInputs = form.querySelectorAll('[data-checkout]');
+    const fixedInputs = ['cardNumber', 'cardExpirationDate', 'securityCode'];
 
-    /**
-     *
-     * @param { obje } response
-     */
-    function showErrors(response) {
-      var form = getForm();
+    for (let x = 0; x < formInputs.length; x++) {
+      const element = formInputs[x];
 
-			for (var x = 0; x < response.cause.length; x++) {
-        var error = response.cause[x];
-        var span = undefined;
+      if (fixedInputs.indexOf(element.getAttribute('data-checkout')) > -1) {
+        if (element.value === '-1' || element.value === '') {
+          const helper = form.querySelectorAll(`input-helper[data-main="${element.id}"]`);
 
-        if (error.code === '208' || error.code === '209' || error.code === '325' || error.code === '326') {
-          span = form.querySelector('#mp-error-208');
-        } else {
-          span = form.querySelector('#mp-error-' + error.code);
-        }
-
-        if (span !== undefined) {
-          var input = form.querySelector(span.getAttribute('data-main'));
-          span.style.display = 'inline-block';
-          input.classList.add('mp-form-control-error');
-        }
-      }
-
-      return;
-    }
-
-    /**
-     *  Discount Campaigns Handler
-     */
-    function discountCampaignsHandler() {
-      clearCard();
-      document.querySelector('#mpCouponApplyed').style.display = 'none';
-
-      if (document.querySelector('#couponCode').value === '') {
-        coupon_of_discounts.status = false;
-        document.querySelector('#mpCouponError').style.display = 'block';
-        document.querySelector('#mpCouponError').innerHTML = wc_mercadopago_params.coupon_empty;
-        document.querySelector('#couponCode').style.background = null;
-        document.querySelector('#applyCoupon').value = wc_mercadopago_params.apply;
-        document.querySelector('#mp-discount').value = 0;
-      } else if (coupon_of_discounts.status) {
-        coupon_of_discounts.status = false;
-        document.querySelector('#mpCouponError').style.display = 'none';
-        document.querySelector('#applyCoupon').style.background = null;
-        document.querySelector('#applyCoupon').value = wc_mercadopago_params.apply;
-        document.querySelector('#couponCode').value = '';
-        document.querySelector('#couponCode').style.background = null;
-        document.querySelector('#mp-discount').value = 0;
-      } else {
-        document.querySelector('#mpCouponError').style.display = 'none';
-        document.querySelector('#couponCode').style.background = 'url(' + wc_mercadopago_params.loading + ') 98% 50% no-repeat #fff';
-        document.querySelector('#couponCode').style.border = '1px solid #cecece';
-        document.querySelector('#applyCoupon').disabled = true;
-        getDiscountCampaigns();
-      }
-    }
-
-    /**
-     * Get Discount Campaigns
-     */
-    function getDiscountCampaigns() {
-      var url = coupon_of_discounts.discount_action_url;
-      var sp = '?';
-
-      if (url.indexOf('?') >= 0) {
-        sp = '&';
-      }
-
-      url += sp + 'site_id=' + wc_mercadopago_params.site_id;
-      url += '&coupon_id=' + document.querySelector('#couponCode').value;
-      url += '&amount=' + document.querySelector('#mp-amount').value;
-      url += '&payer=' + coupon_of_discounts.payer_email;
-
-      $.ajax({
-        url: url,
-        method: 'GET',
-        timeout: 5000,
-        error: function () {
-          coupon_of_discounts.status = false;
-          document.querySelector('#mpCouponApplyed').style.display = 'none';
-          document.querySelector('#mpCouponError').style.display = 'none';
-          document.querySelector('#applyCoupon').style.background = null;
-          document.querySelector('#applyCoupon').value = wc_mercadopago_params.apply;
-          document.querySelector('#couponCode').value = '';
-          document.querySelector('#couponCode').style.background = null;
-          document.querySelector('#mp-discount').value = 0;
-        },
-        success: function (response) {
-          if (response.status === 200) {
-            coupon_of_discounts.status = true;
-            document.querySelector('#mpCouponApplyed').style.display = 'block';
-            document.querySelector('#mp-discount').value = response.response.coupon_amount;
-            document.querySelector('#mpCouponApplyed').innerHTML =
-              wc_mercadopago_params.discount_info1 + ' <strong>' +
-              currencyIdToCurrency(response.response.currency_id) + ' ' +
-              Math.round(response.response.coupon_amount * 100) / 100 +
-              '</strong> ' + wc_mercadopago_params.discount_info2 + ' ' +
-              response.response.name + '.<br>' + wc_mercadopago_params.discount_info3 + ' <strong>' +
-              currencyIdToCurrency(response.response.currency_id) + ' ' +
-              Math.round(getAmountWithoutDiscount() * 100) / 100 +
-              '</strong><br>' + wc_mercadopago_params.discount_info4 + ' <strong>' +
-              currencyIdToCurrency(response.response.currency_id) + ' ' +
-              Math.round(getAmount() * 100) / 100 + '*</strong><br>' +
-              '<i>' + wc_mercadopago_params.discount_info5 + '</i><br>' +
-              '<a href="https://api.mercadolibre.com/campaigns/' +
-              response.response.id +
-              '/terms_and_conditions?format_type=html" target="_blank">' +
-              wc_mercadopago_params.discount_info6 + '</a>';
-            document.querySelector('#mpCouponError').style.display = 'none';
-            document.querySelector('#couponCode').style.background = null;
-            document.querySelector('#couponCode').style.background = 'url(' + wc_mercadopago_params.check + ') 94% 50% no-repeat #fff';
-            document.querySelector('#couponCode').style.border = '1px solid #cecece';
-            document.querySelector('#applyCoupon').value = wc_mercadopago_params.remove;
-            document.querySelector('#campaign_id').value = response.response.id;
-            document.querySelector('#campaign').value = response.response.name;
-          } else {
-            coupon_of_discounts.status = false;
-            document.querySelector('#mpCouponApplyed').style.display = 'none';
-            document.querySelector('#mpCouponError').style.display = 'block';
-            document.querySelector('#mpCouponError').innerHTML = response.response.message;
-            document.querySelector('#couponCode').style.background = null;
-            document.querySelector('#couponCode').style.background = 'url(' + wc_mercadopago_params.error + ') 94% 50% no-repeat #fff';
-            document.querySelector('#applyCoupon').value = wc_mercadopago_params.apply;
-            document.querySelector('#mp-discount').value = 0;
+          if (helper.length > 0) {
+            helper[0].children[0].style.display = 'flex';
           }
-          document.querySelector('#applyCoupon').disabled = false;
+
+          element.classList.add('mp-error');
+          emptyInputs = true;
         }
-      });
-    }
-
-    /**
-     * CurrencyId to Currency
-     *
-     * @param {string} currency_id
-     */
-    function currencyIdToCurrency(currency_id) {
-      if (currency_id === 'ARS') {
-        return '$';
-      } else if (currency_id === 'BRL') {
-        return 'R$';
-      } else if (currency_id === 'COP') {
-        return '$';
-      } else if (currency_id === 'CLP') {
-        return '$';
-      } else if (currency_id === 'MXN') {
-        return '$';
-      } else if (currency_id === 'VEF') {
-        return 'Bs';
-      } else if (currency_id === 'PEN') {
-        return 'S/';
-      } else if (currency_id === 'UYU') {
-        return '$U';
-      } else {
-        return '$';
       }
     }
 
-    /**
-     * Get Amount Without Discount
-     *
-     * @return {string}
-     */
-    function getAmountWithoutDiscount() {
-      return document.querySelector('#mp-amount').value;
+    return emptyInputs;
+  }
+
+  function validateAdditionalInputs() {
+    let emptyInputs = false;
+
+    if (additionalInfoNeeded.issuer) {
+      const issuer = document.getElementById('mp-issuer');
+      if (issuer.value === '-1' || issuer.value === '') {
+        issuer.parentElement.classList.add('mp-error');
+        document.getElementById('mp-issuer-helper').style.display = 'flex';
+        emptyInputs = true;
+      }
     }
 
-    /**
-     * Handler submit
-     *
-     * @return {bool}
-     */
-    function mercadoPagoFormHandler() {
-      if (mercado_pago_submit) {
-        mercado_pago_submit = false;
-        return true;
+    if (additionalInfoNeeded.cardholder_name) {
+      const cardHolderName = document.getElementById('mp-card-holder-name');
+      if (cardHolderName.value === '-1' || cardHolderName.value === '') {
+        cardHolderName.classList.add('mp-error');
+        document.getElementById('mp-card-holder-name-helper').style.display = 'flex';
+        emptyInputs = true;
       }
-
-      if ($('#mp_checkout_type').val() === 'wallet_button') {
-      	return true;
-	  	}
-
-      if (!document.getElementById('payment_method_woo-mercado-pago-custom').checked) {
-        return true;
-      }
-
-      $('#mp_checkout_type').val('custom');
-
-      if (validateInputsCreateToken()) {
-        return createToken();
-      }
-
-      return false;
     }
 
-		/**
-		 * Format the number to show the text in the correct currency
-		 *
-		 * @param {number} value
-		 * @returns {string}
-		 */
-		function formatCurrency(value) {
-      var formatter = new Intl.NumberFormat(wc_mercadopago_params.intl, {
-        style: 'currency',
-        currency: wc_mercadopago_params.currency,
-        currencyDisplay: 'narrowSymbol',
-      });
+    // todo others
 
-			return formatter.format(value);
+    return emptyInputs;
+  }
+
+  function createToken() {
+    hideErrors();
+    Mercadopago.createToken(getForm(), sdkResponseHandler);
+    return false;
+  }
+
+  function sdkResponseHandler(status, response) {
+    console.log(status, response);
+
+    if (status !== 200 && status !== 201) {
+      showErrors(response);
+      focusInputError();
+    } else {
+      const token = document.querySelector('#cardTokenId');
+      token.value = response.id;
+
+      console.log(`##### Card Token: ${response.id}`);
+
+      // todo getForm().submit();
+    }
+  }
+
+  function showErrors(response) {
+    for (let x = 0; x < response.cause.length; x++) {
+      let helper;
+      const error = response.cause[x];
+
+      const cardNumberErrors = ['205', 'E301'];
+      const cardHolderNameErrors = ['221'];
+      const expirationDateErrors = ['208', '209', '325', '326'];
+      const securityCodeErrors = ['224', 'E302'];
+      const docNumberErrors = ['324'];
+
+      if (cardNumberErrors.includes(error.code)) {
+        helper = document.querySelector('[data-main="mp-card-number"]');
+      } else if (expirationDateErrors.includes(error.code)) {
+        helper = document.querySelector('[data-main="mp-card-expiration-date"]');
+      } else if (cardHolderNameErrors.includes(error.code)) {
+        helper = document.querySelector('[data-main="mp-card-holder-name"]');
+      } else if (securityCodeErrors.includes(error.code)) {
+        helper = document.querySelector('[data-main="mp-security-code"]');
+      }
+
+      // todo docNumberErrors
+
+      if (helper) {
+        const input = document.getElementById(helper.getAttribute('data-main'));
+        helper.children[0].style.display = 'flex';
+        input.classList.add('mp-error');
+      }
+    }
+  }
+
+  function hideErrors() {
+    const fields = document.querySelectorAll('[data-checkout]');
+    const inputSelect = document.querySelectorAll('.mp-input-select-select');
+
+    for (var x = 0; x < fields.length; x++) {
+      const field = fields[x];
+      var helper = document.querySelectorAll(`input-helper[data-main="${field.id}"]`);
+
+      if (helper.length > 0) {
+        helper[0].children[0].style.display = 'none';
+      }
+
+      field.classList.remove('mp-error');
     }
 
-    // Process when submit the checkout form.
-    $('form.checkout').on('checkout_place_order_woo-mercado-pago-custom', function () {
-			return mercadoPagoFormHandler();
-    });
+    for (var x = 0; x < inputSelect.length; x++) {
+      const select = inputSelect[x];
+      var helper = document.querySelectorAll(`input-helper[data-main="${select.id}"]`);
 
-    // If payment fail, retry on next checkout page
-    $('form#order_review').submit(function () {
-    	return mercadoPagoFormHandler();
-    });
-  });
-}(jQuery));
+      if (helper.length > 0) {
+        helper[0].children[0].style.display = 'none';
+      }
+
+      select.parentElement.classList.remove('mp-error');
+    }
+  }
+})();
