@@ -220,94 +220,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 </form>
 
 <script type="text/javascript">
-	function mpCreditExecmascara() {
-		v_obj.value = v_fun(v_obj.value)
-	}
-
-	//Card mask date input
-	function mpCreditMaskDate(o, f) {
-		v_obj = o
-		v_fun = f
-		setTimeout("mpCreditExecmascara()", 1);
-	}
-
-	function mpMcc(value) {
-		if (mpIsMobile()) {
-			return value;
-		}
-
-		value = value.replace(/\D/g, "");
-		value = value.replace(/^(\d{4})(\d)/g, "$1 $2");
-		value = value.replace(/^(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3");
-		value = value.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
-
-		return value;
-	}
-
-	function mpDate(v) {
-		v = v.replace(/\D/g, "");
-		v = v.replace(/(\d{2})(\d)/, "$1/$2");
-		v = v.replace(/(\d{2})(\d{2})$/, "$1$2");
-
-		return v;
-	}
-
-	function mpInteger(v) {
-		return v.replace(/\D/g, "");
-	}
-
-	function mpIsMobile() {
-		try {
-			document.createEvent("TouchEvent");
-			return true;
-		} catch(e) {
-			return false;
-		}
-	}
-
 	function submitWalletButton(event) {
 		event.preventDefault();
 		jQuery('#mp_checkout_type').val('wallet_button');
 		jQuery('form.checkout, form#order_review').submit();
 	}
 
-	const availablePayment = document.getElementsByClassName('mp-checkout-custom-available-payments')[0];
-	const collapsible = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-header')[0];
+	var availablePayment = document.getElementsByClassName('mp-checkout-custom-available-payments')[0];
+	var collapsible = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-header')[0];
 
-		collapsible.addEventListener("click", function () {
-			const icon = collapsible.getElementsByClassName('mp-checkout-custom-available-payments-collapsible')[0];
-			const content = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-content')[0];
+	collapsible.addEventListener("click", function () {
+		var icon = collapsible.getElementsByClassName('mp-checkout-custom-available-payments-collapsible')[0];
+		var content = availablePayment.getElementsByClassName('mp-checkout-custom-available-payments-content')[0];
 
-			if (content.style.maxHeight) {
-				content.style.maxHeight = null;
-				content.style.padding = "0px";
-				icon.src = "../../assets/images/chefron-down.png";
-			} else {
-				content.style.maxHeight = content.scrollHeight + "px";
-				content.style.padding = "24px 0px 0px";
-				icon.src = "../../assets/images/chefron-up.png";
-			}
-		});
-
-		const cardNumber = document.getElementById('mp-card-number');
-		const cardExpirationDate = document.getElementById('mp-card-expiration-date');
-
-		cardNumber.addEventListener('input', (e) => {
-			e.target.value = e.target.value.replace(/\D/g, "")
-				.replace(/^(\d{4})(\d)/g, "$1 $2")
-				.replace(/^(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3")
-				.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
-		});
-
-		cardExpirationDate.addEventListener('input', (e) => {
-			e.target.value = e.target.value.replace(/\D/g, "")
-				.replace(/(\d{2})(\d)/, "$1/$2")
-				.replace(/(\d{2})(\d{2})$/, "$1$2");
-		});
-
-		function mpValidateMonthYear() {
-			const date = document.getElementById('mp-card-expiration-date').value.split('/');
-			document.getElementById('cardExpirationMonth').value = date[0];
-			document.getElementById('cardExpirationYear').value = `20${date[1]}`;
+		if (content.style.maxHeight) {
+			content.style.maxHeight = null;
+			content.style.padding = "0px";
+			icon.src = "<?php echo esc_url( plugins_url( '../assets/images/chefron-down.png', plugin_dir_path( __FILE__ ) ) ); ?>";
+		} else {
+			content.style.maxHeight = content.scrollHeight + "px";
+			content.style.padding = "24px 0px 0px";
+			icon.src = "<?php echo esc_url( plugins_url( '../assets/images/chefron-up.png', plugin_dir_path( __FILE__ ) ) ); ?>";
 		}
+	});
+
+	const cardNumber = document.getElementById('mp-card-number');
+	const cardExpirationDate = document.getElementById('mp-card-expiration-date');
+
+	cardNumber.addEventListener('input', (e) => {
+		e.target.value = e.target.value.replace(/\D/g, "")
+			.replace(/^(\d{4})(\d)/g, "$1 $2")
+			.replace(/^(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3")
+			.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
+		});
+
+	cardExpirationDate.addEventListener('input', (e) => {
+		e.target.value = e.target.value.replace(/\D/g, "")
+		.replace(/(\d{2})(\d)/, "$1/$2")
+		.replace(/(\d{2})(\d{2})$/, "$1$2");
+	});
+
+	function mpValidateMonthYear() {
+		const date = document.getElementById('mp-card-expiration-date').value.split('/');
+		document.getElementById('cardExpirationMonth').value = date[0];
+		document.getElementById('cardExpirationYear').value = `20${date[1]}`;
+	}
 </script>
