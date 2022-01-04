@@ -114,24 +114,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div id="mp-doc-div" class="mp-checkout-custom-input-document">
-             <input-document
-                label-message = "Documento"
-                helper-message = "Documento Inválido"
-                input-name = "docNumber"
-                input-data-checkout="docNumber"
-                select-name = "docType"
-                select-data-checkout="docType"
-                flag-error = "docNumberError"
-                >
-            </input-document>
-            <input-helper
-                isVisible=false
-                message="Dado obrigatório"
-                input-id="mp-doc-number-helper"
-                data-main="docNumber"
-            	>
-            </input-helper>
-        </div>
+			<input-document
+				label-message = "Documento"
+				helper-message = "Documento Inválido"
+				input-name = "docNumber"
+				input-data-checkout="docNumber"
+				select-name = "docType"
+				select-data-checkout="docType"
+				flag-error = "docNumberError"
+				>
+			</input-document>
+			<input-helper
+				isVisible=false
+				message="Dado obrigatório"
+				input-id="mp-doc-number-helper"
+				data-main="docNumber"
+				>
+			</input-helper>
+		</div>
 	</div>
 
 	<div id="mp-checkout-custom-installments" class="mp-checkout-custom-installments-display-none">
