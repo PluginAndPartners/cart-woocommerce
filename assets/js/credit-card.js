@@ -46,7 +46,7 @@
     clearIssuer();
     clearInstallments();
     clearTax();
-    // todo clearDoc()
+    clearDoc();
 
     const bin = getBin();
 
@@ -133,8 +133,9 @@
       clearIssuer();
       setInstallments();
     }
-
-    // todo others
+		if (additionalInfoNeeded.cardholder_identification_type) {
+      Mercadopago.getIdentificationTypes();
+    }
   }
 
   function issuersHandler(status, response) {
@@ -295,6 +296,10 @@
     document.querySelector('#mp-checkout-custom-tax-tea-text').innerHTML = tea;
   }
 
+	function clearDoc() {
+    document.querySelector('[data-checkout="docNumber"]').value = "";
+  }
+
   function clearInstallments() {
     const installmentsContainer = document.getElementById('mp-checkout-custom-installments');
     if (installmentsContainer) {
@@ -448,7 +453,23 @@
       }
     }
 
-    // todo others
+    if (additionalInfoNeeded.cardholder_identification_type) {
+      var inputDocType = document.querySelector("select[data-checkout=docType]");
+      if (inputDocType.value === '-1' || inputDocType.value === '') {
+        inputDocType.classList.add('mp-error');
+        emptyInputs = true;
+      }
+    }
+
+    if (additionalInfoNeeded.cardholder_identification_number) {
+      const docNumber = document.getElementsByClassName('mp-document')[0];
+      const docNumberDiv = document.getElementsByClassName('mp-input')[0];
+      if (docNumber.value === '-1' || docNumber.value === '') {
+        docNumberDiv.classList.add('mp-error');
+        document.getElementById('mp-doc-number-helper').style.display = 'flex';
+        emptyInputs = true;
+      }
+    }
 
     return emptyInputs;
   }
@@ -494,9 +515,9 @@
         helper = document.querySelector('[data-main="mp-card-holder-name"]');
       } else if (securityCodeErrors.includes(error.code)) {
         helper = document.querySelector('[data-main="mp-security-code"]');
+      }else if (docNumberErrors.includes(error.code)) {
+        helper = document.querySelector('[data-main="docNumber"]');
       }
-
-      // todo docNumberErrors
 
       if (helper) {
         const input = document.getElementById(helper.getAttribute('data-main'));
