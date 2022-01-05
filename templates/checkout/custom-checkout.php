@@ -245,15 +245,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	});
 
 	const cardNumber = document.getElementById('mp-card-number');
-	const cardExpirationDate = document.getElementById('mp-card-expiration-date');
-
 	cardNumber.addEventListener('input', (e) => {
 		e.target.value = e.target.value.replace(/\D/g, "")
 			.replace(/^(\d{4})(\d)/g, "$1 $2")
 			.replace(/^(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3")
 			.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
-		});
+	});
+	cardNumber.addEventListener('change', guessPaymentMethod);
 
+	const cardExpirationDate = document.getElementById('mp-card-expiration-date');
 	cardExpirationDate.addEventListener('input', (e) => {
 		e.target.value = e.target.value.replace(/\D/g, "")
 		.replace(/(\d{2})(\d)/, "$1/$2")
