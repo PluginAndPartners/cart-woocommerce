@@ -173,7 +173,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div id="mp-checkout-custom-installments" class="mp-checkout-custom-installments-display-none">
 		<p class='mp-checkout-custom-card-form-title'>Selecciona la cantidad de cuotas</p>
-
+		<input-helper
+			isVisible=false
+			message="Dado obrigatório"
+			input-id="mp-checkout-custom-installments-helper"
+			data-main="mp-checkout-custom-installments"
+		>
+		</input-helper>
 		<div id="mp-checkout-custom-issuers-container" class="mp-checkout-custom-issuers-container-display-none">
 			<input-select
 				optional="false"
@@ -244,16 +250,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 	});
 
-	const cardNumber = document.getElementById('mp-card-number');
+	var cardNumber = document.getElementById('mp-card-number');
 	cardNumber.addEventListener('input', (e) => {
 		e.target.value = e.target.value.replace(/\D/g, "")
 			.replace(/^(\d{4})(\d)/g, "$1 $2")
 			.replace(/^(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3")
 			.replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3 $4");
-	});
-	cardNumber.addEventListener('change', guessPaymentMethod);
+	});	
 
-	const cardExpirationDate = document.getElementById('mp-card-expiration-date');
+	var cardExpirationDate = document.getElementById('mp-card-expiration-date');
 	cardExpirationDate.addEventListener('input', (e) => {
 		e.target.value = e.target.value.replace(/\D/g, "")
 		.replace(/(\d{2})(\d)/, "$1/$2")
@@ -261,8 +266,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	});
 
 	function mpValidateMonthYear() {
-		const date = document.getElementById('mp-card-expiration-date').value.split('/');
+		var date = document.getElementById('mp-card-expiration-date').value.split('/');
 		document.getElementById('cardExpirationMonth').value = date[0];
 		document.getElementById('cardExpirationYear').value = `20${date[1]}`;
 	}
+
+	cardNumber.addEventListener('change', function(){
+		guessPaymentMethod()
+	});
+
+	document.querySelector('form[name=checkout]').addEventListener('submit', (event) => {
+		event.preventDefault();
+		return mercadoPagoFormHandler();
+	});
+
 </script>
