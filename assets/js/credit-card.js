@@ -1,4 +1,3 @@
-/* globals wc_mercadopago_ticket_params */
 (function () {
 
   const seller = {
@@ -21,49 +20,20 @@ const seller = {
 var objPaymentMethod = {};
 let additionalInfoNeeded = {};
 
-getCardNumberInput().addEventListener('change', guessPaymentMethod);
-
-getForm().addEventListener('submit', (event) => {
-  event.preventDefault();
-  return mercadoPagoFormHandler();
-});
-
 function getForm() {
-  return document.querySelector('form');
+	return document.querySelector('form');
 }
 
 function getCardNumberInput() {
-  return document.getElementById('mp-card-number');
+	return document.getElementById('mp-card-number');
 }
 
 function getAmount() {
-  return document.getElementById('amount').value;
+	return document.getElementById('amount').value;
 }
 
 function getBin() {
-  return getCardNumberInput().value.replace(/[ .-]/g, '').slice(0, 6);
-}
-
-function guessPaymentMethod() {
-  hideErrors();
-  clearHolderName();
-  clearExpirationDate();
-  clearSecurityCode();
-  clearIssuer();
-  clearInstallments();
-  clearTax();
-  clearDoc();
-
-  const bin = getBin();
-
-  if (bin.length < 6) {
-    resetBackgroundCard();
-    return;
-  }
-
-  if (bin.length >= 6) {
-    Mercadopago.getPaymentMethod({ bin }, paymentMethodHandler);
-  }
+	return getCardNumberInput().value.replace(/[ .-]/g, '').slice(0, 6);
 }
 
 function paymentMethodHandler(status, response) {
@@ -409,7 +379,6 @@ function validateInputsCreateToken() {
 }
 
 function validateFixedInputs() {
-	// todo installments
 
 	let emptyInputs = false;
 	const form = getForm();
@@ -432,6 +401,22 @@ function validateFixedInputs() {
 			}
 		}
 	}
+
+	var installment_selected = document.querySelectorAll("input[name='mp-installments']:checked");
+
+    if (!installment_selected.length) {
+      var helper = document.getElementById('mp-checkout-custom-installments-helper');
+
+      helper.style.display = 'flex';      
+
+      var element = document.querySelector("[class='mp-input-table-list']");
+
+      if (element){
+        element.classList.add('mp-error');
+      }
+
+      emptyInputs = true;
+    }
 
 	return emptyInputs;
 }
@@ -557,3 +542,25 @@ function hideErrors() {
 		select.parentElement.classList.remove('mp-error');
 	}
 }
+
+function guessPaymentMethod() {
+	hideErrors();
+	clearHolderName();
+	clearExpirationDate();
+	clearSecurityCode();
+	clearIssuer();
+	clearInstallments();
+	clearTax();
+	clearDoc();
+  
+	const bin = getBin();
+  
+	if (bin.length < 6) {
+	  resetBackgroundCard();
+	  return;
+	}
+  
+	if (bin.length >= 6) {
+	  Mercadopago.getPaymentMethod({ bin }, paymentMethodHandler);
+	}
+  }
