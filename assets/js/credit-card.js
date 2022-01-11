@@ -25,7 +25,7 @@ function getCardNumberInput() {
 }
 
 function getAmount() {
-	return document.getElementById('amount').value;
+	return document.getElementById('mp-amount').value;
 }
 
 function getBin() {

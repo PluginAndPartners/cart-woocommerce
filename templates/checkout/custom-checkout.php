@@ -216,11 +216,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</terms-and-conditions>
 	</div>
 	<div id="mercadopago-utilities">
-		<input type="hidden" id="amount" value="100" name="mercadopago_custom[amount]" />
-		<input type="hidden" id="cardTokenId" name="cardTokenId" name="mercadopago_custom[cardTokenId]" />
-		<input type="hidden" id="paymentMethodId" name="paymentMethodId" name="mercadopago_custom[paymentMethodId]" />
+		<input type="hidden" id="mp-amount" value='<?php echo esc_textarea( $amount ); ?>' name="mercadopago_custom[amount]" />
+		<input type="hidden" id="currency_ratio" value='<?php echo esc_textarea( $currency_ratio ); ?>' name="mercadopago_custom[currency_ratio]" />
+		<input type="hidden" id="campaign_id" name="mercadopago_custom[campaign_id]" />
+		<input type="hidden" id="campaign" name="mercadopago_custom[campaign]" />
+		<input type="hidden" id="mp-discount" name="mercadopago_custom[discount]" />
+		<input type="hidden" id="paymentMethodId" name="mercadopago_custom[paymentMethodId]" />
+		<input type="hidden" id="token" name="mercadopago_custom[token]" />
+		<input type="hidden" id="mp_checkout_type" name="mercadopago_custom[checkout_type]" value="custom" />
 		<input type="hidden" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
 		<input type="hidden" id="cardExpirationYear" data-checkout="cardExpirationYear">
+		<input type="hidden" id="cardTokenId" name="cardTokenId" name="mercadopago_custom[cardTokenId]" />
+
 	</div>
 </div>
 </form>
