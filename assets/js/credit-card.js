@@ -1,27 +1,23 @@
 (function () {
+  public_key = wc_mercadopago_params.public_key;
 
-  const seller = {
-    site_id: wc_mercadopago_params.site_id,
-    public_key: wc_mercadopago_params.public_key
-  };
-
-  if (seller.public_key) {
-    window.Mercadopago.setPublishableKey(seller.public_key);
+  if (public_key) {
+    window.Mercadopago.setPublishableKey(public_key);
   }
 })();
-
-let mercado_pago_submit = false;
 
 const seller = {
 	site_id: wc_mercadopago_params.site_id,
 	public_key: wc_mercadopago_params.public_key
 };
 
+let mercado_pago_submit = false;
+
 var objPaymentMethod = {};
 let additionalInfoNeeded = {};
 
 function getForm() {
-	return document.querySelector('form');
+	return document.querySelector('form[name=checkout]');
 }
 
 function getCardNumberInput() {
@@ -107,8 +103,30 @@ function additionalInfoHandler() {
     clearIssuer();
     setInstallments();
   }
-	if (additionalInfoNeeded.cardholder_identification_type) {
-    Mercadopago.getIdentificationTypes();
+
+  if(additionalInfoNeeded.cardholder_identification_type) {
+
+	Mercadopago.getIdentificationTypes();
+
+	var element = document.querySelector('div[class=mp-checkout-custom-input-document]');
+
+	element.style.display = 'block';
+
+  }
+
+  if(!additionalInfoNeeded.cardholder_name) {
+
+	var element = document.querySelector('input-label[for=mp-card-holder-name]');
+
+	var parent = element.parentElement;
+
+	var newElement = document.createElement('input-label');
+	newElement.setAttribute('isOptional', true);
+	newElement.setAttribute('message', element.getAttribute('message'));
+
+	element.remove();
+
+	parent.prepend(newElement);
   }
 }
 
@@ -213,6 +231,21 @@ function installmentHandler(status, response) {
 			for (var i = 0; i < taxesElements.length; i++) {
 				taxesElements[i].addEventListener('click', showTaxes);
 			}
+			var linkInstallments = document.getElementsByClassName('mp-input-table-link')[0];
+
+			linkInstallments.addEventListener('click', function(){
+				setTimeout(function (){
+						if (seller.site_id === 'MLA') {
+							clearTax();
+							const taxesElements = document.getElementsByClassName('mp-input-table-label');
+							for (var i = 0; i < taxesElements.length; i++) {
+								taxesElements[i].addEventListener('click', function() {showTaxes();});
+							}
+						}              
+					},
+					100
+				)				
+			})
 		}
 	} else {
 		clearInstallments();
@@ -271,7 +304,18 @@ function showTaxes() {
 }
 
 function clearDoc() {
-	document.querySelector('[data-checkout="docNumber"]').value = "";
+    var element = document.querySelector('div[class=mp-checkout-custom-input-document]');
+    element.querySelector('input').value = '';
+
+    var helper = element.querySelector('input-helper').querySelector('div[class=mp-helper]');
+    if(helper.style.display == 'flex') {
+      helper.style.display = 'none';
+    }
+
+    var input = element.querySelector('div[class="mp-input mp-error"');
+    if (input) {
+      input.classList.remove('mp-error');
+    }
 }
 
 function clearInstallments() {
@@ -481,7 +525,7 @@ function sdkResponseHandler(status, response) {
 
 		console.log(`##### Card Token: ${response.id}`);
 
-		// todo getForm().submit();
+		getForm().submit();
 	}
 }
 
@@ -504,8 +548,14 @@ function showErrors(response) {
 			helper = document.querySelector('[data-main="mp-card-holder-name"]');
 		} else if (securityCodeErrors.includes(error.code)) {
 			helper = document.querySelector('[data-main="mp-security-code"]');
-		}else if (docNumberErrors.includes(error.code)) {
-			helper = document.querySelector('[data-main="docNumber"]');
+		} else if (docNumberErrors.includes(error.code)){
+			var element = document.querySelector('div[class=mp-checkout-custom-input-document]'); 
+			var input = element.querySelector('div[class="mp-input"]');
+			if (input) {
+				input.classList.add('mp-error');
+			}
+			documentHelper = element.querySelector('input-helper').querySelector('div[class=mp-helper]');
+			documentHelper.style.display = 'flex';
 		}
 
 		if (helper) {

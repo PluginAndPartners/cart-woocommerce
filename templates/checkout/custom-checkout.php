@@ -130,7 +130,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class='mp-checkout-custom-card-column'>
-				<input-label message="Código de Segurança" isOptinal=false></input-label>
+				<input-label message="Código de Segurança" isOptinal=false for='mp-card-holder-name'></input-label>
 				<input
 					type="text"
 					class="mp-checkout-custom-card-input"
@@ -150,7 +150,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div id="mp-doc-div" class="mp-checkout-custom-input-document">
+		<div id="mp-doc-div" class="mp-checkout-custom-input-document" style='display: none;'>
 			<input-document
 				label-message = "Documento"
 				helper-message = "Documento Inválido"
