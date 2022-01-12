@@ -17,7 +17,7 @@ var objPaymentMethod = {};
 let additionalInfoNeeded = {};
 
 function getForm() {
-	return document.querySelector('form[name=checkout]');
+	return document.querySelector('div[class=mp-checkout-custom-container]');
 }
 
 function getCardNumberInput() {
@@ -104,14 +104,13 @@ function additionalInfoHandler() {
     setInstallments();
   }
 
-  if(additionalInfoNeeded.cardholder_identification_type) {
-
+  if(additionalInfoNeeded.cardholder_identification_type) {	
+	
 	Mercadopago.getIdentificationTypes();
 
 	var element = document.querySelector('div[class=mp-checkout-custom-input-document]');
 
 	element.style.display = 'block';
-
   }
 
   if(!additionalInfoNeeded.cardholder_name) {
@@ -509,7 +508,10 @@ function validateAdditionalInputs() {
 
 function createToken() {
 	hideErrors();
-	Mercadopago.createToken(getForm(), sdkResponseHandler);
+
+	var form = getForm();
+
+	Mercadopago.createToken(form, sdkResponseHandler);
 	return false;
 }
 
@@ -520,12 +522,10 @@ function sdkResponseHandler(status, response) {
 		showErrors(response);
 		focusInputError();
 	} else {
-		const token = document.querySelector('#cardTokenId');
+		const token = document.getElementById('cardTokenId');
 		token.value = response.id;
-
-		console.log(`##### Card Token: ${response.id}`);
-
-		getForm().submit();
+		mercado_pago_submit = true;
+		document.querySelector('form[name=checkout], form[id=order-review]').submit();
 	}
 }
 
