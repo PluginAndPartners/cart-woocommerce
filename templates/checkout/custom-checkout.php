@@ -130,7 +130,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class='mp-checkout-custom-card-column'>
-				<input-label message="Código de Segurança" isOptinal=false></input-label>
+				<input-label message="Código de Segurança" isOptinal=false for='mp-card-holder-name'></input-label>
 				<input
 					type="text"
 					class="mp-checkout-custom-card-input"
@@ -150,7 +150,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div id="mp-doc-div" class="mp-checkout-custom-input-document">
+		<div id="mp-doc-div" class="mp-checkout-custom-input-document" style='display: none;'>
 			<input-document
 				label-message = "Documento"
 				helper-message = "Documento Inválido"
@@ -216,11 +216,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</terms-and-conditions>
 	</div>
 	<div id="mercadopago-utilities">
-		<input type="hidden" id="amount" value="100" name="mercadopago_custom[amount]" />
-		<input type="hidden" id="cardTokenId" name="cardTokenId" name="mercadopago_custom[cardTokenId]" />
-		<input type="hidden" id="paymentMethodId" name="paymentMethodId" name="mercadopago_custom[paymentMethodId]" />
+		<input type="hidden" id="mp-amount" value='<?php echo esc_textarea( $amount ); ?>' name="mercadopago_custom[amount]" />
+		<input type="hidden" id="currency_ratio" value='<?php echo esc_textarea( $currency_ratio ); ?>' name="mercadopago_custom[currency_ratio]" />
+		<input type="hidden" id="paymentMethodId" name="mercadopago_custom[paymentMethodId]" />
+		<input type="hidden" id="mp_checkout_type" name="mercadopago_custom[checkout_type]" value="custom" />
 		<input type="hidden" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
 		<input type="hidden" id="cardExpirationYear" data-checkout="cardExpirationYear">
+		<input type="hidden" id="cardTokenId" name="mercadopago_custom[token]" />
 	</div>
 </div>
 </form>
