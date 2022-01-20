@@ -1703,7 +1703,7 @@ msgid "By continuing, you agree with our"
 msgstr ""
 
 #: ../../templates/checkout/basic-checkout.php:64, ../../templates/checkout/basic-checkout.php:64, ../../templates/checkout/basic-checkout.php:64, ../../templates/checkout/pix-checkout.php:40, ../../templates/checkout/pix-checkout.php:40, ../../templates/checkout/pix-checkout.php:40, ../../templates/checkout/ticket-checkout.php:81, ../../templates/checkout/ticket-checkout.php:81, ../../templates/checkout/ticket-checkout.php:81
-msgid "Terms and Conditions"
+msgid "Terms and conditions"
 msgstr ""
 
 #: ../../templates/checkout/custom-checkout.php:21, ../../templates/checkout/custom-checkout.php:21, ../../templates/checkout/custom-checkout.php:21

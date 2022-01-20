@@ -2732,8 +2732,8 @@ msgstr "Al continuar, aceptas nuestros"
 #: ../../templates/checkout/pix-checkout.php:40,
 #: ../../templates/checkout/ticket-checkout.php:81,
 #: ../../templates/checkout/ticket-checkout.php:81
-msgid "Terms and Conditions"
-msgstr "Términos y Condiciones"
+msgid "Terms and conditions"
+msgstr "Términos y condiciones"
 
 #: ../../templates/checkout/custom-checkout.php:21,
 #: ../../templates/checkout/custom-checkout.php:21

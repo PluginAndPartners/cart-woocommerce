@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="mp-checkout-pro-terms-and-conditions">
 	<terms-and-conditions
 		description="<?php echo esc_html_e( 'By continuing, you agree with our', 'woocommerce-mercadopago' ); ?>"
-		link-text="<?php echo esc_html_e( 'Terms and Conditions', 'woocommerce-mercadopago' ); ?>"
+		link-text="<?php echo esc_html_e( 'Terms and conditions', 'woocommerce-mercadopago' ); ?>"
 		link-src="<?php echo esc_html( $link_terms_and_conditions ); ?>"
 	>
 	</terms-and-conditions>

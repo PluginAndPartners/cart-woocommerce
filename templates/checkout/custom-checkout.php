@@ -210,7 +210,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="mp-checkout-custom-terms-and-conditions">
 		<terms-and-conditions
 			description="By continuing, you agree with our"
-			link-text="Terms and Conditions"
+			link-text="Terms and conditions"
 			link-src="https://developers.mercadopago.com"
 		>
 		</terms-and-conditions>
