@@ -277,8 +277,8 @@ msgstr "Pagamento aprovado."
 #: ../../includes/notification/class-wc-woomercadopago-notification-abstract.php:241,
 #: ../../includes/notification/class-wc-woomercadopago-notification-abstract.php:244,
 #: ../../includes/notification/class-wc-woomercadopago-notification-abstract.php:244
-msgid "Waiting for the PIX payment."
-msgstr "Esperando o pagamento via PIX."
+msgid "Waiting for the Pix payment."
+msgstr "Esperando o pagamento via Pix."
 
 #: ../../includes/notification/class-wc-woomercadopago-notification-abstract.php:259,
 #: ../../includes/notification/class-wc-woomercadopago-notification-abstract.php:262,
@@ -991,7 +991,7 @@ msgstr "Ativar o Checkout"
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:891,
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:891
 msgid "Activate Pix in the checkout"
-msgstr "Ativar o PIX no checkout"
+msgstr "Ativar o Pix no checkout"
 
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:898,
 #: ../../includes/payments/class-wc-woomercadopago-payment-abstract.php:898
@@ -1532,21 +1532,21 @@ msgid ""
 "Accept payments via Pix Transfer and receive the funds instantly. Your "
 "customers can pay at any time, without date or time restrictions."
 msgstr ""
-"Aceite pagamentos via transferência PIX e receba o valor de forma "
+"Aceite pagamentos via transferência Pix e receba o valor de forma "
 "instantânea. Seus clientes podem pagar a qualquer momento, sem limitação de "
 "dia ou hora."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:31,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:39,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:39
-msgid "PIX"
-msgstr "PIX"
+msgid "Pix"
+msgstr "Pix"
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:267,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:267
 msgid "To activate Pix, you must have a key registered in Mercado Pago."
 msgstr ""
-"Para ativar o PIX, você precisa ter uma chave cadastrada no Mercado Pago."
+"Para ativar o Pix, você precisa ter uma chave cadastrada no Mercado Pago."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:268,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:268
@@ -1571,16 +1571,16 @@ msgstr "Seu Perfil "
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:272,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:272
 msgid "Your Pix Keys section."
-msgstr "Suas chaves PIX."
+msgstr "Suas chaves Pix."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:273,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:273
 msgid ""
-"Choose which data to register as PIX keys. After registering, you can set up "
-"PIX in your checkout."
+"Choose which data to register as Pix keys. After registering, you can set up "
+"Pix in your checkout."
 msgstr ""
-"Escolha quais dados cadastrar como chaves PIX. Após fazer esse cadastro, "
-"você poderá configurar o PIX no seu checkout."
+"Escolha quais dados cadastrar como chaves Pix. Após fazer esse cadastro, "
+"você poderá configurar o Pix no seu checkout."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:274,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:274
@@ -1603,8 +1603,8 @@ msgstr ""
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:276,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:412,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:412
-msgid "Learn more about PIX"
-msgstr "Saber mais sobre o PIX"
+msgid "Learn more about Pix"
+msgstr "Saber mais sobre o Pix"
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:277,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:277
@@ -1612,8 +1612,8 @@ msgid ""
 "If you have already registered a Pix key at Mercado Pago and cannot activate "
 "Pix in the checkout, "
 msgstr ""
-"Caso já tenha cadastrado uma chave PIX no Mercado Pago e não consiga ativar "
-"o PIX no checkout, "
+"Caso já tenha cadastrado uma chave Pix no Mercado Pago e não consiga ativar "
+"o Pix no checkout, "
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:278,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:278
@@ -1625,8 +1625,8 @@ msgstr "clique aqui."
 #. translators: %s checkout
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:302,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:302
-msgid "Checkout of payments via PIX %s"
-msgstr "Checkout de pagamentos via PIX %s"
+msgid "Checkout of payments via Pix %s"
+msgstr "Checkout de pagamentos via Pix %s"
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:305,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:305
@@ -1645,18 +1645,18 @@ msgid ""
 "Enable and set up Pix as a payment method for your customers in the Mercado "
 "Pago checkout."
 msgstr ""
-"Habilite e configure o PIX como forma de pagamento para seus clientes no "
+"Habilite e configure o Pix como forma de pagamento para seus clientes no "
 "checkout do Mercado Pago."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:352,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:352
 msgid "Set up the payment via Pix experience"
-msgstr "Configure a experiência de pagamentos via PIX"
+msgstr "Configure a experiência de pagamentos via Pix"
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:365,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:365
-msgid "Advanced configuration of the PIX experience"
-msgstr "Configurações avançadas da experiência de pagamento via PIX"
+msgid "Advanced configuration of the Pix experience"
+msgstr "Configurações avançadas da experiência de pagamento via Pix"
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:378,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:378
@@ -1716,7 +1716,7 @@ msgstr "7 dias"
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:392,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:392
 msgid "Pix Expiration"
-msgstr "Vencimento do PIX"
+msgstr "Vencimento do Pix"
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:394,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:394
@@ -1726,7 +1726,7 @@ msgstr "Defina em até quanto tempo seus clientes poderão pagar."
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:409,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:409
 msgid "Want to learn how Pix works?"
-msgstr "Quer saber como funciona o PIX?"
+msgstr "Quer saber como funciona o Pix?"
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:410,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:410
@@ -1762,8 +1762,8 @@ msgstr "Cliente ainda não pagou."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:518,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:518
-msgid "Now you just need to pay with PIX to finalize your purchase."
-msgstr "Agora é só pagar com o PIX para finalizar sua compra."
+msgid "Now you just need to pay with Pix to finalize your purchase."
+msgstr "Agora é só pagar com o Pix para finalizar sua compra."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:519,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:519
@@ -1780,13 +1780,13 @@ msgid ""
 "Please note that to receive payments via Pix at our checkout, you must have "
 "a Pix key registered in your Mercado Pago account."
 msgstr ""
-"Lembre-se de que para receber pagamentos via PIX em nosso checkout, você "
-"precisa ter uma chave PIX cadastrada na sua conta Mercado Pago."
+"Lembre-se de que para receber pagamentos via Pix em nosso checkout, você "
+"precisa ter uma chave Pix cadastrada na sua conta Mercado Pago."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:627,
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:627
 msgid "Register your Pix key at Mercado Pago."
-msgstr "Cadastre sua chave PIX no Mercado Pago."
+msgstr "Cadastre sua chave Pix no Mercado Pago."
 
 #: ../../includes/payments/class-wc-woomercadopago-pix-gateway.php:681,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:151,
@@ -2608,13 +2608,13 @@ msgstr "Mais opções"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:142,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:142
-msgid "Now you just need to pay with PIX to finalize your purchase"
-msgstr "Agora é só pagar com o PIX para finalizar sua compra"
+msgid "Now you just need to pay with Pix to finalize your purchase"
+msgstr "Agora é só pagar com o Pix para finalizar sua compra"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:143,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:143
-msgid "How to pay with PIX:"
-msgstr "Como pagar com PIX:"
+msgid "How to pay with Pix:"
+msgstr "Como pagar com Pix:"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:144,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:144
@@ -2623,13 +2623,13 @@ msgstr "Acesse o app ou site do seu banco"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:145,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:145
-msgid "Search for the option to pay with PIX"
-msgstr "Busque a opção de pagar com PIX"
+msgid "Search for the option to pay with Pix"
+msgstr "Busque a opção de pagar com Pix"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:146,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:146
-msgid "Scan the QR code or PIX code"
-msgstr "Leia o QR code ou código PIX"
+msgid "Scan the QR code or Pix code"
+msgstr "Leia o QR code ou código Pix"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:147,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:147
@@ -2869,8 +2869,8 @@ msgstr ""
 
 #: ../../templates/checkout/pix-checkout.php:30,
 #: ../../templates/checkout/pix-checkout.php:30
-msgid "Pay instantly."
-msgstr "Pague instantaneamente."
+msgid "Pay instantly"
+msgstr "Pague instantaneamente"
 
 #: ../../templates/checkout/pix-checkout.php:31,
 #: ../../templates/checkout/pix-checkout.php:31
@@ -2880,8 +2880,8 @@ msgstr "Ao confirmar a compra, mostraremos o código para pagamento."
 
 #: ../../templates/checkout/pix-checkout.php:32,
 #: ../../templates/checkout/pix-checkout.php:32
-msgid "PIX logo"
-msgstr "Logo do PIX"
+msgid "Pix logo"
+msgstr "Logo do Pix"
 
 #: ../../templates/checkout/ticket-checkout.php:23,
 #: ../../templates/checkout/ticket-checkout.php:23
@@ -2988,8 +2988,8 @@ msgstr "Imprimir boleto"
 #~ msgid "Debit card"
 #~ msgstr "Cartões de débito"
 
-#~ msgid "Pay with PIX "
-#~ msgstr "Pague com PIX "
+#~ msgid "Pay with Pix "
+#~ msgstr "Pague com Pix "
 
 #~ msgid ""
 #~ "When you finish the order, you will see the code to complete the payment."

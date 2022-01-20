@@ -27,9 +27,9 @@ if ( ! defined('ABSPATH') ) {
 	<?php endif; ?>
 
 	<pix-template
-		title="<?php echo esc_html_e( 'Pay instantly.', 'woocommerce-mercadopago' ); ?>"
+		title="<?php echo esc_html_e( 'Pay instantly', 'woocommerce-mercadopago' ); ?>"
 		subtitle="<?php echo esc_html_e( 'By confirming your purchase, we will show you a code to make the payment.', 'woocommerce-mercadopago' ); ?>"
-		alt="<?php echo esc_html_e( 'PIX logo', 'woocommerce-mercadopago' ); ?>"
+		alt="<?php echo esc_html_e( 'Pix logo', 'woocommerce-mercadopago' ); ?>"
 		src="<?php echo esc_html( $pix_image ); ?>"
 	>
 	</pix-template>

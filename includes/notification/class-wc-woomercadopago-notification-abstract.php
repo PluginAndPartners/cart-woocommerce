@@ -238,10 +238,10 @@ abstract class WC_WooMercadoPago_Notification_Abstract {
 					}
 					if ( ! $has_note ) {
 						$order->add_order_note(
-							'Mercado Pago: ' . __( 'Waiting for the PIX payment.', 'woocommerce-mercadopago' )
+							'Mercado Pago: ' . __( 'Waiting for the Pix payment.', 'woocommerce-mercadopago' )
 						);
 						$order->add_order_note(
-							'Mercado Pago: ' . __( 'Waiting for the PIX payment.', 'woocommerce-mercadopago' ),
+							'Mercado Pago: ' . __( 'Waiting for the Pix payment.', 'woocommerce-mercadopago' ),
 							1,
 							false
 						);
