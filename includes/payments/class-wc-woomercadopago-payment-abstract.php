@@ -431,7 +431,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	}
 
 	public function mercadopago_after_form() {
-		echo esc_attr(wc_get_template_html(
+		echo wc_get_template_html( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'components/research-fields.php',
 			array (
 				'field_key' => 'mp-public-key-prod',
@@ -439,7 +439,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			),
 			'',
 			WC_WooMercadoPago_Module::get_templates_path()
-		));
+		);
 
 		$page = [
 			'woo-mercado-pago-basic'  => 'checkout-pro',
@@ -448,7 +448,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			'woo-mercado-pago-pix'    => 'checkout-pix'
 		];
 
-		echo esc_attr(wc_get_template_html(
+		echo wc_get_template_html( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'components/research-fields.php',
 			array (
 				'field_key' => 'reference',
@@ -456,7 +456,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			),
 			'',
 			WC_WooMercadoPago_Module::get_templates_path()
-		));
+		);
 	}
 
 	/**
