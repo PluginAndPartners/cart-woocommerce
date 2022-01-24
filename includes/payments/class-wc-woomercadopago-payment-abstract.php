@@ -427,6 +427,45 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 		$this->application_id       = $this->get_application_id( $this->mp_access_token_prod );
 		$this->logged_user_email    = ( 0 !== wp_get_current_user()->ID ) ? wp_get_current_user()->user_email : null;
 		$this->discount_action_url  = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=' . get_class( $this );
+		add_action( 'woocommerce_after_settings_checkout', array($this, 'mercadopago_after_form') );
+	}
+
+	public function mercadopago_after_form() {
+		echo wc_get_template_html(
+			'components/research-fields.php',
+			array (
+				'field_key' => 'mp-public-key-prod',
+				'field_value' => $this->get_public_key(),
+			),
+			'',
+			WC_WooMercadoPago_Module::get_templates_path()
+		);
+
+		$page = [
+			'woo-mercado-pago-basic'  => 'checkout-pro',
+			'woo-mercado-pago-custom' => 'checkout-custom',
+			'woo-mercado-pago-ticket' => 'checkout-ticket',
+			'woo-mercado-pago-pix'    => 'checkout-pix'
+		];
+
+		echo wc_get_template_html(
+			'components/research-fields.php',
+			array (
+				'field_key' => 'reference',
+				'field_value' => '{"mp-screen-name":"' . $page[$this->get_id()] . '"}',
+			),
+			'',
+			WC_WooMercadoPago_Module::get_templates_path()
+		);
+	}
+
+	/**
+	 * Get Id
+	 *
+	 * @return string
+	 */
+	public static function get_id() {
+		return 'abstract';
 	}
 
 	/**
@@ -685,7 +724,6 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 		if ( is_admin() ) {
 			$this->normalize_common_admin_fields();
 		}
-		$form_fields['checkout_card_validate'] = $this->field_checkout_card_validate();
 		return $form_fields;
 	}
 
@@ -741,40 +779,6 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			unset( $form_fields[ $key ] );
 		}
 		return array_merge_recursive( $array, $form_fields );
-	}
-
-	/**
-	 * Field checkout card validate
-	 *
-	 * @return array
-	 */
-	public function field_checkout_card_validate() {
-
-		$value = array(
-			'title'             => __('Important! Do not forget to add the credentials and details of your store.' , 'woocommerce-mercadopago'),
-			'subtitle'          => __('Before setting up payments, follow the step-by-step to start selling.', 'woocommerce-mercadopago'),
-			'button_text'       => __('Go to step-by-step', 'woocommerce-mercadopago'),
-			'button_url'        => admin_url( 'admin.php?page=mercadopago-settings' ),
-			'icon'              => 'mp-icon-badge-warning',
-			'color_card'        => 'mp-alert-color-alert',
-			'size_card'         => 'mp-card-body-size'
-		);
-
-		if ( ! empty( $this->checkout_country ) && ! empty( $this->get_access_token() ) && ! empty( $this->get_public_key() ) ) {
-			$value = array(
-				'title'             => __('Mercado Pago Plugin general settings', 'woocommerce-mercadopago'), __('Important! Do not forget to add the credentials and details of your store.' , 'woocommerce-mercadopago'),
-				'subtitle'          => __('Set the deadlines and fees, test your store or access the Plugin manual.', 'woocommerce-mercadopago'),
-				'button_text'       => __('Go to Settings', 'woocommerce-mercadopago'),
-				'button_url'        => admin_url( 'admin.php?page=mercadopago-settings' ),
-				'icon'              => 'mp-icon-badge-info',
-				'color_card'        => 'mp-alert-color-sucess',
-			);
-		}
-
-		return array(
-			'type'               => 'mp_card_info',
-			'value'              => $value,
-		);
 	}
 
 	/**
@@ -913,23 +917,6 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			array (
 				'field_key' => $this->get_field_key( $key ),
 				'field_value' => $this->get_option( $key, $settings['default'] ),
-				'settings' => $settings,
-			),
-			'',
-			WC_WooMercadoPago_Module::get_templates_path()
-		);
-	}
-
-	/**
-	 * Generates tip information template
-	 *
-	 * @param string $key key, $settings settings array
-	 * @return string html tip information template
-	 */
-	public function generate_mp_card_info_html( $key, $settings ) {
-		return wc_get_template_html(
-			'components/card-info.php',
-			array (
 				'settings' => $settings,
 			),
 			'',

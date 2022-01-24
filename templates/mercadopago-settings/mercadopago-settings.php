@@ -326,3 +326,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+<span id='reference' value='{"mp-screen-name":"admin"}'></span>
