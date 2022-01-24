@@ -431,7 +431,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	}
 
 	public function mercadopago_after_form() {
-		echo wc_get_template_html( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wc_get_template(
 			'components/research-fields.php',
 			array (
 				'field_key' => 'mp-public-key-prod',
@@ -448,7 +448,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			'woo-mercado-pago-pix'    => 'checkout-pix'
 		];
 
-		echo wc_get_template_html( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wc_get_template(
 			'components/research-fields.php',
 			array (
 				'field_key' => 'reference',
