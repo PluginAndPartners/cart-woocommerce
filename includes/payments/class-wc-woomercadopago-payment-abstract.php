@@ -724,6 +724,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 		if ( is_admin() ) {
 			$this->normalize_common_admin_fields();
 		}
+		$form_fields['checkout_card_validate'] = $this->field_checkout_card_validate();
 		return $form_fields;
 	}
 
@@ -779,6 +780,40 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			unset( $form_fields[ $key ] );
 		}
 		return array_merge_recursive( $array, $form_fields );
+	}
+
+	/**
+	 * Field checkout card validate
+	 *
+	 * @return array
+	 */
+	public function field_checkout_card_validate() {
+
+		$value = array(
+			'title'             => __('Important! Do not forget to add the credentials and details of your store.' , 'woocommerce-mercadopago'),
+			'subtitle'          => __('Before setting up payments, follow the step-by-step to start selling.', 'woocommerce-mercadopago'),
+			'button_text'       => __('Go to step-by-step', 'woocommerce-mercadopago'),
+			'button_url'        => admin_url( 'admin.php?page=mercadopago-settings' ),
+			'icon'              => 'mp-icon-badge-warning',
+			'color_card'        => 'mp-alert-color-alert',
+			'size_card'         => 'mp-card-body-size'
+		);
+
+		if ( ! empty( $this->checkout_country ) && ! empty( $this->get_access_token() ) && ! empty( $this->get_public_key() ) ) {
+			$value = array(
+				'title'             => __('Mercado Pago Plugin general settings', 'woocommerce-mercadopago'), __('Important! Do not forget to add the credentials and details of your store.' , 'woocommerce-mercadopago'),
+				'subtitle'          => __('Set the deadlines and fees, test your store or access the Plugin manual.', 'woocommerce-mercadopago'),
+				'button_text'       => __('Go to Settings', 'woocommerce-mercadopago'),
+				'button_url'        => admin_url( 'admin.php?page=mercadopago-settings' ),
+				'icon'              => 'mp-icon-badge-info',
+				'color_card'        => 'mp-alert-color-sucess',
+			);
+		}
+
+		return array(
+			'type'               => 'mp_card_info',
+			'value'              => $value,
+		);
 	}
 
 	/**
@@ -917,6 +952,23 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			array (
 				'field_key' => $this->get_field_key( $key ),
 				'field_value' => $this->get_option( $key, $settings['default'] ),
+				'settings' => $settings,
+			),
+			'',
+			WC_WooMercadoPago_Module::get_templates_path()
+		);
+	}
+
+	/**
+	 * Generates tip information template
+	 *
+	 * @param string $key key, $settings settings array
+	 * @return string html tip information template
+	 */
+	public function generate_mp_card_info_html( $key, $settings ) {
+		return wc_get_template_html(
+			'components/card-info.php',
+			array (
 				'settings' => $settings,
 			),
 			'',
