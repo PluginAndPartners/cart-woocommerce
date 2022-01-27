@@ -28,7 +28,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 	public function __construct() {
 		$this->id          = self::ID;
 		$this->description = __( 'Accept payments via Pix Transfer and receive the funds instantly. Your customers can pay at any time, without date or time restrictions.', 'woocommerce-mercadopago' );
-		$this->title       = __( 'PIX', 'woocommerce-mercadopago' );
+		$this->title       = __( 'Pix', 'woocommerce-mercadopago' );
 
 		if ( ! $this->validate_section() ) {
 			return;
@@ -36,7 +36,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 
 		$this->form_fields        = array();
 		$this->method_title       = __( 'Mercado Pago - Custom Checkout', 'woocommerce-mercadopago' );
-		$this->title              = $this->get_option_mp( 'title', __( 'PIX', 'woocommerce-mercadopago' ) );
+		$this->title              = $this->get_option_mp( 'title', __( 'Pix', 'woocommerce-mercadopago' ) );
 		$this->method_description = $this->description;
 		$this->date_expiration    = (int) $this->get_option_mp( 'checkout_pix_date_expiration', '1' );
 		$this->type_payments      = $this->get_option_mp( 'type_payments', 'no' );
@@ -270,10 +270,10 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 				'step_two_text_two'           => __( 'area and choose the ', 'woocommerce-mercadopago' ),
 				'step_two_text_highlight_one' => __( 'Your Profile ', 'woocommerce-mercadopago' ),
 				'step_two_text_highlight_two' => __( 'Your Pix Keys section.', 'woocommerce-mercadopago' ),
-				'step_three_text'             => __( 'Choose which data to register as PIX keys. After registering, you can set up PIX in your checkout.', 'woocommerce-mercadopago' ),
+				'step_three_text'             => __( 'Choose which data to register as Pix keys. After registering, you can set up Pix in your checkout.', 'woocommerce-mercadopago' ),
 				'observation_one'             => __( 'Remember that, for the time being, the Central Bank of Brazil is open Monday through Friday, from 9am to 6pm.', 'woocommerce-mercadopago' ),
 				'observation_two'             => __( 'If you requested your registration outside these hours, we will confirm it within the next business day.', 'woocommerce-mercadopago' ),
-				'button_about_pix'            => __( 'Learn more about PIX', 'woocommerce-mercadopago' ),
+				'button_about_pix'            => __( 'Learn more about Pix', 'woocommerce-mercadopago' ),
 				'observation_three'           => __( 'If you have already registered a Pix key at Mercado Pago and cannot activate Pix in the checkout, ', 'woocommerce-mercadopago' ),
 				'link_title_one'              => __( 'click here.', 'woocommerce-mercadopago' ),
 				'link_url_one'                => 'https://www.mercadopago.com.br/pix/',
@@ -299,7 +299,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 		return array(
 			'title' => sprintf(
 				/* translators: %s checkout */
-				__( 'Checkout of payments via PIX %s', 'woocommerce-mercadopago' ),
+				__( 'Checkout of payments via Pix %s', 'woocommerce-mercadopago' ),
 				'<div class="mp-row">
                 <div class="mp-col-md-12 mp_subtitle_header">
                 ' . __( 'Accept payments at any time of the day and expand your purchase options!', 'woocommerce-mercadopago' ) . '
@@ -362,7 +362,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 	 */
 	public function field_checkout_pix_payments_advanced_title() {
 		return array(
-			'title' => __( 'Advanced configuration of the PIX experience', 'woocommerce-mercadopago' ),
+			'title' => __( 'Advanced configuration of the Pix experience', 'woocommerce-mercadopago' ),
 			'type'  => 'title',
 			'class' => 'mp_subtitle_bd',
 		);
@@ -409,7 +409,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 				'title'       => __( 'Want to learn how Pix works?', 'woocommerce-mercadopago' ),
 				'subtitle'    => __( 'We have created a page to explain how this new payment method works and its advantages.', 'woocommerce-mercadopago' ),
 				'url_link'    => 'https://www.mercadopago.com.br/pix/',
-				'button_text' => __( 'Learn more about PIX', 'woocommerce-mercadopago' ),
+				'button_text' => __( 'Learn more about Pix', 'woocommerce-mercadopago' ),
 			),
 			'woo/mercado/pago/about-pix/',
 			WC_WooMercadoPago_Module::get_templates_path()
@@ -515,7 +515,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 						);
 						if ( 'pix' === $response['payment_method_id'] ) {
 							$order->add_order_note(
-								'<div style="text-align: justify;"><p>Mercado Pago: ' . __( 'Now you just need to pay with PIX to finalize your purchase.', 'woocommerce-mercadopago' ) . ' ' .
+								'<div style="text-align: justify;"><p>Mercado Pago: ' . __( 'Now you just need to pay with Pix to finalize your purchase.', 'woocommerce-mercadopago' ) . ' ' .
 								__( 'Scan the QR code below or copy and paste the code into your bank\'s application.', 'woocommerce-mercadopago' ) . '</small></p>',
 								1,
 								false

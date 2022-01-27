@@ -183,7 +183,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="mp-checkout-custom-issuers-container" class="mp-checkout-custom-issuers-container-display-none">
 			<input-select
 				optional="false"
-				label="Banco emissor"
+				label="<?php echo esc_html_e( 'Bank', 'woocommerce-mercadopago' ); ?>"
+				option-placeholder="<?php echo esc_html_e( 'Choose an option', 'woocommerce-mercadopago' ); ?>"
 				name="mp-issuer"
 				data-checkout="issuer"
 			>
@@ -210,7 +211,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="mp-checkout-custom-terms-and-conditions">
 		<terms-and-conditions
 			description="By continuing, you agree with our"
-			link-text="Terms and Conditions"
+			link-text="Terms and conditions"
 			link-src="https://developers.mercadopago.com"
 		>
 		</terms-and-conditions>

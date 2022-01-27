@@ -138,7 +138,10 @@ function issuersHandler(status, response) {
 
 		issuersSelector.options.length = 0;
 
-		const option = new Option('Choose...', '-1');
+		const inputSelect = document.querySelector('input-select[name=mp-issuer]');
+
+      	const option = new Option(inputSelect.getAttribute('option-placeholder'), '-1');
+      
 		fragment.appendChild(option);
 
 		for (let i = 0; i < response.length; i++) {
