@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-"
 "mercadopago\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-12-29 10:26-0300\n"
+"PO-Revision-Date: 2022-01-27 15:36-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -746,9 +746,7 @@ msgid "Check the information provided."
 msgstr "Verifique as informações preenchidas."
 
 #: ../../includes/payments/class-wc-woomercadopago-custom-gateway.php:301,
-#: ../../templates/checkout/custom-checkout.php:203,
-#: ../../templates/checkout/custom-checkout.php:204,
-#: ../../templates/checkout/custom-checkout.php:204
+#: ../../includes/payments/class-wc-woomercadopago-custom-gateway.php:301
 msgid "Check the informed security code."
 msgstr "Verifique o código de segurança informado."
 
@@ -2519,90 +2517,90 @@ msgstr "Pagar com Mercado Pago"
 msgid "Cancel &amp; Clear Cart"
 msgstr "Cancelar &amp; Limpar carrinho"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:93,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:101,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:75,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:74,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:74
 msgid "Apply"
 msgstr "Ativar"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:94,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:102,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:76,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:75,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:75
 msgid "Remove"
 msgstr "Remover"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:95,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:103,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:77,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:76,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:76
 msgid "Please, inform your coupon code"
 msgstr "Por favor, informe seu cupom de desconto"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:96,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:104,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:78,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:77,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:77
 msgid "To choose"
 msgstr "Escolher"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:97,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:105,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:79,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:78,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:78
 msgid "Other bank"
 msgstr "Outro banco"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:98,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:106,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:80,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:79,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:79
 msgid "You will save"
 msgstr "Você economizará"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:99,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:107,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:81,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:80,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:80
 msgid "with discount of"
 msgstr "com desconto de"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:100,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:108,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:82,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:81,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:81
 msgid "Total of your purchase:"
 msgstr "Total da compra:"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:101,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:109,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:83,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:82,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:82
 msgid "Total of your purchase with discount:"
 msgstr "Total da compra com desconto:"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:102,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:110,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:84,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:83,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:83
 msgid "*After payment approval"
 msgstr "*Após a aprovação do pagamento"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:103,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:111,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:85,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:84,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-ticket.php:84
 msgid "Terms and conditions of use"
 msgstr "Termos e condições de uso"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:104,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:104
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:112,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:112
 msgid "No fee"
 msgstr "Sem juros"
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:105,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:105
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:113,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:113
 msgid "More options"
 msgstr "Mais opções"
 
@@ -2754,104 +2752,15 @@ msgstr "Utilize os cartões específicos para teste que estão nas "
 msgid "test mode rules."
 msgstr "regras do modo teste. "
 
-#: ../../templates/checkout/custom-checkout.php:165,
-#: ../../templates/checkout/custom-checkout.php:165
-msgid "Enter your card details"
-msgstr "Informe os dados do seu cartão"
+#: ../../templates/checkout/custom-checkout.php:186,
+#: ../../templates/checkout/custom-checkout.php:186
+msgid "Bank"
+msgstr "Banco"
 
-#: ../../templates/checkout/custom-checkout.php:171,
-#: ../../templates/checkout/custom-checkout.php:174,
-#: ../../templates/checkout/custom-checkout.php:174
-msgid "Card number"
-msgstr "Número do cartão"
-
-#: ../../templates/checkout/custom-checkout.php:175,
-#: ../../templates/checkout/custom-checkout.php:184,
-#: ../../templates/checkout/custom-checkout.php:185,
-#: ../../templates/checkout/custom-checkout.php:185
-msgid "Invalid Card Number"
-msgstr "Número de cartão inválido"
-
-#: ../../templates/checkout/custom-checkout.php:181,
-#: ../../templates/checkout/custom-checkout.php:181
-msgid "Name and surname of the cardholder"
-msgstr "Nome completo do titular do cartão"
-
-#: ../../templates/checkout/custom-checkout.php:192,
-#: ../../templates/checkout/custom-checkout.php:192
-msgid "Expiration date"
-msgstr "Data de vencimento"
-
-#: ../../templates/checkout/custom-checkout.php:196,
-#: ../../templates/checkout/custom-checkout.php:196
-msgid "Invalid Expiration Date"
-msgstr "Data de vencimento inválida"
-
-#: ../../templates/checkout/custom-checkout.php:200,
-#: ../../templates/checkout/custom-checkout.php:200
-msgid "Security code"
-msgstr "Código de segurança"
-
-#: ../../templates/checkout/custom-checkout.php:202,
-#: ../../templates/checkout/custom-checkout.php:202
-msgid "Last 3 numbers on the back"
-msgstr "Últimos 3 números do verso"
-
-#: ../../templates/checkout/custom-checkout.php:211,
-#: ../../templates/checkout/custom-checkout.php:211
-msgid "In how many installments do you want to pay"
-msgstr "Em quantas parcelas você quer pagar"
-
-#: ../../templates/checkout/custom-checkout.php:217,
-#: ../../templates/checkout/custom-checkout.php:217
-msgid "Issuer"
-msgstr "Banco emissor"
-
-#: ../../templates/checkout/custom-checkout.php:238,
-#: ../../templates/checkout/custom-checkout.php:238
-msgid "Select the number of installment"
-msgstr "Em quantas parcelas você quer pagar"
-
-#: ../../templates/checkout/custom-checkout.php:229,
-#: ../../templates/checkout/custom-checkout.php:229
-msgid "Converted payment of"
-msgstr "Pagamento convertido de"
-
-#: ../../templates/checkout/custom-checkout.php:230,
-#: ../../templates/checkout/custom-checkout.php:230
-msgid "for"
-msgstr "para"
-
-#: ../../templates/checkout/custom-checkout.php:257,
-#: ../../templates/checkout/custom-checkout.php:257
-msgid "Enter your document number"
-msgstr "Informe seu número de documento"
-
-#: ../../templates/checkout/custom-checkout.php:263,
-#: ../../templates/checkout/custom-checkout.php:263
-msgid "Type"
-msgstr "Tipo"
-
-#: ../../templates/checkout/custom-checkout.php:270,
-#: ../../templates/checkout/custom-checkout.php:270
-msgid "Document number"
-msgstr "Número de documento"
-
-#: ../../templates/checkout/custom-checkout.php:272,
-#: ../../templates/checkout/custom-checkout.php:272
-msgid "Only numbers"
-msgstr "Apenas números"
-
-#: ../../templates/checkout/custom-checkout.php:273,
-#: ../../templates/checkout/custom-checkout.php:274,
-#: ../../templates/checkout/custom-checkout.php:274
-msgid "Invalid Document Number"
-msgstr "Número de documento inválido"
-
-#: ../../templates/checkout/custom-checkout.php:284,
-#: ../../templates/checkout/custom-checkout.php:284
-msgid "Obligatory field"
-msgstr "Campo obrigatório"
+#: ../../templates/checkout/custom-checkout.php:187,
+#: ../../templates/checkout/custom-checkout.php:187
+msgid "Choose an option"
+msgstr "Escolha uma opção"
 
 #: ../../templates/checkout/pix-checkout.php:22,
 #: ../../templates/checkout/pix-checkout.php:22
@@ -2885,35 +2794,27 @@ msgstr "Logo do Pix"
 
 #: ../../templates/checkout/ticket-checkout.php:23,
 #: ../../templates/checkout/ticket-checkout.php:23
-#, fuzzy
-#| msgid "Cards in Test Mode"
 msgid "Offline Methods in Test Mode"
-msgstr "Cartões em Modo Teste"
+msgstr "Boletos em Modo Teste"
 
 #: ../../templates/checkout/ticket-checkout.php:24,
 #: ../../templates/checkout/ticket-checkout.php:24
-#, fuzzy
-#| msgid ""
-#| "You can test the flow to generate a code, but you cannot finalize the "
-#| "payment."
 msgid ""
 "You can test the flow to generate an invoice, but you cannot finalize the "
 "payment. "
 msgstr ""
-"É possível testar o fluxo para gerar o código, mas não é possível finalizar "
+"É possível testar o fluxo para gerar um boleto, mas não é possível finalizar "
 "o pagamento."
 
 #: ../../templates/checkout/ticket-checkout.php:56,
 #: ../../templates/checkout/ticket-checkout.php:56
 msgid "Select where you want to pay"
-msgstr ""
+msgstr "Selecione onde você quer pagar"
 
 #: ../../templates/checkout/ticket-checkout.php:60,
 #: ../../templates/checkout/ticket-checkout.php:60
-#, fuzzy
-#| msgid "More options"
 msgid "more options"
-msgstr "Mais opções"
+msgstr "mais opções"
 
 #: ../../templates/order/payment-status-metabox-content.php:20,
 #: ../../templates/order/payment-status-metabox-content.php:20
@@ -2937,6 +2838,60 @@ msgstr ""
 #: ../../templates/order-received/show-ticket.php:23
 msgid "Print ticket"
 msgstr "Imprimir boleto"
+
+#~ msgid "Enter your card details"
+#~ msgstr "Informe os dados do seu cartão"
+
+#~ msgid "Card number"
+#~ msgstr "Número do cartão"
+
+#~ msgid "Invalid Card Number"
+#~ msgstr "Número de cartão inválido"
+
+#~ msgid "Name and surname of the cardholder"
+#~ msgstr "Nome completo do titular do cartão"
+
+#~ msgid "Expiration date"
+#~ msgstr "Data de vencimento"
+
+#~ msgid "Invalid Expiration Date"
+#~ msgstr "Data de vencimento inválida"
+
+#~ msgid "Security code"
+#~ msgstr "Código de segurança"
+
+#~ msgid "Last 3 numbers on the back"
+#~ msgstr "Últimos 3 números do verso"
+
+#~ msgid "In how many installments do you want to pay"
+#~ msgstr "Em quantas parcelas você quer pagar"
+
+#~ msgid "Select the number of installment"
+#~ msgstr "Em quantas parcelas você quer pagar"
+
+#~ msgid "Converted payment of"
+#~ msgstr "Pagamento convertido de"
+
+#~ msgid "for"
+#~ msgstr "para"
+
+#~ msgid "Enter your document number"
+#~ msgstr "Informe seu número de documento"
+
+#~ msgid "Type"
+#~ msgstr "Tipo"
+
+#~ msgid "Document number"
+#~ msgstr "Número de documento"
+
+#~ msgid "Only numbers"
+#~ msgstr "Apenas números"
+
+#~ msgid "Invalid Document Number"
+#~ msgstr "Número de documento inválido"
+
+#~ msgid "Obligatory field"
+#~ msgstr "Campo obrigatório"
 
 #~ msgid "Enter your discount coupon"
 #~ msgstr "Insira seu cupom de desconto"

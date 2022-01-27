@@ -183,7 +183,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="mp-checkout-custom-issuers-container" class="mp-checkout-custom-issuers-container-display-none">
 			<input-select
 				optional="false"
-				label="Banco emissor"
+				label="<?php echo esc_html_e( 'Bank', 'woocommerce-mercadopago' ); ?>"
+				option-placeholder="<?php echo esc_html_e( 'Choose an option', 'woocommerce-mercadopago' ); ?>"
 				name="mp-issuer"
 				data-checkout="issuer"
 			>
