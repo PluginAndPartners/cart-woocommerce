@@ -77,7 +77,7 @@ class WC_WooMercadoPago_MercadoPago_Settings {
 		global $woocommerce;
 		wp_enqueue_script(
 			'mercadopago_research_javascript',
-			'https://http2.mlstatic.com/storage/v1/plugins/caronte/woocommerce.js?v=101',
+			'https://http2.mlstatic.com/storage/v1/plugins/caronte/woocommerce.js?v=102',
 			array(),
 			WC_WooMercadoPago_Constants::VERSION,
 			true
