@@ -48,7 +48,7 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 		$this->activated_payment  = $this->get_activated_payment();
 		$this->field_forms_order  = $this->get_fields_sequence();
 		parent::__construct();
-		$this->form_fields         = $this->get_form_mp_fields( 'Ticket' );
+		$this->form_fields         = $this->get_form_mp_fields();
 		$this->hook                = new WC_WooMercadoPago_Hook_Ticket( $this );
 		$this->notification        = new WC_WooMercadoPago_Notification_Webhook( $this );
 		$this->currency_convertion = true;
@@ -60,7 +60,7 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 	 * @param string $label Label.
 	 * @return array
 	 */
-	public function get_form_mp_fields( $label ) {
+	public function get_form_mp_fields() {
 		if ( is_admin() && $this->is_manage_section() && ( WC_WooMercadoPago_Helper_Current_Url::validate_page('mercadopago-settings') || WC_WooMercadoPago_Helper_Current_Url::validate_section('woo-mercado-pago') ) ) {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_script(
@@ -97,7 +97,7 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			$form_fields['field_ticket_payments']                   = $this->field_ticket_payments();
 		}
 
-		$form_fields_abs = parent::get_form_mp_fields( $label );
+		$form_fields_abs = parent::get_form_mp_fields();
 		if ( 1 === count( $form_fields_abs ) ) {
 			return $form_fields_abs;
 		}
@@ -162,6 +162,24 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			}
 		}
 		return $activated_payment;
+	}
+
+	/**
+	 * Field enabled
+	 *
+	 * @return array
+	 */
+	public function field_enabled() {
+		return array(
+			'title'       => __( 'Enable the checkout', 'woocommerce-mercadopago' ),
+			'subtitle'    => __( 'By disabling it, you will disable all invoice payments from Mercado Pago Transparent Checkout.', 'woocommerce-mercadopago' ),
+			'type'        => 'mp_toggle_switch',
+			'default'     => 'no',
+			'descriptions' => array(
+				'enabled' => __( 'The transparent checkout for tickets is <b>enabled</b>.', 'woocommerce-mercadopago' ),
+				'disabled' => __( 'The transparent checkout for tickets is <b>disabled</b>.', 'woocommerce-mercadopago' ),
+			),
+		);
 	}
 
 	/**

@@ -199,8 +199,8 @@
 	transition: 1s;
 }
 .mp-settings-icon {
-	width: 40px;
-	height: 40px;
+	width: 70px;
+	height: 70px;
 }
 .mp-settings-icon-info {
 	background: url("../../images/mercadopago-settings/icon-info.png") 98% 50%
@@ -276,7 +276,6 @@
 	font-size: 13px;
 	line-height: 18px;
 	color: rgba(0, 0, 0, 0.55);
-	margin: 0px 6px 10px;
 }
 .mp-settings-standard-margin {
 	margin: 0px 0px 24px;
@@ -291,6 +290,7 @@
 	display: inline-block;
 	width: 40px;
 	height: 24px;
+	margin: 0px 12px 5px 0px;
 }
 
 .mp-settings-switch input {

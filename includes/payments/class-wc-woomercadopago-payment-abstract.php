@@ -659,10 +659,9 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	/**
 	 * Get Mercado Pago form fields
 	 *
-	 * @param string $label label.
 	 * @return array
 	 */
-	public function get_form_mp_fields( $label ) {
+	public function get_form_mp_fields() {
 		$this->init_form_fields();
 		$this->init_settings();
 		$form_fields = array();
@@ -674,7 +673,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 					// @codingStandardsIgnoreLine
 					$form_fields['checkout_card_homolog'] = $this->field_checkout_card_homolog();
 				}
-				$form_fields['enabled']                                = $this->field_enabled( $label );
+				$form_fields['enabled']                                = $this->field_enabled();
 				$form_fields['title']                                  = $this->field_title();
 				$form_fields['description']                            = $this->field_description();
 				$form_fields['gateway_discount']                       = $this->field_gateway_discount();
@@ -703,7 +702,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			'type'        => 'text',
 			'description' => __('Change the display text in Checkout, maximum characters: 85', 'woocommerce-mercadopago'),
 			'maxlength'   => 100,
-			'desc_tip'    => __( 'If you change the display text, no translation will be available', 'woocommerce-mercadopago' ),
+			'desc_tip'    => __( 'The text inserted here will not be translated to other languages', 'woocommerce-mercadopago' ),
 			'class'       => 'limit-title-max-length',
 			'default'     => $this->title,
 		);
@@ -760,7 +759,8 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			'button_url'        => admin_url( 'admin.php?page=mercadopago-settings' ),
 			'icon'              => 'mp-icon-badge-warning',
 			'color_card'        => 'mp-alert-color-alert',
-			'size_card'         => 'mp-card-body-size'
+			'size_card'         => 'mp-card-body-size',
+			'target'            => '_self',
 		);
 
 		if ( ! empty( $this->checkout_country ) && ! empty( $this->get_access_token() ) && ! empty( $this->get_public_key() ) ) {
@@ -771,6 +771,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 				'button_url'        => admin_url( 'admin.php?page=mercadopago-settings' ),
 				'icon'              => 'mp-icon-badge-info',
 				'color_card'        => 'mp-alert-color-sucess',
+				'target'            => '_self',
 			);
 		}
 
@@ -796,6 +797,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 			'icon'              => 'mp-icon-badge-warning',
 			'color_card'        => 'mp-alert-color-alert',
 			'size_card'         => 'mp-card-body-size-homolog',
+			'target'            => '_blank'
 		);
 
 		return array(
@@ -833,23 +835,17 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	/**
 	 * Field enabled
 	 *
-	 * @param string $label label.
 	 * @return array
 	 */
-	public function field_enabled( $label ) {
-		$title_enable = __( 'Activate checkout', 'woocommerce-mercadopago' );
-		if ( 'Pix' === $label ) {
-			$title_enable = __( 'Enable or inactivate the payments via Pix', 'woocommerce-mercadopago' );
-		}
-
+	public function field_enabled() {
 		return array(
-			'title'       => $title_enable,
-			'subtitle'    => __( 'By disabling it, you will disable all Mercado Pago Transparent Checkout payment methods.', 'woocommerce-mercadopago' ),
+			'title'       => __( 'Enable the checkout', 'woocommerce-mercadopago' ),
+			'subtitle'    => __( 'By disabling it, you will disable all payment methods of this checkout.', 'woocommerce-mercadopago' ),
 			'type'        => 'mp_toggle_switch',
 			'default'     => 'no',
 			'descriptions' => array(
-				'enabled' => __( 'This checkout is <b>enabled</b>.', 'woocommerce-mercadopago' ),
-				'disabled' => __( 'This checkout is <b>disabled</b>.', 'woocommerce-mercadopago' ),
+				'enabled' => __( 'The checkout is <b>enabled</b>.', 'woocommerce-mercadopago' ),
+				'disabled' => __( 'The checkout is <b>disabled</b>.', 'woocommerce-mercadopago' ),
 			),
 		);
 	}

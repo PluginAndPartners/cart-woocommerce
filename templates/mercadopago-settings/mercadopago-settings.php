@@ -212,8 +212,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<fieldset>
 									<legend class="mp-settings-label mp-settings-font-color"><?php echo esc_html($translation_store['subtitle_integrator']); ?></legend>
 									<input type="text" class="mp-settings-input" id="mp-store-integrator-id" placeholder="<?php echo esc_html($translation_store['placeholder_integrator']); ?>" value="<?php echo esc_html( $integrator_id ); ?>">
-									<span class="mp-settings-helper"><?php echo esc_html($translation_store['helper_integrator']); ?></span><br>
-									<span class="mp-settings-helper"><span><a class="mp-settings-blue-text" target="_blank" href="<?php echo esc_html($devsite_links['dev_program']); ?>"> <?php echo esc_html($translation_store['helper_integrator_link']); ?><span></a></span>
+									<span class="mp-settings-helper"><?php echo esc_html($translation_store['helper_integrator']); ?></span>
+									<span class="mp-settings-helper"><span><a class="mp-settings-blue-text" target="_blank" href="<?php echo esc_html($devsite_links['dev_program']); ?>"> <?php echo esc_html($translation_store['helper_integrator_link']); ?></a></span>
 								</fieldset>
 							</div>
 							<div class="mp-container">
@@ -224,13 +224,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<span class="mp-settings-slider mp-settings-round"></span>
 									</label>
 								</div>
-								<div class="mp-settings-margin-left">
-									<p class="mp-settings-subtitle-font-size mp-settings-debug mp-settings-font-color">
+								<div>
+									<span class="mp-settings-subtitle-font-size mp-settings-debug mp-settings-font-color">
 									<?php echo esc_html($translation_store['title_debug']); ?>
-									</p>
-									<p class="mp-settings-font-color mp-settings-subtitle-font-size mp-settings-title-color mp-settings-debug">
+									</span></br>
+									<span class="mp-settings-font-color mp-settings-subtitle-font-size mp-settings-title-color mp-settings-debug">
 									<?php echo esc_html($translation_store['subtitle_debug']); ?>
-									</p>
+									</span>
 								</div>
 							</div>
 						</div>

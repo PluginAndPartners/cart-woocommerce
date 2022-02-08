@@ -49,7 +49,7 @@ class WC_WooMercadoPago_Basic_Gateway extends WC_WooMercadoPago_Payment_Abstract
 		$this->field_forms_order    = $this->get_fields_sequence();
 		$this->ex_payments          = $this->get_ex_payments();
 		parent::__construct();
-		$this->form_fields         = $this->get_form_mp_fields( 'Basic' );
+		$this->form_fields         = $this->get_form_mp_fields();
 		$this->hook                = new WC_WooMercadoPago_Hook_Basic( $this );
 		$this->notification        = new WC_WooMercadoPago_Notification_IPN( $this );
 		$this->currency_convertion = true;
@@ -58,10 +58,9 @@ class WC_WooMercadoPago_Basic_Gateway extends WC_WooMercadoPago_Payment_Abstract
 	/**
 	 * Get MP fields label
 	 *
-	 * @param string $label Label.
 	 * @return array
 	 */
-	public function get_form_mp_fields( $label ) {
+	public function get_form_mp_fields() {
 		if ( is_admin() && $this->is_manage_section() && ( WC_WooMercadoPago_Helper_Current_Url::validate_page('mercadopago-settings') || WC_WooMercadoPago_Helper_Current_Url::validate_section('woo-mercado-pago') ) ) {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_script(
@@ -103,7 +102,7 @@ class WC_WooMercadoPago_Basic_Gateway extends WC_WooMercadoPago_Payment_Abstract
 			$form_fields['ex_payments']                      = $this->field_ex_payments();
 		}
 
-		$form_fields_abs = parent::get_form_mp_fields( $label );
+		$form_fields_abs = parent::get_form_mp_fields();
 		if ( count( $form_fields_abs ) === 1 ) {
 			return $form_fields_abs;
 		}
@@ -157,17 +156,17 @@ class WC_WooMercadoPago_Basic_Gateway extends WC_WooMercadoPago_Payment_Abstract
 			'description' => __( 'What is the maximum quota with which a customer can buy?', 'woocommerce-mercadopago' ),
 			'default'     => '24',
 			'options'     => array(
-				'1'  => __( '1x installment', 'woocommerce-mercadopago' ),
-				'2'  => __( '2x installments', 'woocommerce-mercadopago' ),
-				'3'  => __( '3x installments', 'woocommerce-mercadopago' ),
-				'4'  => __( '4x installments', 'woocommerce-mercadopago' ),
-				'5'  => __( '5x installments', 'woocommerce-mercadopago' ),
-				'6'  => __( '6x installments', 'woocommerce-mercadopago' ),
-				'10' => __( '10x installments', 'woocommerce-mercadopago' ),
-				'12' => __( '12x installments', 'woocommerce-mercadopago' ),
-				'15' => __( '15x installments', 'woocommerce-mercadopago' ),
-				'18' => __( '18x installments', 'woocommerce-mercadopago' ),
-				'24' => __( '24x installments', 'woocommerce-mercadopago' ),
+				'1'  => __('1 installment', 'woocommerce-mercadopago' ),
+				'2'  => __('2 installments', 'woocommerce-mercadopago' ),
+				'3'  => __('3 installments', 'woocommerce-mercadopago' ),
+				'4'  => __('4 installments', 'woocommerce-mercadopago' ),
+				'5'  => __('5 installments', 'woocommerce-mercadopago' ),
+				'6'  => __('6 installments', 'woocommerce-mercadopago' ),
+				'10' => __('10 installments', 'woocommerce-mercadopago' ),
+				'12' => __('12 installments', 'woocommerce-mercadopago' ),
+				'15' => __('15 installments', 'woocommerce-mercadopago' ),
+				'18' => __('18 installments', 'woocommerce-mercadopago' ),
+				'24' => __('24 installments', 'woocommerce-mercadopago' ),
 			),
 		);
 	}
@@ -231,6 +230,24 @@ class WC_WooMercadoPago_Basic_Gateway extends WC_WooMercadoPago_Payment_Abstract
 			}
 		}
 		return $ex_payments;
+	}
+
+	/**
+	 * Field enabled
+	 *
+	 * @return array
+	 */
+	public function field_enabled() {
+		return array(
+			'title'       => __( 'Enable the checkout', 'woocommerce-mercadopago' ),
+			'subtitle'    => __( 'By disabling it, you will disable all payments from Mercado Pago Checkout at Mercado Pago website by redirect.', 'woocommerce-mercadopago' ),
+			'type'        => 'mp_toggle_switch',
+			'default'     => 'no',
+			'descriptions' => array(
+				'enabled' => __( 'The checkout is <b>enabled</b>.', 'woocommerce-mercadopago' ),
+				'disabled' => __( 'The checkout is <b>disabled</b>.', 'woocommerce-mercadopago' ),
+			),
+		);
 	}
 
 	/**

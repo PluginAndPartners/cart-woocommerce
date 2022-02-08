@@ -238,6 +238,14 @@
 	color: #fff;
 }
 
+/* Activable Input */
+
+.mp-activable-input-subtitle {
+	font-weight: normal !important;
+	font-size: 14px !important;
+	margin-bottom: 0px;
+}
+
 /* Shared component styles */
 
 .mp-mw-100 {
