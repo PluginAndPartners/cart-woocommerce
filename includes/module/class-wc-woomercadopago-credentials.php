@@ -205,7 +205,7 @@ class WC_WooMercadoPago_Credentials {
 		}
 
 		if ( isset( $get_request['response']['site_id'] ) ) {
-			update_option( '_site_id_v1', $get_request['response']['site_id'], true );
+			update_option( '_site_id_v1', strtolower($get_request['response']['site_id'], true ));
 			update_option( '_test_user_v1', in_array( 'test_user', $get_request['response']['tags'], true ), true );
 		}
 
@@ -245,7 +245,7 @@ class WC_WooMercadoPago_Credentials {
 			if ( isset( $get_request['response']['site_id'] ) && ( ! empty( $credentials->public_key ) || 'yes' === $basic_is_enabled ) ) {
 
 				update_option( '_test_user_v1', in_array( 'test_user', $get_request['response']['tags'], true ), true );
-				update_option( '_site_id_v1', $get_request['response']['site_id'], true );
+				update_option( '_site_id_v1', strtolower($get_request['response']['site_id'], true ));
 				update_option( '_collector_id_v1', $get_request['response']['id'], true );
 
 				self::mercadopago_payment_update();

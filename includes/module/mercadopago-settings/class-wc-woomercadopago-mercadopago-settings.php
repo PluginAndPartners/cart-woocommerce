@@ -86,7 +86,7 @@ class WC_WooMercadoPago_MercadoPago_Settings {
 			'mercadopago_research_javascript',
 			'wc_mercadopago_params',
 			array(
-				'site_id' => get_option( '_site_id_v1', 'MLA'),
+				'site_id' => $this->options->get_site_id() ? strtoupper($this->options->get_site_id()) : 'MLA',
 				'platform_id' => WC_WooMercadoPago_Constants::PLATAFORM_ID,
 				'platform_version' => $woocommerce->version,
 				'plugin_version' => WC_WooMercadoPago_Constants::VERSION,
