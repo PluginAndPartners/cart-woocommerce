@@ -243,7 +243,7 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 			'binary_mode'          => $this->get_binary_mode( $this->payment ),
 			'external_reference'   => $this->get_external_reference( $this->payment ),
 			'notification_url'     => $this->get_notification_url(),
-			'statement_descriptor' => $this->payment->get_option_mp( 'mp_statement_descriptor', 'Mercado Pago' ),
+			'statement_descriptor' => get_option( 'mp_statement_descriptor', 'Mercado Pago' ),
 		);
 
 		if ( ! $this->test_user_v1 && ! $this->sandbox ) {
@@ -573,7 +573,7 @@ abstract class WC_WooMercadoPago_Preference_Abstract extends WC_Payment_Gateway 
 		$access_token = get_option( '_mp_access_token_prod', '' );
 		$test_mode    = false;
 
-		if ( 'yes' === $this->payment->get_option_mp( 'checkbox_checkout_test_mode', '' ) ) {
+		if ( 'yes' === get_option( 'checkbox_checkout_test_mode', '' ) ) {
 			$test_mode    = true;
 			$access_token = get_option( '_mp_access_token_test', '' );
 		}

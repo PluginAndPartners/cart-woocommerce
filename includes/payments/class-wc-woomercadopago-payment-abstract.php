@@ -771,6 +771,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 				'button_url'        => admin_url( 'admin.php?page=mercadopago-settings' ),
 				'icon'              => 'mp-icon-badge-info',
 				'color_card'        => 'mp-alert-color-sucess',
+				'size_card'         => 'mp-card-body-size',
 				'target'            => '_self',
 			);
 		}
@@ -1183,32 +1184,7 @@ class WC_WooMercadoPago_Payment_Abstract extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	public function is_production_mode() {
-		$this->update_credential_production();
 		return 'no' === get_option( WC_WooMercadoPago_Options::CHECKBOX_CHECKOUT_TEST_MODE, 'yes' );
-	}
-
-	/**
-	 * Update Credentials for production
-	 */
-	public function update_credential_production() {
-		if ( ! empty( get_option( WC_WooMercadoPago_Options::CHECKBOX_CHECKOUT_TEST_MODE, null ) ) ) {
-			return;
-		}
-
-		foreach ( WC_WooMercadoPago_Constants::PAYMENT_GATEWAYS as $gateway ) {
-			$key     = 'woocommerce_' . $gateway::get_id() . '_settings';
-			$options = get_option( $key );
-			if ( ! empty( $options ) ) {
-				$old_credential_is_prod                 = array_key_exists('checkout_credential_prod', $options) && isset($options['checkout_credential_prod']) ? $options['checkout_credential_prod'] : 'no';
-				$has_new_key                            = array_key_exists('checkbox_checkout_test_mode', $options) && isset($options['checkbox_checkout_test_mode']);
-				$options['checkbox_checkout_test_mode'] = $has_new_key && 'deprecated' === $old_credential_is_prod
-					? $options['checkbox_checkout_test_mode']
-					: ( 'yes' === $old_credential_is_prod ? 'no' : 'yes' );
-				$options['checkout_credential_prod']    = 'deprecated';
-
-				update_option( $key, apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $gateway::get_id(), $options ) );
-			}
-		}
 	}
 
 	/**

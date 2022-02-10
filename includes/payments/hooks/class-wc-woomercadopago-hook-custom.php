@@ -75,7 +75,7 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract {
 				'woocommerce-mercadopago-checkout',
 				'wc_mercadopago_params',
 				array(
-					'site_id'             => strtolower($this->payment->get_option_mp( '_site_id_v1' )),
+					'site_id'             => strtolower(get_option( '_site_id_v1' )),
 					'public_key'          => $this->payment->get_public_key(),
 					'coupon_mode'         => isset( $this->payment->logged_user_email ) ? $this->payment->coupon_mode : 'no',
 					'discount_action_url' => $this->payment->discount_action_url,

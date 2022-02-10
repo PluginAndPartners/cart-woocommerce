@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?><tr valign="top">
 	<th scope="row" class="titledesc">
-		<label for="<?php echo esc_attr( $settings['field_key'] ); ?>"><?php echo esc_html( $settings['title'] ); ?>
+		<label><?php echo esc_html( $settings['title'] ); ?>
 		<?php if ( isset($settings['desc_tip']) ) { ?>
 			<span class="woocommerce-help-tip" data-tip="<?php echo esc_html( $settings['desc_tip'] ); ?>"></span>
 		<?php } ?>

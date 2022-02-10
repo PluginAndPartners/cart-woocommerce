@@ -66,7 +66,7 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract {
 				'woocommerce-mercadopago-ticket-checkout',
 				'wc_mercadopago_ticket_params',
 				array(
-					'site_id'             => strtolower($this->payment->get_option_mp( '_site_id_v1' )),
+					'site_id'             => strtolower(get_option( '_site_id_v1' )),
 					'coupon_mode'         => isset( $this->payment->logged_user_email ) ? $this->payment->coupon_mode : 'no',
 					'discount_action_url' => $this->payment->discount_action_url,
 					'payer_email'         => esc_js( $this->payment->logged_user_email ),

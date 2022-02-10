@@ -466,6 +466,7 @@ class WC_WooMercadoPago_MercadoPago_Settings {
 	 */
 	public function mp_set_mode() {
 		try {
+			$this->update_credential_production();
 			$checkout_test_mode = WC_WooMercadoPago_Credentials::get_sanitize_text_from_post( 'input_mode_value' );
 			update_option( 'checkbox_checkout_test_mode', $checkout_test_mode, true );
 
@@ -485,8 +486,29 @@ class WC_WooMercadoPago_MercadoPago_Settings {
 	}
 
 	/**
-	 * Get payment class properties
-	 */
+	* Update Credentials for production
+	*/
+	public function update_credential_production() {
+
+		foreach ( WC_WooMercadoPago_Constants::PAYMENT_GATEWAYS as $gateway ) {
+			$key     = 'woocommerce_' . $gateway::get_id() . '_settings';
+			$options = get_option( $key );
+			if ( ! empty( $options ) ) {
+				$old_credential_is_prod                 = array_key_exists('checkout_credential_prod', $options) && isset($options['checkout_credential_prod']) ? $options['checkout_credential_prod'] : 'no';
+				$has_new_key                            = array_key_exists('checkbox_checkout_test_mode', $options) && isset($options['checkbox_checkout_test_mode']);
+				$options['checkbox_checkout_test_mode'] = $has_new_key && 'deprecated' === $old_credential_is_prod
+					? $options['checkbox_checkout_test_mode']
+					: ( 'yes' === $old_credential_is_prod ? 'no' : 'yes' );
+				$options['checkout_credential_prod']    = 'deprecated';
+
+				update_option( $key, apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $gateway::get_id(), $options ) );
+			}
+		}
+	}
+
+	/**
+	* Get payment class properties
+	*/
 	public function mp_get_payment_class_properties() {
 		try {
 			$payments_gateways          = WC_WooMercadoPago_Constants::PAYMENT_GATEWAYS;
