@@ -177,49 +177,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 				amount: '1000.5',
 				iframe: true,
 				form: {
-				id: 'form-checkout',
-				cardholderName: {
-					id: 'form-checkout__cardholderName',
-					placeholder: "Ex.: María López",
-					style: {
-					"font-size": "16px",
-					}
-				},
-				cardNumber: {
-					id: 'form-checkout__cardNumber-container',
-					placeholder: '0000 0000 0000 0000',
-					style: {
-					"font-size": "16px",
-					}
-				},
-				securityCode: {
-					id: 'form-checkout__securityCode-container',
-					placeholder: '123',
-					style: {
-					"font-size": "16px",
-					}
-				},
-				installments: {
-					id: 'form-checkout__installments',
-					placeholder: 'Parcelas'
-				},
-				cardExpirationDate: {
-					id: 'form-checkout__cardExpirationDate-container',
-					placeholder: 'mm/aaaa',
-					style: {
-					"font-size": "16px",
-					}
-				},
-				identificationType: {
-					id: 'form-checkout__identificationType',
-				},
-				identificationNumber: {
-					id: 'form-checkout__identificationNumber',
-				},
-				issuer: {
-					id: 'form-checkout__issuer',
-					placeholder: 'Banco emissor'
-				}
+					id: 'form-checkout',
+					cardNumber: {
+						id: 'form-checkout__cardNumber-container',
+						placeholder: '0000 0000 0000 0000',
+						style: {
+							"font-size": "16px",
+							"height": "40px",
+							"padding": "14px"
+						}
+					},
+					cardholderName: {
+						id: 'form-checkout__cardholderName',
+						placeholder: "Ex.: María López",
+					},
+					cardExpirationDate: {
+						id: 'form-checkout__cardExpirationDate-container',
+						placeholder: 'mm/aaaa',
+						style: {
+							"font-size": "16px",
+							"height": "40px",
+							"padding": "14px"
+						}
+					},
+					securityCode: {
+						id: 'form-checkout__securityCode-container',
+						placeholder: '123',
+						style: {
+							"font-size": "16px",
+							"height": "40px",
+							"padding": "14px"
+						}
+					},
+					identificationType: {
+						id: 'form-checkout__identificationType',
+					},
+					identificationNumber: {
+						id: 'form-checkout__identificationNumber',
+					},
+					issuer: {
+						id: 'form-checkout__issuer',
+						placeholder: 'Banco emissor'
+					},
+					installments: {
+						id: 'form-checkout__installments',
+						placeholder: 'Parcelas'
+					},
 				},
 				callbacks: {
 				onFormMounted: function (error) {
