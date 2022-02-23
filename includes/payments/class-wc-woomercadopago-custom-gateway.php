@@ -379,6 +379,11 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			'account_currency'     => $this->site_data['currency'],
 			'payment_methods'      => $payment_methods,
 			'wallet_button'        => $this->wallet_button,
+			'placeholders'		   => array(
+				'cardExpirationDate' => __( 'mm/yy', 'woocommerce-mercadopago' ),
+				'issuer'			 => __( 'Issuer', 'woocommerce-mercadopago' ),
+				'installments'		 => __( 'Installments', 'woocommerce-mercadopago' ),
+			)
 		);
 
 		$parameters = array_merge($parameters, WC_WooMercadoPago_Helper_Links::mp_define_terms_and_conditions());

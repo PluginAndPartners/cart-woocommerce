@@ -172,9 +172,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	var mp_security_fields_loaded = false;
 	jQuery( document ).on( 'updated_checkout', function() {
 		if(!mp_security_fields_loaded){
-			const mp = new MercadoPago('APP_USR-f1b66425-a272-402b-9fc0-5b7a3a93d55f');
+			const mp = new MercadoPago('<?php echo esc_html( $public_key ); ?>');
 			const cardForm = mp.cardForm({
-				amount: '1000.5',
+				amount: '<?php echo esc_html( $amount ); ?>',
 				iframe: true,
 				form: {
 					id: 'form-checkout',
@@ -193,7 +193,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					},
 					cardExpirationDate: {
 						id: 'form-checkout__cardExpirationDate-container',
-						placeholder: 'mm/aaaa',
+						placeholder: '<?php echo esc_html( $placeholders['cardExpirationDate'] ); ?>',
 						style: {
 							"font-size": "16px",
 							"height": "40px",
@@ -217,11 +217,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					},
 					issuer: {
 						id: 'form-checkout__issuer',
-						placeholder: 'Banco emissor'
+						placeholder: '<?php echo esc_html( $placeholders['issuer'] ); ?>'
 					},
 					installments: {
 						id: 'form-checkout__installments',
-						placeholder: 'Parcelas'
+						placeholder: '<?php echo esc_html( $placeholders['installments'] ); ?>'
 					},
 				},
 				callbacks: {
