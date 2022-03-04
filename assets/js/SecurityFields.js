@@ -1,6 +1,8 @@
 var cardForm;
 var isSubmitted = false;
-var amount = document.getElementById('mp-amount').value;
+if (document.getElementById('mp-amount')) {
+  var amount = document.getElementById('mp-amount').value;
+}
 
 var form = document.querySelector('form[name=checkout]')
 var formId = 'checkout';
@@ -123,7 +125,6 @@ function init_cardForm() {
           }
         },
         onError: function (errors) {
-          console.log(erros);
           errors.forEach(error => {
             if (error.message.includes("cardNumber")) { return showInputHelper('mp-card-number'); }
             else if (error.message.includes("cardholderName")) { return showInputHelper('mp-card-holder-name'); }
