@@ -137,7 +137,10 @@ function init_cardForm() {
         },
         onValidityChange: function (error, field) {
           if (error) {
-            if (field == 'cardNumber') { document.getElementById('form-checkout__cardNumber-container').style.background = 'no-repeat #fff'; }
+            if (field == 'cardNumber') { 
+              document.getElementById('form-checkout__cardNumber-container').style.background = 'no-repeat #fff';
+              removeAdditionFields();
+            }
             return showInputHelper(inputHelperName(field));
           }
           return removeInputHelper(inputHelperName(field));
@@ -152,6 +155,12 @@ function init_cardForm() {
     }
     cardForm.update('securityCode', { placeholder: text });
   }
+}
+
+function removeAdditionFields(){
+  hideDocumentField();
+  hideInstallments();
+  hideIssuer();
 }
 
 function inputHelperName(field) {
@@ -200,9 +209,7 @@ const setChangeEventOnInstallments = function (siteId, response) {
 
   clearInstallmentsComponent();
   payerCosts = response.payer_costs;
-  if (payerCosts) {
-    document.getElementById('mp-checkout-custom-installments').style = 'display: block;'
-  }
+  if (payerCosts) { showInstallments(); }
 
   for (let j = 0; j < payerCosts.length; j++) {
     const installment = payerCosts[j].installments;
@@ -281,9 +288,11 @@ function clearTax() {
 }
 
 function showInstallments() {
-  const installmentsContainer = document.getElementById('mp-checkout-custom-installments');
-  installmentsContainer.classList.remove('mp-checkout-custom-installments-display-none');
-  installmentsContainer.classList.add('mp-checkout-custom-installments');
+  document.getElementById('mp-checkout-custom-installments').style.display = 'block';
+}
+
+function hideInstallments() {
+  document.getElementById('mp-checkout-custom-installments').style.display = 'none'
 }
 
 function showInstallmentsComponent(child) {
@@ -298,6 +307,22 @@ function clearInstallmentsComponent() {
   if (selectorInstallments.firstElementChild) {
     selectorInstallments.removeChild(selectorInstallments.firstElementChild);
   }
+}
+
+function showDocumentField(){
+  document.getElementById('mp-doc-div').style.display = 'block';
+}
+
+function hideDocumentField(){
+  document.getElementById('mp-doc-div').style.display = 'none';
+}
+
+function showIssuer(){
+  document.getElementById('form-checkout__issuer').style.display = 'block';
+}
+
+function hideIssuer(){
+  document.getElementById('form-checkout__issuer').style.display = 'none';
 }
 
 function showTaxes() {
@@ -396,9 +421,9 @@ const additionalInfoHandler = function () {
     document.getElementById('form-checkout__issuer').style.display = 'none';
   }
   if (additionalInfoNeeded.cardholder_identification_type && additionalInfoNeeded.cardholder_identification_number) {
-    document.getElementById('mp-doc-div').style.display = 'block';
+    showDocumentField();
   } else {
-    document.getElementById('mp-doc-div').style.display = 'none';
+    hideDocumentField();
   }
 }
 
