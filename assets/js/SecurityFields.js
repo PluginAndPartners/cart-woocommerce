@@ -98,13 +98,12 @@ function init_cardForm() {
           }
           setChangeEventOnInstallments(getCountry(), installments);
         },
-        onCardTokenReceived: (error, token) => {
-
+        onCardTokenReceived: (error) => {
           if (error) {
             return console.warn('Token handling error: ', error);
           }
         },
-        onPaymentMethodsReceived: (error, paymentMethods) => {
+        onPaymentMethodsReceived: (paymentMethods) => {
           try {
             if (paymentMethods) {
               setPaymentMethodId(paymentMethods[0].id)
@@ -131,11 +130,12 @@ function init_cardForm() {
             else if (error.message.includes("expirationMonth") || error.message.includes("expirationYear")) { return showInputHelper('mp-expiration-date'); }
             else if (error.message.includes("CVV")) { return showInputHelper('mp-cvv'); }
             else if (error.message.includes("identificationNumber")) { return showInputHelper('mp-doc-number'); }
-            else { return console.log("Erro desconhecido") }
+            else { return console.log("Unknown error: " + error) }
           });
         },
         onSubmit: function (event) {
           event.preventDefault();
+          verifyInstallments();
         },
         onValidityChange: function (error, field) {
           if (error) {
@@ -149,20 +149,33 @@ function init_cardForm() {
         }
       }
     }
-  );
-  function changeCvvPlaceHolder(cvvLength) {
-    let text = '';
-    for (let index = 0; index < cvvLength; index++) {
-      text += index + 1
-    }
-    cardForm.update('securityCode', { placeholder: text });
+  );  
+}
+
+function verifyInstallments(){
+  if (document.getElementById('cardInstallments').value == "") {
+    showInputHelper('mp-installments');
   }
+}
+
+function changeCvvPlaceHolder(cvvLength) {
+  let text = '';
+  for (let index = 0; index < cvvLength; index++) {
+    text += index + 1
+  }
+  cardForm.update('securityCode', { placeholder: text });
+}
+
+function removeInstallmentsValue(){
+  document.getElementById('cardInstallments').value = '';
 }
 
 function removeAdditionFields(){
   hideDocumentField();
   hideInstallments();
   hideIssuer();
+  removeInputHelper('installments');
+  removeInstallmentsValue();
 }
 
 function inputHelperName(field) {
@@ -182,7 +195,6 @@ function hideErrors() {
     input_helper.querySelector('div').style.display = "none";;
   });
 }
-
 
 clearInputs = function () {
   hideErrors();

@@ -122,6 +122,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div id="mp-checkout-custom-installments" class="mp-checkout-custom-installments-display-none">
 		<p class='mp-checkout-custom-card-form-title'>Selecciona la cantidad de cuotas</p>
+		<input-helper isVisible=false message="Selecione uma opção" input-id="mp-installments-helper"></input-helper>
 		<div id="mp-checkout-custom-issuers-container" class="mp-checkout-custom-issuers-container-display-none">
 			<div class="mp-input-select-input">
 				<select name="issuer" id="form-checkout__issuer" class="mp-input-select-select"></select>
