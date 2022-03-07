@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="mp-checkout-pro-test-mode">
 			<test-mode
 				title="<?php echo esc_html_e( 'Checkout Custom in Test Mode', 'woocommerce-mercadopago' ); ?>"
-				description="<?php echo esc_html_e( 'Use the test-specific cards that are in the ', 'woocommerce-mercadopago' ); ?>"
-				link-text="<?php echo esc_html_e( 'test mode rules.', 'woocommerce-mercadopago' ); ?>"
+				description="<?php echo esc_html_e( 'Use Mercado Pago means without real charges.', 'woocommerce-mercadopago' ); ?>"
+				link-text="<?php echo esc_html_e( 'See test mode rules.', 'woocommerce-mercadopago' ); ?>"
 				link-src="<?php echo esc_html( $test_mode_link ); ?>"
 			>
 			</test-mode>
@@ -32,16 +32,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class='mp-wallet-button-container'>
 			<div class='mp-wallet-button-title'>
 				<img src="<?php echo esc_url( plugins_url( '../assets/images/mp_logo.png', plugin_dir_path( __FILE__ ) ) ); ?>">
-				<span>Paga con Mercado Pago</span>
+				<span><?php echo esc_html_e( 'Pay with Mercado Pago', 'woocommerce-mercadopago' ); ?></span>
 			</div>
 
 			<div class='mp-wallet-button-description'>
-				Paga más rápido con tus tarjetas guardadas y sin completar datos.
+				<?php echo esc_html_e( 'Pay faster with your saved cards and without completing data.', 'woocommerce-mercadopago' ); ?>
 			</div>
 
 			<div class='mp-wallet-button-button'>
 				<button id="mp-wallet-button" onclick="submitWalletButton(event)">
-					Pagar con Mercado Pago
+					<?php echo esc_html_e( 'Pay with Mercado Pago', 'woocommerce-mercadopago' ); ?>
 				</button>
 			</div>
 		</div>
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class='mp-checkout-custom-available-payments-header'>
 			<div class="mp-checkout-custom-available-payments-title">
 				<img src="<?php echo esc_url( plugins_url( '../assets/images/purple_card.png', plugin_dir_path( __FILE__ ) ) ); ?>" class='mp-icon'>
-				<p>¿Con qué tarjeta puedes pagar?</p>
+				<p><?php echo esc_html_e( 'With which card can you pay?', 'woocommerce-mercadopago' ); ?></p>
 			</div>
 
 			<img
@@ -74,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div class='mp-checkout-custom-card-form'>
-		<p class='mp-checkout-custom-card-form-title'>Completa los datos de tu tarjeta</p>
+		<p class='mp-checkout-custom-card-form-title'><?php echo esc_html_e( 'Fill in your card details', 'woocommerce-mercadopago' ); ?></p>
 		<div class='mp-checkout-custom-card-row'>
 			<input-label isOptinal=false message="Número de cartão" for='mp-card-number'></input-label>
 				<div class="mp-checkout-custom-card-input" id="form-checkout__cardNumber-container"></div>
@@ -141,11 +141,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div id="mp-checkout-custom-tax-cft-text"></div>
 		</div>
 	</div>
-
 	<div class="mp-checkout-custom-terms-and-conditions">
 		<terms-and-conditions
-			description="By continuing, you agree with our"
-			link-text="Terms and conditions"
+			description="<?php echo esc_html_e( 'By continuing, you agree with our', 'woocommerce-mercadopago' ); ?>"
+			link-text="<?php echo esc_html_e( 'Terms and conditions', 'woocommerce-mercadopago' ); ?>"
 			link-src="<?php echo esc_html($link_terms_and_conditions); ?>"
 		>
 		</terms-and-conditions>

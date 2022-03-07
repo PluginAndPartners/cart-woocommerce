@@ -30,6 +30,8 @@ if ( ! defined('ABSPATH') ) {
 		<?php if ( 'mlu' === $site_id ) : ?>
 			<div class="mp-checkout-ticket-input-document">
 			<input-document
+				label-message="Documento"
+				helper-message="Documento Inválido"
 				input-name = 'mercadopago_ticket[docNumber]'
 				select-name = 'mercadopago_ticket[docType]'
 				flag-error = 'mercadopago_ticket[docNumberError]'
@@ -41,6 +43,8 @@ if ( ! defined('ABSPATH') ) {
 		<?php if ( 'mlb' === $site_id ) : ?>
 			<div class="mp-checkout-ticket-input-document">
 			<input-document
+				label-message="Documento"
+				helper-message="Documento Inválido"
 				input-name = 'mercadopago_ticket[docNumber]'
 				select-name = 'mercadopago_ticket[docType]'
 				flag-error = 'mercadopago_ticket[docNumberError]'
