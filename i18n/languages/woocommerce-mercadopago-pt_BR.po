@@ -2763,18 +2763,18 @@ msgstr "x"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:156,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:156
-msgid "in back"
-msgstr "atrás"
+msgid "on the back"
+msgstr "do verso"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:157,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:157
-msgid "in front"
-msgstr "na frente"
+msgid "on the front"
+msgstr "da frente"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:159,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:159
-msgid "Last digits"
-msgstr "Últimos dígitos "
+msgid "digits"
+msgstr "dígitos "
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:141,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:141

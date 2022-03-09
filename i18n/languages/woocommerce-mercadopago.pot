@@ -1766,15 +1766,15 @@ msgid "Installments"
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:156, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:156, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:156
-msgid "in back"
+msgid "on the back"
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:157, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:157, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:157
-msgid "in front"
+msgid "on the front"
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:159, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:159, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:159
-msgid "Last digits"
+msgid "digits"
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:141, ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:141, ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:141

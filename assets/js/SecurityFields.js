@@ -375,18 +375,17 @@ const getCountry = function () {
   return wc_mercadopago_params.site_id;
 }
 
-const setCvvHint = function (security_code) {
-  var cvvText = wc_mercadopago_params.cvvText;
-  var text = cvvText.split(" ");
-  cvvText = `${text[0]} ${security_code.length} ${text[1]} `;
-  cvvText += cvvLocationTranslate(security_code.card_location)
-  document.getElementById('mp-security-code-info').innerText = cvvText;
-}
-
 const cvvLocationTranslate = function (location) {
   $cvv_front = wc_mercadopago_params.cvvHint['front'];
   $cvv_back = wc_mercadopago_params.cvvHint['back'];
   return location === 'back' ? $cvv_back : $cvv_front;
+}
+
+const setCvvHint = function (security_code) {
+  var cvvText = wc_mercadopago_params.cvvText;
+  cvvText = `${security_code.length} ${cvvText} `;
+  cvvText += cvvLocationTranslate(security_code.card_location)
+  document.getElementById('mp-security-code-info').innerText = cvvText;
 }
 
 const setImageCard = function (secureThumbnail) {
