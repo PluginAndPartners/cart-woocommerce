@@ -2774,6 +2774,47 @@ msgstr "del frente"
 msgid "digits"
 msgstr "dígitos"
 
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:164,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:164
+msgid "Card number is required"
+msgstr "Número de tarjeta obligatorio"
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:165,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:165
+msgid "Card number invalid"
+msgstr "Número de tarjeta inválido"
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:168,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:168
+msgid "Holder name is required"
+msgstr "Nombre del titular obligatorio"
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:169,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:169
+msgid "Holder name invalid"
+msgstr "Nombre del titular inválido"
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:172,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:174,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:174
+msgid "Expiration date invalid"
+msgstr "Fecha de vencimiento inválido"
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:173,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:173
+msgid "Expiration date incomplete"
+msgstr "Fecha de vencimiento obligatorio"
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:177,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:177
+msgid "Security code is required"
+msgstr "Código de seguridad obligatorio"
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:178,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:178
+msgid "Security code incomplete"
+msgstr "Código de seguridad incompleto"
+
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:141,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-pix.php:141
 msgid "Now you just need to pay with Pix to finalize your purchase"
@@ -2953,8 +2994,8 @@ msgstr "Número de Tarjeta"
 #: ../../templates/checkout/custom-checkout.php:100,
 #: ../../templates/checkout/custom-checkout.php:108,
 #: ../../templates/checkout/custom-checkout.php:108
-msgid "Mandatory data"
-msgstr "Campo obligatorio"
+msgid "Required data"
+msgstr ""
 
 #: ../../templates/checkout/custom-checkout.php:86,
 #: ../../templates/checkout/custom-checkout.php:86
@@ -2972,12 +3013,16 @@ msgid "Security Code"
 msgstr "Código de seguridad"
 
 #: ../../templates/checkout/custom-checkout.php:115,
-#: ../../templates/checkout/custom-checkout.php:115
+#: ../../templates/checkout/ticket-checkout.php:33,
+#: ../../templates/checkout/ticket-checkout.php:46,
+#: ../../templates/checkout/ticket-checkout.php:46
 msgid "Holder document"
 msgstr "Documento del titular"
 
 #: ../../templates/checkout/custom-checkout.php:116,
-#: ../../templates/checkout/custom-checkout.php:116
+#: ../../templates/checkout/ticket-checkout.php:34,
+#: ../../templates/checkout/ticket-checkout.php:47,
+#: ../../templates/checkout/ticket-checkout.php:47
 msgid "Invalid document"
 msgstr "Número de documento no válido"
 
@@ -3072,6 +3117,9 @@ msgstr ""
 msgid "Print ticket"
 msgstr "Imprimir ticket"
 
+#~ msgid "Mandatory data"
+#~ msgstr "Campo obligatorio"
+
 #~ msgid "Use the test-specific cards that are in the"
 #~ msgstr "Utiliza las tarjetas específicas para testear que estén bajo las"
 
@@ -3104,9 +3152,6 @@ msgstr "Imprimir ticket"
 
 #~ msgid "Name and surname of the cardholder"
 #~ msgstr "Nombre y apellido del titular de la tarjeta"
-
-#~ msgid "Expiration date"
-#~ msgstr "Fecha de vencimiento"
 
 #~ msgid "Invalid Expiration Date"
 #~ msgstr "Fecha de expiracion inválida"
