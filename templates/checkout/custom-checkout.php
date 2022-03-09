@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class='mp-checkout-custom-card-row'>
 			<input-label isOptinal=false message="<?php echo esc_html_e('Card number', 'woocommerce-mercadopago'); ?>" for='mp-card-number'></input-label>
 				<div class="mp-checkout-custom-card-input" id="form-checkout__cardNumber-container"></div>
-				<input-helper isVisible=false message="<?php echo esc_html_e('Mandatory data', 'woocommerce-mercadopago' ); ?>" input-id="mp-card-number-helper">
+				<input-helper isVisible=false message="<?php echo esc_html_e('Required data', 'woocommerce-mercadopago' ); ?>" input-id="mp-card-number-helper">
 			</input-helper>
 		</div>
 
@@ -86,7 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input-label message="<?php echo esc_html_e('Holder name as it appears on the card', 'woocommerce-mercadopago' ); ?>" isOptinal=false></input-label>
 			<input type="text" class="mp-checkout-custom-card-input" placeholder="Ex.: María López"
 				id="form-checkout__cardholderName" name="mp-card-holder-name" data-checkout="cardholderName" />
-			<input-helper isVisible=false message="<?php echo esc_html_e('Mandatory data', 'woocommerce-mercadopago' ); ?>" input-id="mp-card-holder-name-helper"
+			<input-helper isVisible=false message="<?php echo esc_html_e('Required data', 'woocommerce-mercadopago' ); ?>" input-id="mp-card-holder-name-helper"
 				data-main="mp-card-holder-name">
 			</input-helper>
 		</div>
@@ -97,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div id="form-checkout__cardExpirationDate-container"
 				class="mp-checkout-custom-card-input mp-checkout-custom-left-card-input">
 			</div>
-			<input-helper isVisible=false message="<?php echo esc_html_e('Mandatory data', 'woocommerce-mercadopago' ); ?>" input-id="mp-expiration-date-helper">
+			<input-helper isVisible=false message="<?php echo esc_html_e('Required data', 'woocommerce-mercadopago' ); ?>" input-id="mp-expiration-date-helper">
 			</input-helper>
 			</div>
 
@@ -105,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input-label message="<?php echo esc_html_e('Security Code', 'woocommerce-mercadopago' ); ?>" isOptinal=false></input-label>
 				<div id="form-checkout__securityCode-container" class="mp-checkout-custom-card-input"></div>
 				<p id="mp-security-code-info" class="mp-checkout-custom-info-text"></p>
-				<input-helper isVisible=false message="<?php echo esc_html_e('Mandatory data', 'woocommerce-mercadopago' ); ?>" input-id="mp-cvv-helper">
+				<input-helper isVisible=false message="<?php echo esc_html_e('Required data', 'woocommerce-mercadopago' ); ?>" input-id="mp-cvv-helper">
 				</input-helper>
 			</div>
 		</div>

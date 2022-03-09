@@ -159,7 +159,25 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract {
 					'cvvText'                => __( 'digits', 'woocommerce-mercadopago' ),
 					'installmentObsFee'      => __( 'No fee', 'woocommerce-mercadopago' ),
 					'installmentButton'      => __( 'More options', 'woocommerce-mercadopago' ),
-
+					'input_helper_message'   => array(
+						'cardNumber'         => array(
+							'invalid_type'   => __( 'Card number is required', 'woocommerce-mercadopago' ),
+							'invalid_length' => __( 'Card number invalid', 'woocommerce-mercadopago' ),
+						),
+						'cardholderName'     => array(
+							'221'            => __( 'Holder name is required', 'woocommerce-mercadopago' ),
+							'316'            => __( 'Holder name invalid', 'woocommerce-mercadopago' ),
+						),
+						'expirationDate'     => array(
+							'invalid_type'   => __( 'Expiration date invalid', 'woocommerce-mercadopago' ),
+							'invalid_length' => __( 'Expiration date incomplete', 'woocommerce-mercadopago' ),
+							'invalid_value'  => __( 'Expiration date invalid', 'woocommerce-mercadopago' ),
+						),
+						'CVV'                => array(
+							'invalid_type'   => __( 'Security code is required', 'woocommerce-mercadopago' ),
+							'invalid_length' => __( 'Security code incomplete', 'woocommerce-mercadopago' ),
+						)
+					),
 				)
 			);
 		}

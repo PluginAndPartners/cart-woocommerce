@@ -139,10 +139,20 @@ function init_cardForm() {
         },
         onValidityChange: function (error, field) {
           if (error) {
-            if (field == 'cardNumber') {
+            let helper_message = getHelperMessage(field);
+
+            if (field == 'cardNumber') {              
+              helper_message.innerHTML = wc_mercadopago_params.input_helper_message[field][error[0].cause];
               document.getElementById('form-checkout__cardNumber-container').style.background = 'no-repeat #fff';
               removeAdditionFields();
             }
+            else if (field == 'cardholderName' ) {
+              helper_message.innerHTML = wc_mercadopago_params.input_helper_message[field][error[0].code]
+            }
+            else{
+              helper_message.innerHTML = wc_mercadopago_params.input_helper_message[field][error[0].cause]
+            }
+
             return showInputHelper(inputHelperName(field));
           }
           return removeInputHelper(inputHelperName(field));
@@ -150,6 +160,13 @@ function init_cardForm() {
       }
     }
   );
+}
+
+function getHelperMessage(field){
+  let query = 'input-helper[input-id=' + inputHelperName(field) + '-helper]';
+  let div_input_helper = document.querySelector(query);
+  let helper_message = div_input_helper.querySelector('div[class=mp-helper-message]');
+  return helper_message;
 }
 
 function verifyInstallments() {
@@ -207,14 +224,18 @@ clearInputs = function () {
 
 showInputHelper = function (name) {
   let div_input_helper = document.querySelector('input-helper[input-id=' + name + '-helper]');
-  let input_helper = div_input_helper.querySelector('div');
-  input_helper.style.display = "flex";
+  if(div_input_helper)  {
+    let input_helper = div_input_helper.querySelector('div');
+    input_helper.style.display = "flex";
+  }
 }
 
 removeInputHelper = function (name) {
   let div_input_helper = document.querySelector('input-helper[input-id=' + name + '-helper]');
-  let input_helper = div_input_helper.querySelector('div');
-  input_helper.style.display = "none";
+  if(div_input_helper)  {
+    let input_helper = div_input_helper.querySelector('div');
+    input_helper.style.display = "none";
+  }
 }
 
 const setChangeEventOnInstallments = function (siteId, response) {

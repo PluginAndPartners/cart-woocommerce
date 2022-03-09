@@ -30,8 +30,8 @@ if ( ! defined('ABSPATH') ) {
 		<?php if ( 'mlu' === $site_id ) : ?>
 			<div class="mp-checkout-ticket-input-document">
 			<input-document
-				label-message="Documento"
-				helper-message="Documento Inválido"
+				label-message="<?php echo esc_html_e('Holder document', 'woocommerce-mercadopago' ); ?>"
+				helper-message="<?php echo esc_html_e('Invalid document', 'woocommerce-mercadopago' ); ?>"
 				input-name = 'mercadopago_ticket[docNumber]'
 				select-name = 'mercadopago_ticket[docType]'
 				flag-error = 'mercadopago_ticket[docNumberError]'
@@ -43,8 +43,8 @@ if ( ! defined('ABSPATH') ) {
 		<?php if ( 'mlb' === $site_id ) : ?>
 			<div class="mp-checkout-ticket-input-document">
 			<input-document
-				label-message="Documento"
-				helper-message="Documento Inválido"
+				label-message="<?php echo esc_html_e('Holder document', 'woocommerce-mercadopago' ); ?>"
+				helper-message="<?php echo esc_html_e('Invalid document', 'woocommerce-mercadopago' ); ?>"
 				input-name = 'mercadopago_ticket[docNumber]'
 				select-name = 'mercadopago_ticket[docType]'
 				flag-error = 'mercadopago_ticket[docNumberError]'
