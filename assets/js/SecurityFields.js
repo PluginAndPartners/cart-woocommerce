@@ -1,5 +1,5 @@
 var cardForm;
-var isSubmitted = false;
+var mercado_pago_submit = false;
 if (document.getElementById('mp-amount')) {
   var amount = document.getElementById('mp-amount').value;
 }
@@ -12,15 +12,49 @@ if (form) {
   formId = 'order_review';
 }
 
-function submitChoCustom() {
-  if (isSubmitted) {
+function validateInputsCreateToken(){
+  let isInstallmentsValid = verifyInstallments();
+  let isDocumentValid = verifyDocument();
+  if(isInstallmentsValid && isDocumentValid) {
     return true;
   }
+  return false;
+}
+
+/**
+ * Handler submit
+ *
+ * @return {bool}
+ */
+function mercadoPagoFormHandler() {
+  if (mercado_pago_submit) {
+    mercado_pago_submit = false;
+    return true;
+  }
+
+  if (jQuery("#mp_checkout_type").val() === "wallet_button") {
+    return true;
+  }
+
+  if (!document.getElementById("payment_method_woo-mercado-pago-custom").checked) {
+    return true;
+  }
+
+  jQuery("#mp_checkout_type").val("custom");
+
+  if (validateInputsCreateToken()) {
+    return createToken();
+  }
+
+  return false;
+}
+
+function createToken() {
   cardForm.createCardToken()
     .then(cardToken => {
       if (cardToken.token) {
         document.querySelector("#cardTokenId").value = cardToken.token;
-        isSubmitted = true;
+        mercado_pago_submit = true;
         jQuery('form.checkout, form#order_review').submit();
       } else {
         throw new Error('cardToken is empty');
@@ -135,22 +169,23 @@ function init_cardForm() {
         },
         onSubmit: function (event) {
           event.preventDefault();
-          verifyInstallments();
         },
         onValidityChange: function (error, field) {
           if (error) {
+            console.log("FIELD:", field);
+            console.log(error);
             let helper_message = getHelperMessage(field);
+            let message = wc_mercadopago_params.input_helper_message[field][error[0].code];
 
-            if (field == 'cardNumber') {
-              helper_message.innerHTML = wc_mercadopago_params.input_helper_message[field][error[0].cause];
+            if(message){
+              helper_message.innerHTML = message;
+            } else {
+              helper_message.innerHTML = wc_mercadopago_params.input_helper_message[field]['invalid_length'];
+            }
+
+            if (field == 'cardNumber') {              
               document.getElementById('form-checkout__cardNumber-container').style.background = 'no-repeat #fff';
               removeAdditionFields();
-            }
-            else if (field == 'cardholderName') {
-              helper_message.innerHTML = wc_mercadopago_params.input_helper_message[field][error[0].code]
-            }
-            else {
-              helper_message.innerHTML = wc_mercadopago_params.input_helper_message[field][error[0].cause]
             }
 
             return showInputHelper(inputHelperName(field));
@@ -172,7 +207,21 @@ function getHelperMessage(field) {
 function verifyInstallments() {
   if (document.getElementById('cardInstallments').value == "") {
     showInputHelper('mp-installments');
+    return false;
   }
+  removeInputHelper('mp-installments');
+  return true;
+}
+
+function verifyDocument(){
+
+  let input = document.getElementById('form-checkout__identificationNumber');
+  if(input.value === '-1' || input.value === ""){return false;}
+  
+  let input_helper = document.querySelector('input-helper[input-id=mp-doc-number-helper]');
+  if (input_helper.querySelector('div').style.display == 'flex'){return false;}  
+  
+  return true;
 }
 
 function changeCvvPlaceHolder(cvvLength) {
@@ -472,11 +521,12 @@ const additionalInfoHandler = function () {
 jQuery("form.checkout").on(
   "checkout_place_order_woo-mercado-pago-custom",
   function () {
-    return submitChoCustom();
+    return mercadoPagoFormHandler();
   }
 );
 
 // If payment fail, retry on next checkout page
 jQuery("form#order_review").submit(function () {
-  return submitChoCustom();
+  
+  return mercadoPagoFormHandler();
 });
