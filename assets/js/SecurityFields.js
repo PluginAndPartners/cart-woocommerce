@@ -172,8 +172,6 @@ function init_cardForm() {
         },
         onValidityChange: function (error, field) {
           if (error) {
-            console.log("FIELD:", field);
-            console.log(error);
             let helper_message = getHelperMessage(field);
             let message = wc_mercadopago_params.input_helper_message[field][error[0].code];
 
@@ -187,7 +185,6 @@ function init_cardForm() {
               document.getElementById('form-checkout__cardNumber-container').style.background = 'no-repeat #fff';
               removeAdditionFields();
             }
-
             return showInputHelper(inputHelperName(field));
           }
           return removeInputHelper(inputHelperName(field));
@@ -526,7 +523,6 @@ jQuery("form.checkout").on(
 );
 
 // If payment fail, retry on next checkout page
-jQuery("form#order_review").submit(function () {
-  
+jQuery("form#order_review").submit(function () {  
   return mercadoPagoFormHandler();
 });
