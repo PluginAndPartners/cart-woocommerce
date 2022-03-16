@@ -162,7 +162,7 @@ function init_cardForm() {
             if (error.message.includes("cardNumber")) { return showInputHelper('mp-card-number'); }
             else if (error.message.includes("cardholderName")) { return showInputHelper('mp-card-holder-name'); }
             else if (error.message.includes("expirationMonth") || error.message.includes("expirationYear")) { return showInputHelper('mp-expiration-date'); }
-            else if (error.message.includes("CVV")) { return showInputHelper('mp-cvv'); }
+            else if (error.message.includes("securityCode")) { return showInputHelper('mp-security-code'); }
             else if (error.message.includes("identificationNumber")) { return showInputHelper('mp-doc-number'); }
             else { return console.log("Unknown error: " + error) }
           });
@@ -246,7 +246,7 @@ function inputHelperName(field) {
     cardNumber: 'mp-card-number',
     cardholderName: 'mp-card-holder-name',
     expirationDate: 'mp-expiration-date',
-    CVV: 'mp-cvv',
+    securityCode: 'mp-security-code',
     identificationNumber: 'mp-doc-number',
   }
   return inputHelperName[field];

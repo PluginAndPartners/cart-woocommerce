@@ -173,7 +173,7 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract {
 							'invalid_length' => __( 'Expiration date incomplete', 'woocommerce-mercadopago' ),
 							'invalid_value'  => __( 'Expiration date invalid', 'woocommerce-mercadopago' ),
 						),
-						'CVV'                => array(
+						'securityCode'                => array(
 							'invalid_type'   => __( 'Security code is required', 'woocommerce-mercadopago' ),
 							'invalid_length' => __( 'Security code incomplete', 'woocommerce-mercadopago' ),
 						)

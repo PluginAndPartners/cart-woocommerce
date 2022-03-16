@@ -105,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input-label message="<?php echo esc_html_e('Security Code', 'woocommerce-mercadopago' ); ?>" isOptinal=false></input-label>
 				<div id="form-checkout__securityCode-container" class="mp-checkout-custom-card-input"></div>
 				<p id="mp-security-code-info" class="mp-checkout-custom-info-text"></p>
-				<input-helper isVisible=false message="<?php echo esc_html_e('Required data', 'woocommerce-mercadopago' ); ?>" input-id="mp-cvv-helper">
+				<input-helper isVisible=false message="<?php echo esc_html_e('Required data', 'woocommerce-mercadopago' ); ?>" input-id="mp-security-code-helper">
 				</input-helper>
 			</div>
 		</div>
