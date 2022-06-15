@@ -7,7 +7,8 @@
         "build:js": "node -e 'require(\"./main.js\").minifyFiles(\"js\")'",
         "build:css": "node -e 'require(\"./main.js\").minifyFiles(\"css\")'",
         "pot": "node -e 'require(\"./main.js\").generatePotFiles()'",
-        "lint": "jshint"
+        "lint": "jshint",
+        "husky": "husky install"
     },
     "version": "5.7.6",
     "repository": {
