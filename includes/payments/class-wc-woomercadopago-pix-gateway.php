@@ -595,7 +595,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 
 		$pix_on = (int) array_pop( $pix_on );
 
-		if ($order -> status === 'pending') {
+		if ( 'pending' === $order->status ) {
 
 			if ( 1 === $pix_on ) {
 
