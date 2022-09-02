@@ -21,7 +21,7 @@
 
 .mp-saved-cards-notice {
     border: 1px solid #ccc !important;
-    background-color: #449DDD;
+    background-color: #1F4E96;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -70,7 +70,7 @@
     line-height: 34px;
     font-size: 14px;
     text-decoration: none;
-    min-width: 150px;
+    min-width: 69px;
 }
 
 .mp-saved-cards-link:hover, .mp-saved-cards-link:focus {

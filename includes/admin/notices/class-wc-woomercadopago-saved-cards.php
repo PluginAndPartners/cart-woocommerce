@@ -127,10 +127,10 @@ class WC_WooMercadoPago_Saved_Cards {
 						</div>
 						<div class="mp-left-saved-cards-text">
 							<p class="mp-saved-cards-title">' .
-								__( 'Mercado Pago customers can now pay with stored cards.', 'woocommerce-mercadopago' ) .
+								__( 'Enable payments via Mercado Pago account', 'woocommerce-mercadopago' ) .
 							'</p>
 							<p class="mp-saved-cards-subtitle">' .
-								__( 'The function Saved card payments  is enabled. With this setting, customers using Mercado Pago can purchase without having to fill in payment details. You can control this option in the settings.', 'woocommerce-mercadopago' ) .
+								__( 'When you enable this function, your customers pay faster using their Mercado Pago accounts.</br>The approval rate of these payments in your store can be 25% higher compared to other payment methods.', 'woocommerce-mercadopago' ) .
 							'</p>
 						</div>
 					</div>
@@ -139,7 +139,7 @@ class WC_WooMercadoPago_Saved_Cards {
 							class="mp-saved-cards-link"
 							href="' . $checkout_custom_url . '"
 						>'
-							. __( 'Go to settings', 'woocommerce-mercadopago' ) .
+							. __( 'Activate', 'woocommerce-mercadopago' ) .
 						'</a>
 					</div>
                 </div>';
