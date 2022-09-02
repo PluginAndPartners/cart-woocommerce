@@ -33,9 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<checkout-benefits
 				title="<?php echo esc_html_e('Pay faster with Mercado Pago', 'woocommerce-mercadopago'); ?>"
 				items='[
-					"<?php echo esc_html_e('Secure payment', 'woocommerce-mercadopago'); ?>",
-					"<?php echo esc_html_e('No need to fill out details', 'woocommerce-mercadopago'); ?>",
-					"<?php echo esc_html_e('Installments available', 'woocommerce-mercadopago'); ?>"
+					"<?php echo esc_html_e('If you already have a Mercado Libre account, use the same email and password', 'woocommerce-mercadopago'); ?>",
+					"<?php echo esc_html_e('Buy with your balance or saved cards', 'woocommerce-mercadopago'); ?>",
+					"<?php echo esc_html_e('Earn more points and have exclusive benefits in Mercado Puntos', 'woocommerce-mercadopago'); ?>"
 				]'
 				list-style-type-src="<?php echo esc_html($list_style_type_src); ?>"
 				list-style-type-alt="<?php echo esc_html_e('List style type blue check', 'woocommerce-mercadopago'); ?>"
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php if ( 'redirect' === $method ) : ?>
 			<div class="mp-checkout-pro-redirect">
 				<checkout-redirect
-					text="<?php echo esc_html_e('By confirming your purchase, you will be redirected to your Mercado Pago account', 'woocommerce-mercadopago'); ?>"
+					text="<?php echo esc_html_e('When you confirm your purchase, we will redirect you to your Mercado Pago account', 'woocommerce-mercadopago'); ?>"
 					alt="<?php echo esc_html_e('Checkout Pro redirect info image', 'woocommerce-mercadopago'); ?>"
 					src="<?php echo esc_html($redirect_image); ?>"
 				>

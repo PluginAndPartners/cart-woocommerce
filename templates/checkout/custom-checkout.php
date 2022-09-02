@@ -26,13 +26,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php if ( 'yes' === $wallet_button ) : ?>
 			<div class='mp-wallet-button-container'>
+			<img src="<?php echo esc_url(plugins_url('../assets/images/ml_mp_logo.png', plugin_dir_path(__FILE__))); ?>">
 				<div class='mp-wallet-button-title'>
-					<img src="<?php echo esc_url(plugins_url('../assets/images/mp_logo.png', plugin_dir_path(__FILE__))); ?>">
-					<span><?php echo esc_html_e('Pay with Mercado Pago', 'woocommerce-mercadopago'); ?></span>
+					<span><?php echo esc_html_e('Pay with saved cards', 'woocommerce-mercadopago'); ?></span>
 				</div>
 
 				<div class='mp-wallet-button-description'>
-					<?php echo esc_html_e('Pay faster with your saved cards and without completing data.', 'woocommerce-mercadopago'); ?>
+					<?php echo esc_html_e('Do you have a Mercado Libre account? Then use the same email and password to pay faster with Mercado Pago.', 'woocommerce-mercadopago'); ?>
 				</div>
 
 				<div class='mp-wallet-button-button'>
