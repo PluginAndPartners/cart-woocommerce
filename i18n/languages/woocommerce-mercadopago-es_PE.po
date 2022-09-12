@@ -2914,32 +2914,36 @@ msgstr "Código de seguridad incompleto"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:189,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:189
-msgid "Error loading form. Please refresh the page to try again."
-msgstr ""
-"Error al cargar el formulario. Actualice la página para volver a intentarlo."
+msgid "Error loading form."
+msgstr "Error al cargar el formulario."
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:190,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:190
-msgid "Click here to see more details..."
-msgstr "Haga clic aquí para ver más detalles…"
+msgid "Please refresh the page to try again."
+msgstr "Actualice la página para volver a intentarlo."
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:224,
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:224
-msgid "Cost of installments"
-msgstr "Custo do parcelamento:"
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:191,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:191
+msgid "Refresh page"
+msgstr "Actualizar página"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:225,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:225
-msgid "Total with installments"
-msgstr "Total parcelado:"
+msgid "Cost of installments"
+msgstr "Custo do parcelamento:"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:226,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:226
-msgid "x"
-msgstr "Cuotas"
+msgid "Total with installments"
+msgstr "Total parcelado:"
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:227,
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:227
+msgid "x"
+msgstr "Cuotas"
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:228,
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:228
 msgid "de"
 msgstr "de"
 
@@ -3251,6 +3255,9 @@ msgstr ""
 #: ../../templates/order-received/show-ticket.php:23
 msgid "Print ticket"
 msgstr "Imprimir ticket"
+
+#~ msgid "Click here to see more details..."
+#~ msgstr "Haga clic aquí para ver más detalles…"
 
 #, fuzzy
 #~| msgid "Important! To sell you must enter your credentials."

@@ -1874,26 +1874,30 @@ msgid "Security code incomplete"
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:189, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:189, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:189
-msgid "Error loading form. Please refresh the page to try again."
+msgid "Error loading form."
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:190, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:190, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:190
-msgid "Click here to see more details..."
+msgid "Please refresh the page to try again."
 msgstr ""
 
-#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:224, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:224, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:224
-msgid "Cost of installments"
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:191, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:191, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:191
+msgid "Refresh page"
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:225, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:225, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:225
-msgid "Total with installments"
+msgid "Cost of installments"
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:226, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:226, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:226
-msgid "x"
+msgid "Total with installments"
 msgstr ""
 
 #: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:227, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:227, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:227
+msgid "x"
+msgstr ""
+
+#: ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:228, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:228, ../../includes/payments/hooks/class-wc-woomercadopago-hook-custom.php:228
 msgid "de"
 msgstr ""
 
