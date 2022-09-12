@@ -94,6 +94,8 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 		if ( ! empty( $this->checkout_country ) && ! empty( $this->get_access_token() ) && ! empty( $this->get_public_key() ) ) {
 			$form_fields['checkout_custom_header']                  = $this->field_checkout_custom_header();
 			$form_fields['binary_mode']                             = $this->field_binary_mode();
+			$form_fields['field_checkout_about_fees']               = $this->field_checkout_about_fees();
+			$form_fields['field_checkout_custom_card_info_fees']    = $this->field_checkout_custom_card_info_fees();
 			$form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
 			$form_fields['coupon_mode']                             = $this->field_coupon_mode();
 			$form_fields['wallet_button']                           = $this->field_checkout_custom_wallet_button_title();
@@ -127,6 +129,9 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			'checkout_payments_subtitle',
 			'enabled',
 			'title',
+			// About card info pcj and fees.
+			'field_checkout_about_fees',
+			'field_checkout_custom_card_info_fees',
 			WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
 			'checkout_custom_wallet_button_toggle',
 			'wallet_button',
@@ -155,6 +160,49 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 				'enabled' => __( 'Transparent Checkout for credit cards is <b>enabled</b>.', 'woocommerce-mercadopago' ),
 				'disabled' => __( 'Transparent checkout for credit cards is <b>disabled</b>.', 'woocommerce-mercadopago' ),
 			),
+		);
+	}
+
+	/**
+	 * Field checkout about fees
+	 *
+	 * @return array
+	 */
+	public function field_checkout_about_fees() {
+		$link_content = wc_get_template_html(
+			'checkout/credential/generic-alert.php',
+			array(),
+			'woo/mercado/pago/generic-alert/',
+			WC_WooMercadoPago_Module::get_templates_path()
+		);
+
+		return array(
+			'title' => $link_content,
+			'type'  => 'title',
+		);
+	}
+
+	/**
+	 * Field checkout card info
+	 *
+	 * @return array
+	 */
+	public function field_checkout_custom_card_info_fees() {
+		$links = WC_WooMercadoPago_Helper_Links::woomercadopago_settings_links();
+		$value = array(
+			'title'             => __('Installments Fees', 'woocommerce-mercadopago'),
+			'subtitle'          => __('Set installment fees and whether they will be charged from the store or from the buyer.', 'woocommerce-mercadopago'),
+			'button_text'       => __('Set fees', 'woocommerce-mercadopago'),
+			'button_url'        => $links['link_costs'],
+			'icon'              => 'mp-icon-badge-info',
+			'color_card'        => 'mp-alert-color-sucess',
+			'size_card'         => 'mp-card-body-size',
+			'target'            => '_self',
+		);
+
+		return array(
+			'type'               => 'mp_card_info',
+			'value'              => $value,
 		);
 	}
 
@@ -478,6 +526,18 @@ class WC_WooMercadoPago_Custom_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			-1 !== $custom_checkout['installments']
 		) {
 			$response = $this->create_preference( $order, $custom_checkout );
+
+			$installments       = (float) $response['installments'];
+			$installment_amount = (float) $response['transaction_details']['installment_amount'];
+			$transaction_amount = (float) $response['transaction_amount'];
+			$total_paid_amount  = (float) $response['transaction_details']['total_paid_amount'];
+
+			$order->add_meta_data('mp_installments', $installments);
+			$order->add_meta_data('mp_transaction_details', $installment_amount);
+			$order->add_meta_data('mp_transaction_amount', $transaction_amount);
+			$order->add_meta_data('mp_total_paid_amount', $total_paid_amount);
+
+			$order->save();
 
 			if ( ! is_array( $response ) ) {
 				return array(

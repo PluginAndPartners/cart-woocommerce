@@ -323,7 +323,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 	 */
 	public function field_checkout_about_pix() {
 		$link_content = wc_get_template_html(
-			'checkout/credential/about-pix.php',
+			'checkout/credential/generic-alert.php',
 			array(
 				'title'       => __( 'Want to learn how Pix works?', 'woocommerce-mercadopago' ),
 				'subtitle'    => __( 'We have created a page to explain how this new payment method works and its advantages.', 'woocommerce-mercadopago' ),
@@ -593,7 +593,7 @@ class WC_WooMercadoPago_Pix_Gateway extends WC_WooMercadoPago_Payment_Abstract {
 		$pix_on = get_post_meta( $order->get_id(), 'pix_on' );
 		$pix_on = (int) array_pop( $pix_on );
 
-		if ( 1 === $pix_on && 'pending' === $order->status ) {
+		if ( 1 === $pix_on && 'pending' === $order->get_status() ) {
 			$mp_pix_qr_code               = get_post_meta( $order->get_id(), 'mp_pix_qr_code' );
 			$mp_pix_qr_base64             = get_post_meta( $order->get_id(), 'mp_pix_qr_base64' );
 			$checkout_pix_date_expiration = get_post_meta($order->get_id(), 'checkout_pix_date_expiration');

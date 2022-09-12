@@ -361,6 +361,7 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 			'currency_ratio'       => $currency_ratio,
 			'woocommerce_currency' => get_woocommerce_currency(),
 			'account_currency'     => $this->site_data['currency'],
+			'images_path'          => plugins_url( '../assets/images/', plugin_dir_path( __FILE__ ) ),
 			'febraban'             => ( 0 !== wp_get_current_user()->ID ) ?
 				array(
 					'firstname' => esc_js( wp_get_current_user()->user_firstname ),
@@ -382,7 +383,6 @@ class WC_WooMercadoPago_Ticket_Gateway extends WC_WooMercadoPago_Payment_Abstrac
 					'state'     => '',
 					'zipcode'   => '',
 				),
-			'images_path'          => plugins_url( '../assets/images/', plugin_dir_path( __FILE__ ) ),
 		);
 
 		$parameters = array_merge($parameters, WC_WooMercadoPago_Helper_Links::mp_define_terms_and_conditions());
