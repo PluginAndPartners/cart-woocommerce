@@ -290,13 +290,13 @@ function setCustomCheckoutUnloaded() {
   cardFormReady = false;
 }
 
-function setCustomCheckoutError(err) {
+function setCustomCheckoutError() {
   const { loader, container, error } = getCustomCheckoutElements();
 
   var alertDetails = document.createElement('alert-details');
   alertDetails.setAttribute('title', wc_mercadopago_params.custom_checkout_sdk_handler.title);
   alertDetails.setAttribute('description', wc_mercadopago_params.custom_checkout_sdk_handler.description);
-  alertDetails.setAttribute('details', err);
+  alertDetails.setAttribute('retryButtonText', wc_mercadopago_params.custom_checkout_sdk_handler.retry_button);
 
   error.appendChild(alertDetails);
   loader.style.display = 'none';
