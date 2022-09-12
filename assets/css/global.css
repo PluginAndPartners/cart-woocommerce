@@ -50,10 +50,8 @@
 
 
 .mp-checkout-error-container {
+	width: 100%;
 	display: none;
-	align-items: flex-start;
-	justify-content: center;
-	flex-direction: column;
 }
 
 /* LOADER */

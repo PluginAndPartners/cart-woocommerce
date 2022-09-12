@@ -301,7 +301,7 @@ function setCustomCheckoutError() {
   error.appendChild(alertDetails);
   loader.style.display = 'none';
   container.style.display = 'none';
-  error.style.display = 'flex';
+  error.style.display = 'block';
   cardFormReady = false;
 }
 

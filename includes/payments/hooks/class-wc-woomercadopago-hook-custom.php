@@ -186,9 +186,9 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract {
 					'plugin_version'              => WC_WooMercadoPago_Constants::VERSION,
 					'platform_version'            => $woocommerce->version,
 					'custom_checkout_sdk_handler' => array(
-						'title'                   => __( 'Error loading form. Please refresh the page to try again.', 'woocommerce-mercadopago' ),
-						'description'             => __( 'Click the button below to reload the page.', 'woocommerce-mercadopago' ),
-						'retry_button'            => __( 'Reload page', 'woocommerce-mercadopago' ),
+						'title'                   => __( 'Error loading form.', 'woocommerce-mercadopago' ),
+						'description'             => __( 'Please refresh the page to try again.', 'woocommerce-mercadopago' ),
+						'retry_button'            => __( 'Refresh page', 'woocommerce-mercadopago' ),
 					),
 				)
 			);
