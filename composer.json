@@ -1,7 +1,7 @@
 {
     "require-dev": {
         "woocommerce/woocommerce-sniffs": "^0.1.0",
-        "phpunit/phpunit": "^7",
+        "phpunit/phpunit": "^8",
         "php-stubs/wordpress-globals": "^0.2.0",
         "giacocorsiglia/wordpress-stubs": "^5.1",
         "yoast/phpunit-polyfills": "^1.0"
